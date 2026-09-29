@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #fbf9f8;
+  --color-foreground: #1b1c1c;
+  --color-border: #d4c3ba;
+  --color-input: #82746d;
+  --color-ring: #553722;
+  --color-muted: #f0eded;
+  --color-muted-foreground: #50453e;
+  --color-card: #f6f3f2;
+  --color-card-foreground: #1b1c1c;
+  --color-popover: #fbf9f8;
+  --color-popover-foreground: #1b1c1c;
+  --color-destructive: #ba1a1a;
+  --color-destructive-foreground: #ffffff;
+  --color-accent: #eae8e7;
+  --color-accent-foreground: #1b1c1c;
+
+  /* Fonts */
+  --font-headline-md: "Playfair Display", serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-display-lg-mobile: "Playfair Display", serif;
+  --font-headline-sm: "Playfair Display", serif;
+  --font-label-caps: "Inter", sans-serif;
+  --font-body-lg: "Inter", sans-serif;
+  --font-display-lg: "Playfair Display", serif;
+
+  /* Font Sizes */
+  --text-headline-md: 32px;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-md--font-weight: 600;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--font-weight: 400;
+
+  --text-display-lg-mobile: 36px;
+  --text-display-lg-mobile--line-height: 1.2;
+  --text-display-lg-mobile--font-weight: 700;
+
+  --text-headline-sm: 24px;
+  --text-headline-sm--line-height: 1.4;
+  --text-headline-sm--font-weight: 600;
+
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 1.0;
+  --text-label-caps--letter-spacing: 0.1em;
+  --text-label-caps--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 700;
+
+  /* Colors */
+  --color-secondary-fixed: #dde5d5;
+  --color-inverse-primary: #eabda0;
+  --color-surface-container-low: #f6f3f2;
+  --color-outline: #82746d;
+  --color-on-tertiary-container: #d9c7b9;
+  --color-inverse-surface: #303030;
+  --color-primary-container: #6f4e37;
+  --color-on-background: #1b1c1c;
+  --color-on-primary-container: #eec1a4;
+  --color-on-error: #ffffff;
+  --color-on-secondary: #ffffff;
+  --color-surface-container-lowest: #ffffff;
+  --color-tertiary: #483c31;
+  --color-surface-dim: #dcd9d9;
+  --color-surface-container: #f0eded;
+  --color-tertiary-fixed: #f2dfd0;
+  --color-on-primary-fixed-variant: #5f402a;
+  --color-on-error-container: #93000a;
+  --color-on-tertiary-fixed-variant: #51453a;
+  --color-surface-container-highest: #e4e2e1;
+  --color-surface-variant: #e4e2e1;
+  --color-on-secondary-fixed: #161d14;
+  --color-inverse-on-surface: #f3f0f0;
+  --color-surface-container-high: #eae8e7;
+  --color-surface: #fbf9f8;
+  --color-primary-fixed: #ffdcc6;
+  --color-tertiary-container: #605348;
+  --color-primary-fixed-dim: #eabda0;
+  --color-secondary: #596154;
+  --color-tertiary-fixed-dim: #d5c3b5;
+  --color-on-tertiary-fixed: #231a11;
+  --color-error-container: #ffdad6;
+  --color-on-secondary-container: #5f675a;
+  --color-on-surface-variant: #50453e;
+  --color-primary: #553722;
+  --color-on-primary-fixed: #2d1604;
+  --color-secondary-fixed-dim: #c1c9ba;
+  --color-surface-tint: #79573f;
+  --color-on-secondary-fixed-variant: #41493d;
+  --color-on-primary: #ffffff;
+  --color-on-tertiary: #ffffff;
+  --color-surface-bright: #fbf9f8;
+  --color-error: #ba1a1a;
+  --color-outline-variant: #d4c3ba;
+  --color-on-surface: #1b1c1c;
+
+  /* Spacing */
+  --spacing-stack-md: 24px;
+  --spacing-container-max: 1280px;
+  --spacing-stack-xl: 80px;
+  --spacing-stack-lg: 48px;
+  --spacing-margin-mobile: 20px;
+  --spacing-gutter: 24px;
+  --spacing-margin-desktop: 64px;
+  --spacing-stack-sm: 8px;
+
+  /* Border Radius */
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+}
+
+@layer base {
+  body { 
+    background-color: var(--color-background); 
+    color: var(--color-on-background);
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+      background: rgba(253, 252, 240, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+  }
+  .soft-shadow {
+      box-shadow: 0 12px 40px rgba(111, 78, 55, 0.08);
+  }
+  .card-radius { border-radius: 24px; }
+  .img-radius { border-radius: 16px; }
+  .btn-radius { border-radius: 24px; }
+  
+  .fade-in-up {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  
+  @keyframes fadeInUp {
+      to {
+          opacity: 1;
+          transform: translateY(0);
+      }
+  }
+  
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+}
