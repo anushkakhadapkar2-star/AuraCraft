@@ -1,21 +1,37 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #fbf9f8;
-  --color-foreground: #1b1c1c;
-  --color-border: #d4c3ba;
-  --color-input: #82746d;
-  --color-ring: #553722;
-  --color-muted: #f0eded;
-  --color-muted-foreground: #50453e;
-  --color-card: #f6f3f2;
-  --color-card-foreground: #1b1c1c;
-  --color-popover: #fbf9f8;
-  --color-popover-foreground: #1b1c1c;
+  /* Aura Craft Official Artisanal Palette + 3D Clay Aesthetic (English Rose & Dusty Blush - Palette 4) */
+  --color-warm-ivory: #FAF7F8;
+  --color-chocolate-brown: #382025;
+  --color-sand-beige: #F3E1E5;
+  --color-muted-tan: #F8CAD5;
+  --color-sage-green: #D45B7A;
+  --color-dusty-rose: #F2A4B7;
+
+  --color-clay-porcelain: #FAF7F8;
+  --color-clay-card: #FFFFFF;
+  --color-clay-rose: #D45B7A;
+  --color-clay-rose-light: #F8CAD5;
+  --color-clay-rose-dark: #B03E5D;
+  --color-clay-border: #F3E1E5;
+  --color-clay-shadow: rgba(212, 91, 122, 0.10);
+
+  --color-background: #FAF7F8;
+  --color-foreground: #382025;
+  --color-border: #F3E1E5;
+  --color-input: #F3E1E5;
+  --color-ring: #D45B7A;
+  --color-muted: #FDF2F5;
+  --color-muted-foreground: #8B5E6B;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #382025;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #382025;
   --color-destructive: #ba1a1a;
   --color-destructive-foreground: #ffffff;
-  --color-accent: #eae8e7;
-  --color-accent-foreground: #1b1c1c;
+  --color-accent: #FDF2F5;
+  --color-accent-foreground: #382025;
 
   /* Fonts */
   --font-headline-md: "Playfair Display", serif;
@@ -57,52 +73,43 @@
   --text-display-lg--letter-spacing: -0.02em;
   --text-display-lg--font-weight: 700;
 
-  /* Colors */
-  --color-secondary-fixed: #dde5d5;
-  --color-inverse-primary: #eabda0;
-  --color-surface-container-low: #f6f3f2;
-  --color-outline: #82746d;
-  --color-on-tertiary-container: #d9c7b9;
-  --color-inverse-surface: #303030;
-  --color-primary-container: #6f4e37;
-  --color-on-background: #1b1c1c;
-  --color-on-primary-container: #eec1a4;
-  --color-on-error: #ffffff;
-  --color-on-secondary: #ffffff;
-  --color-surface-container-lowest: #ffffff;
-  --color-tertiary: #483c31;
-  --color-surface-dim: #dcd9d9;
-  --color-surface-container: #f0eded;
-  --color-tertiary-fixed: #f2dfd0;
-  --color-on-primary-fixed-variant: #5f402a;
-  --color-on-error-container: #93000a;
-  --color-on-tertiary-fixed-variant: #51453a;
-  --color-surface-container-highest: #e4e2e1;
-  --color-surface-variant: #e4e2e1;
-  --color-on-secondary-fixed: #161d14;
-  --color-inverse-on-surface: #f3f0f0;
-  --color-surface-container-high: #eae8e7;
-  --color-surface: #fbf9f8;
-  --color-primary-fixed: #ffdcc6;
-  --color-tertiary-container: #605348;
-  --color-primary-fixed-dim: #eabda0;
-  --color-secondary: #596154;
-  --color-tertiary-fixed-dim: #d5c3b5;
-  --color-on-tertiary-fixed: #231a11;
-  --color-error-container: #ffdad6;
-  --color-on-secondary-container: #5f675a;
-  --color-on-surface-variant: #50453e;
-  --color-primary: #553722;
-  --color-on-primary-fixed: #2d1604;
-  --color-secondary-fixed-dim: #c1c9ba;
-  --color-surface-tint: #79573f;
-  --color-on-secondary-fixed-variant: #41493d;
+  /* Semantic UI Colors mapped to palette (English Rose & Dusty Blush) */
+  --color-primary: #D45B7A;
   --color-on-primary: #ffffff;
+  --color-primary-container: #FDF2F5;
+  --color-on-primary-container: #382025;
+  --color-primary-fixed: #F8CAD5;
+  --color-primary-fixed-dim: #D45B7A;
+
+  --color-secondary: #F2A4B7;
+  --color-on-secondary: #ffffff;
+  --color-secondary-fixed: #F3E1E5;
+  --color-on-secondary-fixed: #382025;
+
+  --color-tertiary: #B03E5D;
   --color-on-tertiary: #ffffff;
-  --color-surface-bright: #fbf9f8;
+  --color-tertiary-fixed: #F3E1E5;
+  --color-on-tertiary-fixed: #382025;
+
+  --color-surface: #FAF7F8;
+  --color-on-surface: #382025;
+  --color-on-surface-variant: #8B5E6B;
+  --color-surface-container-lowest: #FFFFFF;
+  --color-surface-container-low: #FFF9FA;
+  --color-surface-container: #FAF7F8;
+  --color-surface-container-high: #F3E1E5;
+  --color-surface-container-highest: #F0D0D7;
+  --color-surface-variant: #FDF2F5;
+  --color-surface-bright: #FFFFFF;
+  --color-surface-dim: #F3E1E5;
+
+  --color-outline: #F8CAD5;
+  --color-outline-variant: #F3E1E5;
+
   --color-error: #ba1a1a;
-  --color-outline-variant: #d4c3ba;
-  --color-on-surface: #1b1c1c;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
 
   /* Spacing */
   --spacing-stack-md: 24px;
@@ -122,29 +129,92 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body { 
     background-color: var(--color-background); 
-    color: var(--color-on-background);
+    color: var(--color-foreground);
+    selection-background-color: #F8CAD5;
+    selection-color: #382025;
+  }
+
+  ::selection {
+    background-color: #F8CAD5;
+    color: #382025;
+  }
+
+  /* Accessible high-contrast focus rings */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  /* 60 FPS Reduced Motion Compliance */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
 @layer utilities {
   .glass-panel {
-      background: rgba(253, 252, 240, 0.8);
+      background: rgba(250, 247, 248, 0.88);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(243, 225, 229, 0.85);
   }
+
+  .frosted-glass {
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(243, 225, 229, 0.7);
+  }
+
+  .ambient-glow {
+      position: relative;
+  }
+  .ambient-glow::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 250px;
+      background: radial-gradient(circle, rgba(248, 202, 213, 0.35) 0%, rgba(212, 91, 122, 0.12) 50%, transparent 80%);
+      filter: blur(40px);
+      z-index: -1;
+      pointer-events: none;
+  }
+
+  .card-lift {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  }
+  .card-lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px -8px rgba(212, 91, 122, 0.14), 0 4px 12px -2px rgba(212, 91, 122, 0.08);
+  }
+
   .soft-shadow {
-      box-shadow: 0 12px 40px rgba(111, 78, 55, 0.08);
+      box-shadow: 0 12px 36px rgba(212, 91, 122, 0.08);
   }
   .card-radius { border-radius: 24px; }
   .img-radius { border-radius: 16px; }
   .btn-radius { border-radius: 24px; }
   
   .fade-in-up {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(16px);
   }
   
   @keyframes fadeInUp {
@@ -153,8 +223,273 @@
           transform: translateY(0);
       }
   }
+
+  @keyframes growWidth {
+      from {
+          transform: scaleX(0);
+      }
+      to {
+          transform: scaleX(1);
+      }
+  }
   
   .delay-100 { animation-delay: 100ms; }
   .delay-200 { animation-delay: 200ms; }
   .delay-300 { animation-delay: 300ms; }
+
+  /* Modern SaaS Micro-Interactions & Button Physics */
+  .btn-press {
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    user-select: none;
+  }
+  .btn-press:active {
+    transform: scale(0.96) translateY(0.5px);
+  }
+
+  /* ========================================================
+     PREMIUM LUXURY UI EFFECTS
+     ======================================================== */
+  .aura-glow {
+    box-shadow: 
+      0 0 40px -10px var(--color-clay-shadow, rgba(212, 91, 122, 0.22)),
+      0 20px 30px -12px var(--color-clay-shadow, rgba(212, 91, 122, 0.15));
+  }
+
+  .liquid-glass {
+    background: rgba(255, 255, 255, 0.82);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 
+      inset 0 1px 1px 0 rgba(255, 255, 255, 0.8),
+      0 12px 32px -4px rgba(56, 32, 37, 0.06);
+  }
+
+  .tactile-bounce {
+    transition: transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.28s ease, filter 0.2s ease;
+  }
+  .tactile-bounce:hover {
+    transform: translateY(-3px) scale(1.015);
+  }
+  .tactile-bounce:active {
+    transform: translateY(1px) scale(0.985);
+  }
+
+  .foil-sweep {
+    position: relative;
+    overflow: hidden;
+  }
+  .foil-sweep::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -70%;
+    width: 45%;
+    height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+    transform: rotate(25deg);
+    transition: none;
+    pointer-events: none;
+  }
+  .foil-sweep:hover::after {
+    left: 140%;
+    transition: left 0.75s ease-in-out;
+  }
+
+  .btn-glow {
+    box-shadow: 0 4px 16px -2px rgba(212, 91, 122, 0.35);
+  }
+  .btn-glow:hover {
+    box-shadow: 0 6px 20px -2px rgba(212, 91, 122, 0.45);
+  }
+
+  .btn-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+    transform: skewX(-20deg);
+    transition: none;
+    pointer-events: none;
+  }
+  .btn-shimmer:hover::after {
+    left: 200%;
+    transition: left 0.75s ease-in-out;
+  }
+
+  .card-hover {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(212, 91, 122, 0.12);
+  }
+
+  /* Skeleton Shimmer Pulse */
+  .skeleton-shimmer {
+    background: linear-gradient(90deg, #FAF7F8 0%, #F3E1E5 50%, #FAF7F8 100%);
+    background-size: 200% 100%;
+    animation: skeletonShimmer 1.5s infinite;
+  }
+  @keyframes skeletonShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  /* Slim Aesthetic Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(212, 91, 122, 0.25);
+    border-radius: 9999px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(176, 62, 93, 0.45);
+  }
+
+  /* ========================================================
+     AURA CRAFT SIGNATURE 3D CLAYMORPHIC SYSTEM (English Rose & Dusty Blush)
+     ======================================================== */
+  .clay-card {
+    background: #FFFFFF;
+    border-radius: 28px;
+    border: 1px solid #F3E1E5;
+    box-shadow: 0 14px 34px rgba(212, 91, 122, 0.08), 0 2px 8px rgba(0, 0, 0, 0.02), inset 0 2px 4px rgba(255, 255, 255, 0.95);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
+  }
+  .clay-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 42px rgba(212, 91, 122, 0.14), inset 0 2px 4px rgba(255, 255, 255, 1);
+    border-color: #F8CAD5;
+  }
+
+  .clay-btn {
+    border-radius: 22px;
+    background: linear-gradient(180deg, #F2A4B7 0%, #D45B7A 100%);
+    color: #FFFFFF;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    box-shadow: 0 8px 20px rgba(212, 91, 122, 0.36), inset 0 2px 4px rgba(255, 255, 255, 0.7), inset 0 -3px 6px rgba(130, 30, 55, 0.35);
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, filter 0.15s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  .clay-btn:hover {
+    box-shadow: 0 12px 26px rgba(212, 91, 122, 0.46), inset 0 2px 4px rgba(255, 255, 255, 0.75), inset 0 -3px 6px rgba(130, 30, 55, 0.4);
+    filter: brightness(1.02);
+  }
+  .clay-btn:active {
+    transform: scale(0.97) translateY(1px);
+    box-shadow: 0 3px 10px rgba(212, 91, 122, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  }
+
+  .clay-btn-secondary {
+    border-radius: 22px;
+    background: #FFFFFF;
+    border: 1px solid #F3E1E5;
+    color: #B03E5D;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(212, 91, 122, 0.08), inset 0 2px 3px rgba(255, 255, 255, 0.95);
+    transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  .clay-btn-secondary:hover {
+    background: #FAF7F8;
+    color: #382025;
+    border-color: #F8CAD5;
+    box-shadow: 0 6px 16px rgba(212, 91, 122, 0.14), inset 0 2px 3px rgba(255, 255, 255, 1);
+  }
+  .clay-btn-secondary:active {
+    transform: scale(0.97) translateY(1px);
+  }
+
+  .clay-icon-pod {
+    border-radius: 16px;
+    background: linear-gradient(135deg, #F8CAD5 0%, #D45B7A 100%);
+    color: #FFFFFF;
+    box-shadow: 0 4px 10px rgba(212, 91, 122, 0.32), inset 0 1px 2px rgba(255, 255, 255, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .clay-icon-pod-sm {
+    border-radius: 12px;
+    background: linear-gradient(135deg, #F8CAD5 0%, #D45B7A 100%);
+    color: #FFFFFF;
+    box-shadow: 0 3px 8px rgba(212, 91, 122, 0.28), inset 0 1px 2px rgba(255, 255, 255, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .clay-input {
+    background: #FFF9FA;
+    border: 1px solid #F3E1E5;
+    border-radius: 22px;
+    box-shadow: inset 0 2px 4px rgba(212, 91, 122, 0.05);
+    color: #382025;
+    transition: all 0.2s ease;
+  }
+  .clay-input:focus {
+    background: #FFFFFF;
+    border-color: #F2A4B7;
+    box-shadow: 0 0 0 4px rgba(248, 202, 213, 0.25), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    outline: none;
+  }
+
+  .clay-badge {
+    background: #FDF2F5;
+    color: #B03E5D;
+    border: 1px solid #F3E1E5;
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    box-shadow: 0 2px 6px rgba(212, 91, 122, 0.08);
+  }
+
+  .clay-badge-rose,
+  .clay-badge-toffee,
+  .clay-badge-peach,
+  .clay-badge-lavender {
+    background: linear-gradient(135deg, #F8CAD5 0%, #D45B7A 100%);
+    color: #FFFFFF;
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    box-shadow: 0 3px 8px rgba(212, 91, 122, 0.35);
+  }
+
+  .clay-backdrop {
+    background: linear-gradient(135deg, #FAF7F8 0%, #FFF9FA 50%, #FAF7F8 100%);
+  }
+
+  /* Accessibility 44px minimum touch target for mobile */
+  .min-touch {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }

@@ -1,59 +1,117 @@
-# Aura Craft — E-Commerce Platform
+# Aura Craft — Artisan E-Commerce Web Application
 
-Aura Craft is a premium, fully responsive, full-stack e-commerce web application for selling handmade crafts, flowers, home décor, and gifting products. The visual identity draws inspiration from modern, premium marketplaces to deliver a dynamic, high-quality user experience.
+**Aura Craft** is a full-stack, responsive e-commerce web application designed for handcrafted crochet creations, everlasting floral arrangements, home décor, and personalized gifting. 
 
-## 🚀 Tech Stack
+Built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS**, and **Firebase Cloud Firestore & Authentication**, the platform provides a complete customer shopping experience modeled after top-tier e-commerce applications (Amazon, Myntra, Flipkart) combined with an artisanal boutique aesthetic.
 
-- **Framework**: [Next.js 15 (App Router)](https://nextjs.org/)
-- **Styling**: Vanilla CSS (`globals.css`) + Tailwind CSS (for layout utilities)
-- **Database**: [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore)
-- **Authentication**: [Firebase Authentication](https://firebase.google.com/docs/auth) (Phone Number OTP) + JWT Cookies (`jose` library)
-- **State Management**: Zustand (Client-side, e.g., Cart state)
-- **Icons**: Google Material Symbols & Lucide React
-- **Hosting / Deployment**: Ready for Vercel
+---
 
-## 🛠️ Summary of Completed Work
+## 🌟 Key Application Features
 
-### 1. Architectural Overhaul (SQLite to Firebase)
-- **Database Migration**: Fully migrated the platform away from a local SQLite database (`dev.db`) and Prisma ORM to **Firebase Cloud Firestore**.
-- **Data Transfer**: Executed a custom Node.js script (`migrate_to_firebase.js`) to transfer all mock categories and products from the old SQLite database into the live Firestore instance.
-- **Client SDK Integration**: Since Firebase Admin privileges were intentionally restricted, the entire application was re-architected to securely use the **Firebase Client SDK**. Server Components (`page.tsx`) now execute queries using the public Client SDK instead of `firebase-admin`.
+### 🛍️ Customer Storefront (`http://localhost:3000`)
+- **Artisan Showcase Homepage**: Hero banner, Category Quick-Pills, Best Sellers carousel, Brand Guarantees (100% Handcrafted, Eco-friendly Yarn, Fragile-Safe Packing), Fresh Arrivals, Customer Photo Reviews, and Custom Order CTA.
+- **Dynamic Categories Catalog (`/categories`)**: Visual taxonomy cards with live product counts and custom request banner.
+- **Smart Product Search & Filtering (`/shop`)**: Instant query filtering (`?q=`), category selection, price range filters, and sorting (Newest, Price Low $\leftrightarrow$ High).
+- **Interactive Product Details (`/product/[slug]`)**:
+  - Multi-image gallery with thumbnail switcher.
+  - Live inventory & low-stock indicators.
+  - "Recently Viewed Products" drawer.
+  - WhatsApp custom order inquiry integration with prefilled details.
+  - Customer review submissions with star ratings and photo uploads.
+- **Cart & Wishlist**:
+  - Persistent slide-out cart drawer with quantity adjustments, free shipping progress bar, and real-time subtotal.
+  - Quick-save wishlist toggles across product cards and shop grids.
+- **Checkout & Address Management (`/checkout`)**:
+  - Saved address selector (Home / Office) with 1-click selection and inline address creation.
+  - Live coupon code redemption (`WELCOME10`, `AURA50`, `FESTIVE20`) with instant subtotal deduction.
+  - Transactional inventory check ensuring stock availability before order placement.
+- **Order Tracking (`/track-order/[id]`)**:
+  - Deterministic tracking IDs (`AC-TRK-...`) with a milestone progress stepper (`Order Placed` → `Confirmed` → `Crafted` → `Shipped` → `Delivered`).
+- **Customer Profile & Account (`/profile`)**:
+  - Personalized profile dashboard with dynamic initials avatar (e.g. *Anushka Khadapkar* → **AK**).
+  - Saved delivery destinations, order history, wishlist manager, and active coupon wallet.
 
-### 2. Authentication & Session Management
-- **NextAuth Removal**: Completely removed the NextAuth dependency as requested, pivoting to native Firebase Authentication.
-- **JWT Decoding**: Implemented a custom session handling system. The frontend retrieves a Firebase ID token upon OTP verification, sends it to the Next.js backend, and sets it as an `httpOnly` cookie. The server decodes this JWT using the `jose` library to extract the user's `uid` for secure server-side data fetching (Orders, Wishlists, Account details).
+---
 
-### 3. Application Features Built & Wired
-- **Dynamic Shop & Filtering**: The Shop page pulls products directly from Firestore. Due to Firestore's index limitations, advanced sorting (Price High/Low, Newest) and filtering (Search queries) are executed elegantly in JavaScript after fetching the active documents, avoiding the need for complex composite indexes in the Firebase Console.
-- **Transactional Checkout**: Implemented an atomic checkout route (`/api/checkout`) using Firestore Transactions to ensure stock inventory is safely deducted before finalizing an order.
-- **Wishlist & Cart**: Wishlist interactions use Firestore array operations (`arrayUnion`/`arrayRemove`) to toggle items in real-time.
-- **Admin Dashboard**: The Admin Dashboard (`/admin`) tracks total users, orders, and products by executing real-time `getCountFromServer` queries against the live database.
+### 🔐 Dedicated Admin Dashboard (`http://localhost:3001` or `/admin`)
+- **Real-Time Analytics**: Live Firestore revenue metrics, total orders, customer count, and low-stock product alerts.
+- **Catalog & Inventory Management**: Add, update, and delete products with image upload, SKU tracking, pricing, and stock controls.
+- **Category Management**: Create and organize dynamic product categories.
+- **Order Pipeline**: Review customer orders, inspect delivery addresses, and update fulfillment milestones.
+- **Customer Reviews & Moderation**: Approve or archive customer reviews and photo submissions.
+- **Coupons & Promotional Banners**: Create promotional codes and update seasonal banner copy.
+- **Role Isolation**: Admin routes are protected from customer sessions.
 
-### 4. UI/UX Polish
-- **Component Fixes**: Repaired missing UI components (e.g., `ProductCard`) to ensure Next.js Server Components compile correctly.
-- **Error Boundaries**: Wrapped server-side data fetching in `try/catch` blocks. If Firestore permissions are denied, the UI gracefully renders a fallback error state rather than crashing the Next.js process.
-- **Next.js 15 Compliance**: Updated `searchParams` parsing across all dynamic routes to `await` the Promise, fully complying with Next.js 15 routing standards.
+---
 
-## 💻 How to Run Locally
+## 🛠️ Technology Stack
 
-1. **Install Dependencies**
-   ```bash
-   npm install
-   ```
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | [Next.js 16](https://nextjs.org/) (App Router, Server Components & Server Actions) |
+| **Library** | [React 19](https://react.dev/) |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) with Custom Theme Colors & Typography |
+| **Database** | [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore) |
+| **Authentication** | [Firebase Authentication](https://firebase.google.com/docs/auth) (Phone OTP & Email) + Signed HTTP-Only Session Cookies (`jose`) |
+| **State Management** | [Zustand](https://github.com/pmndrs/zustand) (Persistent Local & Cart State) |
+| **Charts & Analytics** | [Recharts](https://recharts.org/) |
+| **Icons** | [Lucide React](https://lucide.dev/) |
 
-2. **Environment Variables**
-   Ensure your `.env.local` file contains your Firebase Client configuration:
-   ```env
-   NEXT_PUBLIC_FIREBASE_API_KEY="..."
-   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="..."
-   NEXT_PUBLIC_FIREBASE_PROJECT_ID="..."
-   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="..."
-   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="..."
-   NEXT_PUBLIC_FIREBASE_APP_ID="..."
-   ```
+---
 
-3. **Start the Development Server**
-   ```bash
-   npm run dev
-   ```
-   *The application will be available at `http://localhost:3000`.*
+## 🚀 Getting Started
+
+### 1. Prerequisites
+- **Node.js** (v18.18+ or v20+)
+- **npm** or **pnpm**
+
+### 2. Environment Configuration
+Create a `.env.local` file in the root directory:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY="your-api-key"
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="your-project.firebaseapp.com"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="your-project-id"
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET="your-project.appspot.com"
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID="your-sender-id"
+NEXT_PUBLIC_FIREBASE_APP_ID="your-app-id"
+
+# Optional session secret
+SESSION_SECRET="your-secure-jwt-secret-key"
+```
+
+### 3. Install Dependencies
+```bash
+npm install
+```
+
+### 4. Run the Web Application
+Aura Craft supports running both the Storefront and the Dedicated Admin Panel concurrently:
+
+```bash
+# Start both Storefront (Port 3000) and Dedicated Admin Server (Port 3001):
+npm run dev
+```
+
+- **Customer Storefront**: [`http://localhost:3000`](http://localhost:3000)
+- **Admin Panel**: [`http://localhost:3001`](http://localhost:3001) or [`http://localhost:3000/admin`](http://localhost:3000/admin)
+
+Or run individual services:
+```bash
+npm run dev:website   # Storefront only on port 3000
+npm run dev:admin     # Admin proxy on port 3001
+```
+
+---
+
+## 🧪 Build & Quality Verification
+
+```bash
+# Run TypeScript type check across the entire project (0 errors)
+npx tsc --noEmit
+
+# Compile production build
+npm run build
+
+# Start production server
+npm run start
+```

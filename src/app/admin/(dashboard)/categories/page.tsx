@@ -8,10 +8,19 @@ export default async function AdminCategoriesPage() {
   const q = query(collection(serverDb, "categories"), orderBy("displayOrder", "asc"));
   const categoriesSnap = await getDocs(q);
   
-  const categories = categoriesSnap.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data()
-  }));
+  const categories = categoriesSnap.docs.map(doc => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      name: data.name || "",
+      slug: data.slug || "",
+      description: data.description || "",
+      status: data.status !== undefined ? data.status : true,
+      displayOrder: data.displayOrder || 0,
+      imageUrl: data.imageUrl || "",
+      ...data,
+    };
+  });
 
   return (
     <div className="space-y-6">

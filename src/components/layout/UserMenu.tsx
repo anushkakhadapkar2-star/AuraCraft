@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { ChevronDown, User, Heart, ShoppingBag, LogOut, Package, Star } from "lucide-react";
+import { getInitials } from "@/lib/utils";
 
 interface UserMenuProps {
   session: any;
@@ -29,73 +30,83 @@ export function UserMenu({ session }: UserMenuProps) {
   };
 
   useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
 
   const loggedOutMenu = (
     <>
-      <div className="flex justify-between items-center mb-4 pb-4 border-b border-outline-variant/30">
-        <span className="font-body-md text-on-surface-variant text-sm">New customer?</span>
+      <div className="mb-4 pb-4 border-b border-[#F3E1E5] space-y-2.5">
         <Link 
           href="/login" 
           onClick={handleLinkClick}
-          className="text-primary font-headline-sm hover:underline"
+          className="clay-btn w-full py-2.5 px-4 rounded-xl text-xs flex items-center justify-center shadow-[0_4px_12px_rgba(212,91,122,0.3)]"
         >
-          Sign Up
+          Log In
         </Link>
+        <div className="flex justify-between items-center px-1 text-xs">
+          <span className="text-[#8B5E6B]">New customer?</span>
+          <Link 
+            href="/register" 
+            onClick={handleLinkClick}
+            className="text-[#D45B7A] hover:text-[#B03E5D] hover:underline font-bold"
+          >
+            Sign Up
+          </Link>
+        </div>
       </div>
-      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-        <User className="w-5 h-5 text-on-surface-variant" />
-        <span className="font-body-md">My Profile</span>
+      <Link href="/login?callbackUrl=/profile" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
+        <User className="w-4 h-4 text-[#8B5E6B]" />
+        <span>My Profile</span>
       </Link>
-      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-        <Package className="w-5 h-5 text-on-surface-variant" />
-        <span className="font-body-md">Orders</span>
+      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
+        <Package className="w-4 h-4 text-[#8B5E6B]" />
+        <span>Orders</span>
       </Link>
-      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-        <Heart className="w-5 h-5 text-on-surface-variant" />
-        <span className="font-body-md">Wishlist</span>
+      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
+        <Heart className="w-4 h-4 text-[#8B5E6B]" />
+        <span>Wishlist</span>
       </Link>
-      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-        <Star className="w-5 h-5 text-on-surface-variant" />
-        <span className="font-body-md">Rewards</span>
+      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
+        <Star className="w-4 h-4 text-[#8B5E6B]" />
+        <span>Rewards</span>
       </Link>
     </>
   );
 
   const loggedInMenu = (
     <>
-      <div className="mb-4 pb-4 border-b border-outline-variant/30">
-        <p className="font-headline-sm text-primary text-sm truncate">
+      <Link href="/profile" onClick={handleLinkClick} className="block mb-4 pb-4 border-b border-[#F3E1E5] hover:opacity-85 transition-opacity">
+        <p className="font-bold text-[#382025] text-sm truncate">
           Hello, {session?.user?.name || "Customer"}
         </p>
-        <p className="font-body-md text-on-surface-variant text-xs truncate mt-1">
+        <p className="text-[#8B5E6B] text-xs truncate mt-0.5">
           {session?.user?.email || session?.user?.phone || "Welcome back!"}
         </p>
-      </div>
-      <Link href="/account/settings" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-        <User className="w-5 h-5 text-on-surface-variant" />
-        <span className="font-body-md">My Profile</span>
       </Link>
-      {session?.user?.role === "ADMIN" && (
-         <Link href="/admin" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-           <Star className="w-5 h-5 text-on-surface-variant" />
-           <span className="font-body-md font-bold text-primary">Admin Dashboard</span>
-         </Link>
-      )}
-      <Link href="/account/orders" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-        <Package className="w-5 h-5 text-on-surface-variant" />
-        <span className="font-body-md">Orders</span>
+      <Link href="/profile" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
+        <User className="w-4 h-4 text-[#8B5E6B]" />
+        <span>My Profile</span>
       </Link>
-      <Link href="/wishlist" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-on-surface hover:text-primary transition-colors hover:bg-surface-container-low px-4 -mx-4 rounded-lg">
-        <Heart className="w-5 h-5 text-on-surface-variant" />
-        <span className="font-body-md">Wishlist</span>
+      <Link href="/account/orders" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
+        <Package className="w-4 h-4 text-[#8B5E6B]" />
+        <span>Orders</span>
       </Link>
-      <a href="/api/auth/signout" onClick={handleLinkClick} className="flex items-center gap-3 py-3 text-error hover:bg-error/10 px-4 -mx-4 rounded-lg transition-colors mt-2 border-t border-outline-variant/30 pt-4">
-        <LogOut className="w-5 h-5" />
-        <span className="font-body-md">Logout</span>
+      <Link href="/wishlist" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
+        <Heart className="w-4 h-4 text-[#8B5E6B]" />
+        <span>Wishlist</span>
+      </Link>
+      <a href="/api/auth/signout" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-rose-600 hover:bg-rose-50 px-3 -mx-2 rounded-xl transition-colors mt-2 border-t border-[#F3E1E5] pt-3 text-xs font-bold">
+        <LogOut className="w-4 h-4" />
+        <span>Logout</span>
       </a>
     </>
   );
@@ -107,25 +118,31 @@ export function UserMenu({ session }: UserMenuProps) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <Link 
-        href={session ? "/account" : "/login"} 
-        className="flex items-center gap-1 hover:text-tertiary transition-all duration-300 group py-2"
+      <button 
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-center focus:outline-none cursor-pointer group p-0.5 rounded-full transition-transform hover:scale-105 active:scale-95"
+        aria-label="User profile menu"
       >
-        <span className="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">person</span>
-        <span className="font-headline-sm text-sm hidden lg:block">
-          {session ? session.user?.name?.split(' ')[0] || "Account" : "Login"}
-        </span>
-        <ChevronDown className={`w-4 h-4 hidden lg:block transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
-      </Link>
+        {session?.user ? (
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F8CAD5] to-[#D45B7A] text-white flex items-center justify-center font-bold text-xs tracking-tight shadow-[0_3px_8px_rgba(212,91,122,0.35)] ring-2 ring-white">
+            {getInitials(session.user?.name, session.user?.email)}
+          </div>
+        ) : (
+          <div className="w-10 h-10 rounded-full bg-white text-[#D45B7A] flex items-center justify-center group-hover:bg-[#FAF7F8] group-hover:text-[#382025] transition-all border border-[#F3E1E5] shadow-[0_3px_8px_rgba(212,91,122,0.08),_inset_0_1px_2px_rgba(255,255,255,0.95)]">
+            <User className="w-4 h-4" />
+          </div>
+        )}
+      </button>
 
       {/* Dropdown Panel */}
       <div 
-        className={`absolute top-full right-0 mt-2 w-64 bg-surface rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-outline-variant/20 p-6 transform origin-top-right transition-all duration-300 ease-out z-[110]
+        className={`absolute top-full right-0 mt-2 w-64 bg-white rounded-[26px] shadow-[0_16px_36px_rgba(212,91,122,0.12),_inset_0_2px_4px_rgba(255,255,255,0.95)] border border-[#F3E1E5] p-5 transform origin-top-right transition-all duration-200 ease-out z-[110]
           ${isOpen ? 'opacity-100 scale-100 translate-y-0 visible' : 'opacity-0 scale-95 -translate-y-2 invisible'}
         `}
       >
         {/* Pointer Triangle */}
-        <div className="absolute -top-2 right-6 w-4 h-4 bg-surface border-t border-l border-outline-variant/20 transform rotate-45"></div>
+        <div className="absolute -top-1.5 right-6 w-3.5 h-3.5 bg-white border-t border-l border-[#F3E1E5] transform rotate-45"></div>
         
         <div className="relative z-10">
           {session ? loggedInMenu : loggedOutMenu}

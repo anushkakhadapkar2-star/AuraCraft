@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="adminBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#563A29" />
+      <stop offset="50%" stop-color="#422C1E" />
+      <stop offset="100%" stop-color="#281A12" />
+    </linearGradient>
+    <linearGradient id="tanMetallic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F4EE" />
+      <stop offset="35%" stop-color="#E9DCCB" />
+      <stop offset="70%" stop-color="#CDAE91" />
+      <stop offset="100%" stop-color="#A48265" />
+    </linearGradient>
+    <linearGradient id="ivoryGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E9DCCB" />
+    </linearGradient>
+    <radialGradient id="beaconGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C5D1B3" />
+      <stop offset="40%" stop-color="#A4AD91" />
+      <stop offset="100%" stop-color="#6F795C" />
+    </radialGradient>
+  </defs>
+
+  <rect x="24" y="24" width="464" height="464" rx="128" fill="url(#adminBgGrad)" stroke="#CDAE91" stroke-width="6" stroke-opacity="0.75" />
+  <rect x="42" y="42" width="428" height="428" rx="112" fill="none" stroke="#E9DCCB" stroke-width="1" stroke-dasharray="8 8" opacity="0.2" />
+
+  <path d="M 256 76 L 396 156 L 396 316 L 256 424 L 116 316 L 116 156 Z" 
+        fill="#362318" stroke="url(#tanMetallic)" stroke-width="8" />
+
+  <path d="M 256 94 L 378 164 L 378 306 L 256 400 L 134 306 L 134 164 Z" 
+        fill="none" stroke="#E9DCCB" stroke-width="1.5" opacity="0.35" />
+
+  <path d="M 256 128 L 332 300 L 296 300 L 278 256 L 234 256 L 216 300 L 180 300 Z" fill="url(#tanMetallic)" />
+  <path d="M 256 182 L 242 228 L 270 228 Z" fill="#362318" />
+
+  <path d="M 334 220 C 342 195 330 165 298 155 C 256 142 208 170 198 220 C 188 270 224 322 278 322 C 316 322 340 295 344 272 L 310 264 C 306 278 294 294 274 294 C 244 294 226 264 230 234 C 234 204 258 178 288 184 C 304 187 312 200 316 214 Z" 
+        fill="url(#ivoryGrad)" opacity="0.95" />
+
+  <circle cx="256" cy="238" r="8" fill="#FFFFFF" />
+  <circle cx="256" cy="238" r="3" fill="#563A29" />
+
+  <circle cx="256" cy="76" r="14" fill="#A4AD91" opacity="0.3" />
+  <circle cx="256" cy="76" r="7" fill="url(#beaconGrad)" stroke="#FFFFFF" stroke-width="2" />
+
+  <g transform="translate(186, 352)">
+    <rect x="0" y="0" width="140" height="34" rx="17" fill="#24160E" stroke="#CDAE91" stroke-width="2" opacity="0.95" />
+    <text x="70" y="22" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="13" letter-spacing="3" fill="#E9DCCB">
+      ADMIN
+    </text>
+  </g>
+</svg>
+

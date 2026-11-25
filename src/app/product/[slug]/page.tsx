@@ -2,11 +2,14 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/product/ProductCard";
-import { AddToCartButton } from "@/components/cart/AddToCartButton";
+import { ProductPurchaseActions } from "@/components/product/ProductPurchaseActions";
 import { db as serverDb } from "@/lib/firebase/client";
 import { collection, query, where, limit, getDocs } from "firebase/firestore";
 import { WishlistButton } from "@/components/product/WishlistButton";
 import { ProductReviews } from "@/components/product/ProductReviews";
+import { ProductGallery } from "@/components/product/ProductGallery";
+import { RecentlyViewedProducts } from "@/components/product/RecentlyViewedProducts";
+import { MessageCircle, Heart, Sparkles, CheckCircle2, Star } from "lucide-react";
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -43,24 +46,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <div className="flex-grow pt-[80px] md:pt-[100px] pb-stack-xl max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop space-y-stack-xl">
       {/* Product Top Section: 2 Column Layout */}
       <section className="grid grid-cols-1 md:grid-cols-12 gap-stack-md md:gap-gutter">
-        {/* Left: Gallery (7 Cols Desktop) */}
-        <div className="md:col-span-7 flex flex-col-reverse md:flex-row gap-4">
-          {/* Thumbnails (Vertical Desktop, Horizontal Mobile) */}
-          <div className="flex md:flex-col gap-4 overflow-x-auto hide-scroll md:overflow-visible w-full md:w-24 shrink-0">
-            {product.images?.map((img: any, idx: number) => (
-              <button key={idx} className={`w-20 h-24 md:w-full md:h-32 rounded-xl overflow-hidden relative transition-opacity ${idx === 0 ? 'border-2 border-primary opacity-100' : 'border border-outline-variant/30 opacity-60 hover:opacity-100'}`}>
-                <Image className="w-full h-full object-cover" alt="Thumbnail" src={img.url} fill />
-              </button>
-            ))}
-          </div>
-          {/* Main Image */}
-          <div className="w-full rounded-2xl overflow-hidden bg-surface-container-low relative flex-grow aspect-square md:aspect-[4/5]">
-            {product.images?.length > 0 ? (
-              <Image className="w-full h-full object-cover" alt={product.name} src={product.images.find((img: any) => img.isPrimary)?.url || product.images[0].url} fill priority />
-            ) : (
-              <div className="flex items-center justify-center w-full h-full text-on-surface-variant">No image</div>
-            )}
-          </div>
+        {/* Left: Interactive Image Gallery (7 Cols Desktop) */}
+        <div className="md:col-span-7">
+          <ProductGallery images={product.images || []} productName={product.name} />
         </div>
 
         {/* Right: Product Details (5 Cols Desktop) */}
@@ -69,86 +57,85 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="space-y-4">
             <div className="flex gap-2">
               {product.isNewArrival && (
-                <span className="bg-secondary-container text-on-secondary-container font-label-caps text-label-caps uppercase px-3 py-1 rounded-full">New Arrival</span>
+                <span className="clay-badge uppercase text-[10px]">New Arrival</span>
               )}
               {product.discountPrice && (
-                <span className="bg-error-container text-on-error-container font-label-caps text-label-caps uppercase px-3 py-1 rounded-full">Sale</span>
+                <span className="bg-gradient-to-r from-[#B03E5D] to-[#6E1C32] text-white font-extrabold text-[10px] uppercase px-3 py-1 rounded-full shadow-[0_2px_8px_rgba(176,62,93,0.35)]">Sale</span>
               )}
             </div>
             
-            <div className="flex gap-2 items-center text-on-surface-variant text-sm mt-2">
-              <Link href="/shop" className="hover:text-primary transition-colors">Shop</Link>
+            <div className="flex gap-2 items-center text-[#8B5E6B] text-xs font-semibold mt-2">
+              <Link href="/shop" className="hover:text-[#382025] transition-colors">Shop</Link>
               <span>/</span>
-              <Link href={`/shop?category=${product.categorySlug}`} className="hover:text-primary transition-colors">{product.categoryName || 'Uncategorized'}</Link>
+              <Link href={`/shop?category=${product.categorySlug}`} className="hover:text-[#382025] transition-colors">{product.categoryName || 'Uncategorized'}</Link>
             </div>
 
-            <h1 className="font-headline-md text-headline-md md:text-display-lg font-bold text-on-background">{product.name}</h1>
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#382025] leading-tight">{product.name}</h1>
             <div className="flex items-center gap-3">
-              <div className="flex text-primary">
+              <div className="flex text-amber-400 gap-0.5" aria-label={`Rating: ${averageRating} out of 5 stars`}>
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <span key={star} className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                    {star <= Math.round(Number(averageRating)) ? 'star' : 'star_border'}
-                  </span>
+                  <Star
+                    key={star}
+                    className={`w-4 h-4 ${
+                      star <= Math.round(Number(averageRating))
+                        ? "fill-amber-400 text-amber-400"
+                        : "text-amber-200 fill-amber-50"
+                    }`}
+                  />
                 ))}
               </div>
-              <span className="font-body-md text-body-md font-semibold text-on-background">{averageRating}</span>
-              <a className="font-body-md text-body-md text-on-surface-variant underline decoration-1 underline-offset-4 hover:text-primary transition-colors" href="#reviews">({reviewsCount} reviews)</a>
+              <span className="font-bold text-sm text-[#382025]">{averageRating}</span>
+              <a className="text-xs text-[#8B5E6B] hover:text-[#D45B7A] hover:underline font-semibold transition-colors" href="#reviews">({reviewsCount} reviews)</a>
             </div>
           </div>
 
           {/* Price & Stock */}
-          <div className="space-y-2 py-4 border-y border-outline-variant/30">
+          <div className="space-y-2 py-4 border-y border-[#F3E1E5]">
             <div className="flex items-baseline gap-4">
-              <span className="font-headline-sm text-headline-sm font-bold text-primary">₹{price}</span>
+              <span className="font-serif text-2xl md:text-3xl font-bold text-[#382025]">₹{price}</span>
               {product.discountPrice && (
                 <>
-                  <span className="font-body-lg text-body-lg text-on-surface-variant line-through">₹{product.price}</span>
-                  <span className="font-label-caps text-label-caps text-error bg-error-container px-2 py-1 rounded">
+                  <span className="text-base text-[#8B5E6B]/70 line-through">₹{product.price}</span>
+                  <span className="bg-[#FDF2F5] text-[#B03E5D] border border-[#F3E1E5] font-bold text-xs px-2.5 py-0.5 rounded-full">
                     {Math.round(((product.price - product.discountPrice) / product.price) * 100)}% OFF
                   </span>
                 </>
               )}
             </div>
             {inStock ? (
-              <p className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-outline"></span> Only {product.inventory?.currentStock || 'a few'} left in stock - order soon!
+              <p className="text-xs font-semibold text-emerald-700 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Only {product.inventory?.currentStock || 'a few'} left in stock - order soon!
               </p>
             ) : (
-              <p className="font-body-md text-body-md text-error flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-error"></span> Out of Stock
+              <p className="text-xs font-semibold text-rose-600 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-rose-500"></span> Out of Stock
               </p>
             )}
           </div>
 
-          {/* Actions: Quantity & Buttons */}
-          <div className="space-y-4 pt-4">
-            <div className="flex items-center gap-4">
-              <div className="flex items-center border border-outline-variant rounded-full bg-surface-container-lowest h-12">
-                <button className="px-4 text-on-surface-variant hover:text-primary transition-colors"><span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 0" }}>remove</span></button>
-                <span className="font-body-md text-body-md font-semibold text-on-background w-8 text-center">1</span>
-                <button className="px-4 text-on-surface-variant hover:text-primary transition-colors"><span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 0" }}>add</span></button>
-              </div>
-              <WishlistButton 
-                productId={product.id} 
-                className="w-12 h-12 flex items-center justify-center rounded-full border border-outline-variant/50 text-primary hover:bg-primary-container hover:text-on-primary-container transition-colors shrink-0 bg-transparent"
-              />
-            </div>
-            
-            <div className="flex flex-col gap-3">
-              <AddToCartButton product={product} disabled={!inStock} />
-            </div>
-          </div>
+          {/* Actions: Quantity, Wishlist, Add to Cart, Buy Now, and Pincode Check */}
+          <ProductPurchaseActions product={product} inStock={inStock} />
 
-          {/* Pincode Checker */}
-          <div className="bg-surface-container-low rounded-2xl p-6 space-y-4 mt-2">
-            <p className="font-body-md text-body-md font-semibold text-on-background flex items-center gap-2">
-              <span className="material-symbols-outlined text-[20px] text-primary" style={{ fontVariationSettings: "'FILL' 0" }}>local_shipping</span> Delivery Options
-            </p>
-            <div className="flex gap-2">
-              <input className="flex-grow bg-surface-container-lowest border border-outline-variant/50 rounded-xl px-4 py-3 font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="Enter Pincode" type="text" />
-              <button className="px-6 py-3 border border-outline-variant/50 rounded-xl font-body-md text-body-md text-primary font-semibold hover:bg-surface-container-high transition-colors">Check</button>
+          {/* Custom Handmade Request Card */}
+          <div className="clay-card p-4 rounded-[22px] flex items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-2.5">
+              <div className="clay-icon-pod-sm w-9 h-9">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <div>
+                <p className="font-bold text-[#382025]">Need a Custom Color or Size?</p>
+                <p className="text-[#8B5E6B] text-[11px]">Our artisans can customize this design for you.</p>
+              </div>
             </div>
-            <p className="font-label-caps text-label-caps text-on-surface-variant normal-case tracking-normal">Usually dispatches in 1-2 business days.</p>
+            <a
+              href={`https://wa.me/919324488603?text=Hi%20Aura%20Craft%2C%20I%20am%20interested%20in%20customizing%20${encodeURIComponent(product.name)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="clay-btn px-4 py-2 rounded-xl text-xs font-bold shrink-0 flex items-center gap-1.5 shadow-[0_4px_12px_rgba(212,91,122,0.35)]"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>Inquire</span>
+            </a>
           </div>
         </div>
       </section>
@@ -171,10 +158,17 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* Product Reviews */}
-      <ProductReviews productId={product.id} />
+      <ProductReviews 
+        productId={product.id} 
+        productName={product.name}
+        productSlug={product.slug}
+      />
 
       {/* Related Products */}
       <RelatedProducts categorySlug={product.categorySlug} currentProductId={product.id} />
+
+      {/* Recently Viewed Products */}
+      <RecentlyViewedProducts currentProduct={product} />
     </div>
   );
 }

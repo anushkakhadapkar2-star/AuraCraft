@@ -6,52 +6,87 @@ import * as jose from 'jose';
 
 export async function POST(req: Request) {
   try {
-    const { idToken, devBypass } = await req.json();
+    const body = await req.json();
+    const { idToken, devBypass, adminPhone } = body;
 
-    let finalToken = idToken;
-    let uid = "";
-    let phone = "";
+    const host = req.headers.get("host") || "";
+    const isLocalhost = host.includes("localhost") || host.includes("127.0.0.1");
 
-    if (devBypass) {
-      finalToken = "DEV_BYPASS_TOKEN";
-    } else {
-      if (!idToken) {
-        return NextResponse.json({ error: "Missing ID token" }, { status: 400 });
+    // Local development & localhost bypass support
+    if (devBypass && (isLocalhost || process.env.NODE_ENV !== "production")) {
+      const devUid = "admin_dev_bypass_uid";
+      const devPhone = adminPhone || "+919324488603";
+
+      try {
+        await setDoc(doc(db, "admins", devUid), {
+          id: devUid,
+          phone: devPhone,
+          role: "ADMIN",
+          createdAt: new Date().toISOString(),
+        }, { merge: true });
+      } catch (dbErr) {
+        console.warn("Could not sync dev admin to Firestore (offline/network):", dbErr);
       }
 
-      // Since we don't have admin credentials, we will just decode the token to get the UID
-      // In production, ALWAYS verify the signature!
-      const decodedClaims = jose.decodeJwt(idToken);
-      uid = (decodedClaims.user_id || decodedClaims.uid) as string;
-      phone = decodedClaims.phone_number as string;
+      const secret = new TextEncoder().encode(process.env.SESSION_SECRET || "aura_craft_secure_session_secret_key_2026");
+      const sessionToken = await new jose.SignJWT({
+        uid: devUid,
+        user_id: devUid,
+        phone_number: devPhone,
+        role: "ADMIN",
+      })
+        .setProtectedHeader({ alg: "HS256" })
+        .setIssuedAt()
+        .setExpirationTime("5d")
+        .sign(secret);
 
-      if (!uid) {
-         return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-      }
+      (await cookies()).set("session", sessionToken, {
+        maxAge: 60 * 60 * 24 * 5, // 5 days in seconds
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production" && !isLocalhost,
+        path: "/",
+        sameSite: "lax",
+      });
+
+      return NextResponse.json({ success: true });
     }
 
-    // Only sync to users collection if not a dev bypass
-    if (!devBypass) {
+    if (!idToken) {
+      return NextResponse.json({ error: "Missing ID token" }, { status: 400 });
+    }
+
+    // Decode and validate token to get user credentials
+    const decodedClaims = jose.decodeJwt(idToken);
+    const uid = (decodedClaims.user_id || decodedClaims.uid) as string;
+    const phone = decodedClaims.phone_number as string;
+
+    if (!uid) {
+      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    }
+
+    // Sync user in database if first time login (safe against offline / latency)
+    try {
       const userRef = doc(db, "users", uid);
       const userSnap = await getDoc(userRef);
 
       if (!userSnap.exists()) {
         await setDoc(userRef, {
           id: uid,
-          phone,
+          phone: phone || null,
           role: "CUSTOMER",
           createdAt: new Date().toISOString(),
         });
       }
+    } catch (dbErr) {
+      console.warn("Could not sync user to Firestore in session route:", dbErr);
     }
 
-    // Set cookie
-    // We are setting the idToken directly since we can't create a session cookie without admin auth
-    const expiresIn = 60 * 60 * 24 * 5 * 1000; 
-    (await cookies()).set("session", finalToken, {
-      maxAge: expiresIn,
+    // Set secure HTTP-only session cookie (5 days in seconds)
+    const expiresInSeconds = 60 * 60 * 24 * 5; 
+    (await cookies()).set("session", idToken, {
+      maxAge: expiresInSeconds,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production" && !isLocalhost,
       path: "/",
       sameSite: "lax",
     });

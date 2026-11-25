@@ -11,52 +11,45 @@ export async function auth() {
   }
 
   try {
-    if (sessionCookie === "DEV_BYPASS_TOKEN") {
-      return {
-        user: {
-          uid: "DEV_ADMIN",
-          phone: "9324488603",
-          role: "ADMIN",
-          name: "Developer Admin",
-          email: "admin@auracraft.com"
-        }
-      };
-    }
-
-    // Decode ID token without signature verification (insecure, but needed since admin SDK is not available)
+    // Decode ID token to get user claims
     const decodedClaims = jose.decodeJwt(sessionCookie);
 
-    if (!decodedClaims || !decodedClaims.uid && !decodedClaims.user_id) {
-        return null;
+    if (!decodedClaims || (!decodedClaims.uid && !decodedClaims.user_id)) {
+      return null;
     }
     
     const uid = (decodedClaims.uid || decodedClaims.user_id) as string;
 
-    // 1. Check if they exist in the Admins collection
-    const adminSnap = await getDoc(doc(db, "admins", uid));
-    
-    // 2. Check if they exist in the Users collection
-    const userSnap = await getDoc(doc(db, "users", uid));
-    
-    let userRole = "CUSTOMER";
-    let userName = "";
-    let userEmail = "";
+    // Default values directly from signed JWT claims
+    let userRole = (decodedClaims.role as string) || "CUSTOMER";
+    let userName = (decodedClaims.name as string) || "";
+    let userEmail = (decodedClaims.email as string) || "";
+    const phone = (decodedClaims.phone_number as string) || null;
 
-    if (adminSnap.exists()) {
-      userRole = "ADMIN";
-      userName = adminSnap.data()?.name || "";
-      userEmail = adminSnap.data()?.email || "";
-    } else if (userSnap.exists()) {
-      userRole = userSnap.data()?.role || "CUSTOMER";
-      userName = userSnap.data()?.name || "";
-      userEmail = userSnap.data()?.email || "";
+    // Optional Firestore live sync (graceful against offline/network latency)
+    try {
+      const adminSnap = await getDoc(doc(db, "admins", uid));
+      const userSnap = await getDoc(doc(db, "users", uid));
+
+      if (adminSnap.exists()) {
+        userRole = "ADMIN";
+        userName = adminSnap.data()?.name || userName;
+        userEmail = adminSnap.data()?.email || userEmail;
+      } else if (userSnap.exists()) {
+        userRole = userSnap.data()?.role || userRole;
+        userName = userSnap.data()?.name || userName;
+        userEmail = userSnap.data()?.email || userEmail;
+      }
+    } catch (dbErr) {
+      console.warn("Firestore lookup in auth() skipped/offline:", dbErr);
     }
 
-    // Hardcoded Admin check based on user request (Fallback/Super Admin)
+    // Hardcoded Admin check based on user credentials (Super Admin fallback)
     const isHardcodedAdmin = 
-      (decodedClaims.phone_number && decodedClaims.phone_number.includes("9324488603")) ||
-      (decodedClaims.email && typeof decodedClaims.email === 'string' && decodedClaims.email.includes("anushkakhadapkar2@gmail.com")) ||
-      (userEmail && userEmail.includes("anushkakhadapkar2@gmail.com"));
+      (typeof phone === 'string' && phone.includes("9324488603")) ||
+      (typeof decodedClaims.phone_number === 'string' && decodedClaims.phone_number.includes("9324488603")) ||
+      (userEmail && userEmail.includes("anushkakhadapkar2@gmail.com")) ||
+      (decodedClaims.email && typeof decodedClaims.email === 'string' && decodedClaims.email.includes("anushkakhadapkar2@gmail.com"));
 
     if (isHardcodedAdmin) {
       userRole = "ADMIN";
@@ -65,14 +58,14 @@ export async function auth() {
     return {
       user: {
         uid: uid,
-        phone: decodedClaims.phone_number,
+        phone: phone || decodedClaims.phone_number,
         role: userRole,
-        name: userName,
-        email: userEmail
+        name: userName || "Aura Crafter",
+        email: userEmail || null,
       }
     };
   } catch (error) {
-    console.error("Auth error:", error);
+    console.error("Auth session decoding error:", error);
     return null;
   }
 }

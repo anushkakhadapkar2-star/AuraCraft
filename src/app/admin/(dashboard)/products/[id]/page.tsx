@@ -19,7 +19,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
     );
   }
 
-  const product = { id: productSnap.id, ...productSnap.data() };
+  const product = { id: productSnap.id, ...productSnap.data() } as any;
 
   return (
     <div className="space-y-6">

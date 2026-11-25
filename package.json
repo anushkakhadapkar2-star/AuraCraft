@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node dev-servers.js",
+    "dev:website": "next dev -p 3000",
+    "dev:admin": "node admin-server.js",
+    "dev:single": "next dev",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint"
   },

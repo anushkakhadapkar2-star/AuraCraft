@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-export async function GET() {
-  (await cookies()).delete("session");
-  return NextResponse.redirect(new URL("/login", process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"));
+export async function GET(request: Request) {
+  const cookieStore = await cookies();
+  cookieStore.delete("session");
+  return NextResponse.redirect(new URL("/login", request.url));
+}
+
+export async function POST(request: Request) {
+  const cookieStore = await cookies();
+  cookieStore.delete("session");
+  return NextResponse.json({ success: true });
 }

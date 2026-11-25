@@ -1,62 +1,133 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { CartSheet } from "@/components/cart/CartSheet";
 import { UserMenu } from "./UserMenu";
 import { SearchBar } from "./SearchBar";
+import { Heart, User, Gift, Home, Store } from "lucide-react";
+import { AuraCraftIcon } from "@/components/brand/AuraCraftLogo";
+
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/shop", label: "Shop" },
+  { href: "/categories", label: "Categories" },
+  { href: "/custom-gifts", label: "Custom Gifts" },
+  { href: "/about", label: "About Us" },
+];
 
 export function Navbar({ session }: { session?: any }) {
-  const [lastScroll, setLastScroll] = useState(0);
-  const [navStyle, setNavStyle] = useState({ transform: 'translateY(0)' });
+  const [isNavHidden, setIsNavHidden] = useState(false);
+  const pathname = usePathname();
+  const lastScrollY = useRef(0);
+  const rafId = useRef<number | null>(null);
 
+  const isLinkActive = useCallback((href: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    if (href === "/shop?new=true") {
+      if (typeof window !== "undefined") {
+        return pathname === "/shop" && window.location.search.includes("new=true");
+      }
+      return false;
+    }
+    if (href === "/shop") {
+      if (typeof window !== "undefined" && window.location.search.includes("new=true")) {
+        return false;
+      }
+      return pathname === "/shop" || pathname.startsWith("/product/");
+    }
+    return pathname.startsWith(href);
+  }, [pathname]);
+
+  // 60 FPS Throttled Scroll Listener using requestAnimationFrame
   useEffect(() => {
     const handleScroll = () => {
-      const currentScroll = window.pageYOffset;
-      if (currentScroll <= 0) {
-        setNavStyle({ transform: 'translateY(0)' });
-      }
-      if (currentScroll > lastScroll && currentScroll > 100) {
-        setNavStyle({ transform: 'translateY(-100%)' });
-      } else if (currentScroll < lastScroll) {
-        setNavStyle({ transform: 'translateY(0)' });
-      }
-      setLastScroll(currentScroll);
+      if (rafId.current !== null) return;
+
+      rafId.current = window.requestAnimationFrame(() => {
+        const currentScroll = window.scrollY;
+        
+        if (currentScroll <= 80) {
+          setIsNavHidden(false);
+        } else if (currentScroll > lastScrollY.current + 12 && currentScroll > 120) {
+          // Scrolling down - hide navbar
+          setIsNavHidden(true);
+        } else if (currentScroll < lastScrollY.current - 12) {
+          // Scrolling up - reveal navbar
+          setIsNavHidden(false);
+        }
+        
+        lastScrollY.current = currentScroll;
+        rafId.current = null;
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScroll]);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId.current !== null) {
+        window.cancelAnimationFrame(rafId.current);
+      }
+    };
+  }, []);
+
+  const navTransformClass = isNavHidden ? "-translate-y-full" : "translate-y-0";
 
   return (
     <>
       {/* Announcement Bar */}
-      <div className="fixed top-0 w-full z-[101] bg-primary text-on-primary py-2 px-4 text-center font-label-caps text-label-caps tracking-widest text-xs md:text-sm">
-        ✨ Handcrafted with Love • Free Shipping on Selected Orders
+      <div className="fixed top-0 w-full z-[101] bg-gradient-to-r from-[#D45B7A] via-[#F2A4B7] to-[#D45B7A] text-white py-1.5 px-4 text-center font-bold text-xs tracking-wider shadow-xs select-none">
+        ✨ Handcrafted with Love • Free Pan-India Delivery on Selected Orders ✨
       </div>
 
       {/* TopNavBar (Web) */}
       <nav 
-        className="hidden md:flex fixed top-[32px] w-full z-[100] bg-surface/90 dark:bg-surface-container-highest/90 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm transition-transform duration-200 ease-in-out" 
-        style={navStyle}
+        className={`hidden md:flex fixed top-[32px] w-full z-[100] bg-[#FAF7F8]/90 backdrop-blur-xl border-b border-[#F3E1E5] shadow-[0_4px_20px_rgba(212,91,122,0.06)] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform font-sans ${navTransformClass}`}
       >
-        <div className="flex justify-between items-center px-margin-desktop py-4 max-w-container-max mx-auto w-full">
+        <div className="flex justify-between items-center px-margin-desktop py-3 max-w-container-max mx-auto w-full">
           {/* Brand */}
-          <Link className="font-display-md text-2xl font-bold text-primary dark:text-primary-fixed-dim tracking-tight" href="/">
-            AURA CRAFT
+          <Link className="font-serif text-2xl font-bold text-[#382025] tracking-tight hover:opacity-90 transition-opacity shrink-0 flex items-center gap-2.5 group" href="/">
+            <div className="transition-transform duration-200 group-hover:scale-105">
+              <AuraCraftIcon size={34} />
+            </div>
+            <span className="bg-gradient-to-r from-[#382025] to-[#D45B7A] bg-clip-text text-transparent">AURA CRAFT</span>
           </Link>
-          {/* Links */}
-          <ul className="flex space-x-8">
-            <li><Link className="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-headline-sm text-sm hover:opacity-80 transition-all duration-300" href="/">Home</Link></li>
-            <li><Link className="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-headline-sm text-sm hover:opacity-80 duration-300" href="/shop">Shop</Link></li>
-            <li><Link className="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-headline-sm text-sm hover:opacity-80 duration-300" href="/categories">Categories</Link></li>
-            <li><Link className="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-headline-sm text-sm hover:opacity-80 duration-300" href="/about">About Us</Link></li>
-            <li><Link className="text-on-surface-variant dark:text-surface-variant hover:text-primary transition-colors font-headline-sm text-sm hover:opacity-80 duration-300" href="/shop?new=true">New Arrivals</Link></li>
+
+          {/* Links Pills */}
+          <ul className="flex items-center gap-1.5 lg:gap-2">
+            {NAV_LINKS.map((link) => {
+              const active = isLinkActive(link.href);
+              return (
+                <li key={link.label}>
+                  <Link 
+                    href={link.href}
+                    className={`inline-block text-xs font-bold transition-all duration-200 select-none ${
+                      active 
+                        ? "clay-btn px-4 py-2" 
+                        : "text-[#8B5E6B] hover:text-[#382025] hover:bg-[#FDF2F5] rounded-2xl px-3.5 py-2"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
+
           {/* Actions */}
-          <div className="flex space-x-4 items-center text-primary dark:text-primary-fixed-dim">
+          <div className="flex items-center gap-2.5 text-[#382025] shrink-0">
             <SearchBar />
-            <button className="hover:opacity-80 transition-all duration-300 scale-95 duration-200 ease-in-out"><span className="material-symbols-outlined text-2xl">favorite</span></button>
+            <Link 
+              href="/wishlist" 
+              className="w-10 h-10 rounded-full bg-white border border-[#F3E1E5] text-[#D45B7A] hover:text-[#382025] hover:bg-[#FAF7F8] shadow-[0_3px_8px_rgba(212,91,122,0.08),_inset_0_1px_2px_rgba(255,255,255,0.95)] transition-all flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95"
+              title="Wishlist"
+              aria-label="View Wishlist"
+            >
+              <Heart className="w-4 h-4" />
+            </Link>
             <CartSheet />
             <UserMenu session={session} />
           </div>
@@ -65,38 +136,61 @@ export function Navbar({ session }: { session?: any }) {
 
       {/* Mobile Top Header */}
       <header 
-        className="md:hidden fixed top-[32px] w-full z-[100] bg-surface/90 dark:bg-surface-container-highest/90 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm px-margin-mobile py-3 flex justify-between items-center transition-transform duration-200 ease-in-out"
-        style={navStyle}
+        className={`md:hidden fixed top-[32px] w-full z-[100] bg-[#FAF7F8]/90 backdrop-blur-xl border-b border-[#F3E1E5] shadow-xs px-margin-mobile py-2.5 flex justify-between items-center transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform ${navTransformClass}`}
       >
-        <Link className="font-display-md text-xl font-bold text-primary tracking-tight" href="/">
-          AURA CRAFT
+        <Link className="font-serif text-xl font-bold text-[#382025] tracking-tight flex items-center gap-2" href="/">
+          <AuraCraftIcon size={26} />
+          <span className="bg-gradient-to-r from-[#382025] to-[#D45B7A] bg-clip-text text-transparent">AURA CRAFT</span>
         </Link>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           <SearchBar />
+          <CartSheet />
         </div>
       </header>
 
       {/* BottomNavBar (Mobile) */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-3xl bg-surface/95 dark:bg-surface-container-highest/95 backdrop-blur-xl border-t border-outline-variant/30 shadow-[0_-12px_40px_rgba(111,78,55,0.12)]">
-        <div className="flex justify-around items-center px-margin-mobile py-3">
-          <Link className="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-secondary-fixed/50 rounded-full p-2 active:bg-surface-container-high transition-transform active:scale-90" href="/">
-            <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>home</span>
-            <span className="font-label-caps text-label-caps mt-1">Home</span>
+      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-[28px] bg-[#FAF7F8]/95 backdrop-blur-xl border-t border-[#F3E1E5] shadow-[0_-12px_36px_rgba(212,91,122,0.1)]">
+        <div className="flex justify-around items-center px-margin-mobile py-1.5">
+          <Link 
+            className={`min-touch flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${pathname === "/" ? "clay-btn px-3.5 py-1.5 shadow-[0_4px_12px_rgba(212,91,122,0.35)]" : "text-[#8B5E6B] hover:text-[#382025]"}`} 
+            href="/"
+            aria-label="Home"
+          >
+            <Home className="w-5 h-5" />
+            <span className="text-[10px] font-bold mt-0.5">Home</span>
           </Link>
-          <Link className="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-transform active:scale-90" href="/shop">
-            <span className="material-symbols-outlined">storefront</span>
-            <span className="font-label-caps text-label-caps mt-1">Shop</span>
+          <Link 
+            className={`min-touch flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${pathname.startsWith("/shop") ? "clay-btn px-3.5 py-1.5 shadow-[0_4px_12px_rgba(212,91,122,0.35)]" : "text-[#8B5E6B] hover:text-[#382025]"}`} 
+            href="/shop"
+            aria-label="Shop"
+          >
+            <Store className="w-5 h-5" />
+            <span className="text-[10px] font-bold mt-0.5">Shop</span>
           </Link>
-          <button className="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-transform active:scale-90">
-            <span className="material-symbols-outlined">favorite</span>
-            <span className="font-label-caps text-label-caps mt-1">Wishlist</span>
-          </button>
-          <div className="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-transform active:scale-90 relative">
-            <CartSheet />
-          </div>
-          <Link className="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-transform active:scale-90" href="/login">
-            <span className="material-symbols-outlined">person</span>
-            <span className="font-label-caps text-label-caps mt-1">Account</span>
+
+          <Link 
+            className={`min-touch flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${pathname.startsWith("/custom-gifts") ? "clay-btn px-3.5 py-1.5 shadow-[0_4px_12px_rgba(212,91,122,0.35)]" : "text-[#8B5E6B] hover:text-[#382025]"}`} 
+            href="/custom-gifts"
+            aria-label="Custom Gifts"
+          >
+            <Gift className="w-5 h-5" />
+            <span className="text-[10px] font-bold mt-0.5">Gifts</span>
+          </Link>
+          <Link 
+            className={`min-touch flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${pathname.startsWith("/wishlist") ? "clay-btn px-3.5 py-1.5 shadow-[0_4px_12px_rgba(212,91,122,0.35)]" : "text-[#8B5E6B] hover:text-[#382025]"}`} 
+            href="/wishlist"
+            aria-label="Wishlist"
+          >
+            <Heart className="w-5 h-5" />
+            <span className="text-[10px] font-bold mt-0.5">Wishlist</span>
+          </Link>
+          <Link 
+            className={`min-touch flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${pathname.startsWith("/profile") || pathname.startsWith("/account") || pathname.startsWith("/login") ? "clay-btn px-3.5 py-1.5 shadow-[0_4px_12px_rgba(212,91,122,0.35)]" : "text-[#8B5E6B] hover:text-[#382025]"}`} 
+            href={session ? "/profile" : "/login"}
+            aria-label="Profile"
+          >
+            <User className="w-5 h-5" />
+            <span className="text-[10px] font-bold mt-0.5">Profile</span>
           </Link>
         </div>
       </nav>

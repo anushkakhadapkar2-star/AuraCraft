@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { items, shippingAddress, totalAmount, subtotal, shipping, paymentMethod } = body;
+    const { items, shippingAddress, totalAmount, subtotal, shipping, paymentMethod, discount, couponCode } = body;
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
@@ -30,6 +30,10 @@ export async function POST(req: Request) {
       productDocs.forEach((productDoc, index) => {
         const item = items[index];
         if (!productDoc.exists()) {
+          // If custom handcrafted gift item, skip stock deduction
+          if (item.productId?.startsWith("custom-gift") || item.customGift) {
+            return;
+          }
           throw new Error(`Product ${item.productId} not found`);
         }
         const data = productDoc.data() as any;
@@ -65,7 +69,8 @@ export async function POST(req: Request) {
         totalAmount,
         subtotal,
         shipping,
-        discount: 0,
+        discount: discount || 0,
+        couponCode: couponCode || null,
         tax: 0,
         orderStatus: "ORDER_PLACED",
         paymentStatus: paymentMethod === "COD" ? "PENDING" : "PAID",
@@ -75,6 +80,8 @@ export async function POST(req: Request) {
           productId: item.productId,
           quantity: item.quantity,
           price: item.price,
+          name: item.name || null,
+          customGift: item.customGift || null,
         })),
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
@@ -87,7 +94,12 @@ export async function POST(req: Request) {
         ...orderData,
         items: items.map((item: any, index: number) => ({
           ...item,
-          product: productDocs[index].data()
+          product: productDocs[index]?.exists() ? productDocs[index].data() : {
+            name: item.name || "Custom Handcrafted Gift",
+            price: item.price,
+            images: item.image ? [{ url: item.image }] : [{ url: "/products/crochet_mixed_bouquet_vase.png" }],
+            customGift: item.customGift || null
+          }
         }))
       };
     });

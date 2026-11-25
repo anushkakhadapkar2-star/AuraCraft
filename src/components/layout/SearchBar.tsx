@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Search, Loader2 } from "lucide-react";
+import { Search, Loader2, X } from "lucide-react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
 import Image from "next/image";
@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 
 export function SearchBar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [query, setQuery] = useState("");
   const [products, setProducts] = useState<any[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
@@ -23,11 +24,14 @@ export function SearchBar() {
     function handleClickOutside(event: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        if (!query.trim()) {
+          setIsExpanded(false);
+        }
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  }, [query]);
 
   // Fetch all products for client-side search (suitable for small/medium catalogs)
   useEffect(() => {
@@ -50,67 +54,110 @@ export function SearchBar() {
     }
   }, [isOpen, products.length]);
 
-  // Filter products based on query
+  // Debounced filter products based on query
   useEffect(() => {
     if (!query.trim()) {
       setFilteredProducts([]);
       return;
     }
     
-    const lowerQuery = query.toLowerCase();
-    const results = products.filter(p => 
-      p.name?.toLowerCase().includes(lowerQuery) || 
-      p.description?.toLowerCase().includes(lowerQuery) ||
-      p.category?.toLowerCase().includes(lowerQuery)
-    ).slice(0, 5); // Limit to 5 results
-    
-    setFilteredProducts(results);
+    const timer = setTimeout(() => {
+      const lowerQuery = query.toLowerCase();
+      const results = products.filter(p => 
+        p.name?.toLowerCase().includes(lowerQuery) || 
+        p.description?.toLowerCase().includes(lowerQuery) ||
+        p.category?.toLowerCase().includes(lowerQuery) ||
+        p.categorySlug?.toLowerCase().includes(lowerQuery) ||
+        p.categoryName?.toLowerCase().includes(lowerQuery)
+      ).slice(0, 5); // Limit to 5 results
+      
+      setFilteredProducts(results);
+    }, 180);
+
+    return () => clearTimeout(timer);
   }, [query, products]);
+
+  // Handle Escape key to close
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        if (!query.trim()) setIsExpanded(false);
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [query]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
       setIsOpen(false);
-      router.push(`/shop?search=${encodeURIComponent(query)}`);
+      router.push(`/shop?q=${encodeURIComponent(query.trim())}`);
     }
   };
 
   return (
-    <div ref={wrapperRef} className="relative hidden md:block">
-      <form onSubmit={handleSearchSubmit} className="relative flex items-center">
-        <input 
-          ref={inputRef}
-          type="text" 
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => setIsOpen(true)}
-          placeholder="Search for magic..."
-          className="w-48 lg:w-64 bg-surface-container-low border border-outline-variant/30 text-on-surface text-sm rounded-full pl-4 pr-10 py-2 focus:outline-none focus:border-primary transition-all duration-300 font-body-md"
-        />
-        <button type="submit" className="absolute right-3 text-on-surface-variant hover:text-primary transition-colors">
+    <div ref={wrapperRef} className="relative">
+      {!isExpanded ? (
+        <button
+          type="button"
+          onClick={() => {
+            setIsExpanded(true);
+            setTimeout(() => inputRef.current?.focus(), 50);
+          }}
+          className="w-10 h-10 rounded-full bg-white border border-[#F3E1E5] text-[#D45B7A] hover:text-[#382025] hover:bg-[#FAF7F8] shadow-[0_3px_8px_rgba(212,91,122,0.08),_inset_0_1px_2px_rgba(255,255,255,0.95)] transition-all flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95"
+          title="Search products"
+        >
           <Search className="w-4 h-4" />
         </button>
-      </form>
+      ) : (
+        <form onSubmit={handleSearchSubmit} className="relative flex items-center animate-in fade-in zoom-in-95 duration-200">
+          <input 
+            ref={inputRef}
+            type="text" 
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setIsOpen(true)}
+            placeholder="Search products..."
+            className="w-56 lg:w-72 bg-[#FFF9FA] border border-[#F3E1E5] text-[#382025] placeholder:text-[#A88C94] text-xs font-medium rounded-full pl-4 pr-16 py-2 focus:outline-none focus:border-[#F2A4B7] focus:ring-4 focus:ring-[#F8CAD5]/20 focus:bg-white transition-all duration-300 font-sans shadow-[inset_0_2px_4px_rgba(212,91,122,0.05)]"
+          />
+          <div className="absolute right-2 flex items-center gap-1">
+            {query.trim() && (
+              <button 
+                type="button" 
+                onClick={() => { setQuery(""); }}
+                className="text-[#8B5E6B] hover:text-[#382025] p-0.5 cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+            <button type="submit" className="text-[#D45B7A] hover:text-[#382025] p-1 cursor-pointer">
+              <Search className="w-4 h-4" />
+            </button>
+          </div>
+        </form>
+      )}
 
       {/* Dropdown Recommendations */}
       {isOpen && query.trim() !== "" && (
-        <div className="absolute top-full right-0 left-0 mt-2 bg-surface rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-outline-variant/20 overflow-hidden z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full right-0 left-0 mt-2 bg-white rounded-[24px] shadow-[0_16px_36px_rgba(212,91,122,0.12),_inset_0_2px_4px_rgba(255,255,255,0.95)] border border-[#F3E1E5] overflow-hidden z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
           {isLoading && (
-            <div className="flex items-center justify-center p-6 text-on-surface-variant">
-              <Loader2 className="w-5 h-5 animate-spin mr-2" />
-              <span className="text-sm">Searching...</span>
+            <div className="flex items-center justify-center p-6 text-[#8B5E6B]">
+              <Loader2 className="w-5 h-5 animate-spin mr-2 text-[#D45B7A]" />
+              <span className="text-xs font-semibold">Searching catalog...</span>
             </div>
           )}
           
           {!isLoading && filteredProducts.length === 0 && (
-            <div className="p-6 text-center text-sm text-on-surface-variant font-body-md">
+            <div className="p-6 text-center text-xs font-semibold text-[#8B5E6B]">
               No products found for "{query}"
             </div>
           )}
 
           {!isLoading && filteredProducts.length > 0 && (
             <div className="py-2">
-              <div className="px-4 py-2 text-xs font-label-caps text-on-surface-variant/70 border-b border-outline-variant/20">
+              <div className="px-4 py-2 text-[10px] font-bold text-[#8B5E6B] uppercase tracking-wider border-b border-[#F3E1E5]">
                 Products
               </div>
               {filteredProducts.map(product => (
@@ -118,30 +165,30 @@ export function SearchBar() {
                   key={product.id} 
                   href={`/product/${product.slug}`}
                   onClick={() => { setIsOpen(false); setQuery(""); }}
-                  className="flex items-center gap-4 px-4 py-3 hover:bg-surface-container-low transition-colors group"
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-[#FAF7F8] transition-colors group"
                 >
-                  <div className="w-12 h-12 bg-surface-container rounded-md overflow-hidden relative flex-shrink-0">
+                  <div className="w-11 h-11 bg-[#FAF7F8] border border-[#F3E1E5] rounded-xl overflow-hidden relative flex-shrink-0 shadow-2xs">
                     <Image 
                       src={product.images?.[0]?.url || 'https://images.unsplash.com/photo-1597826361849-5e7e1e479a32?q=80&w=200&auto=format&fit=crop'} 
                       alt={product.name}
                       fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                       sizes="48px"
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="text-sm font-headline-sm text-primary truncate">{product.name}</h4>
-                    <p className="text-xs text-on-surface-variant mt-0.5 font-medium">₹{product.discountPrice || product.price}</p>
+                    <h4 className="text-xs font-bold text-[#382025] truncate group-hover:text-[#D45B7A] transition-colors">{product.name}</h4>
+                    <p className="text-[11px] text-[#D45B7A] mt-0.5 font-bold">₹{product.discountPrice || product.price}</p>
                   </div>
                 </Link>
               ))}
-              <div className="border-t border-outline-variant/20">
+              <div className="border-t border-[#F3E1E5] p-1">
                 <Link 
                   href={`/shop?search=${encodeURIComponent(query)}`}
                   onClick={() => setIsOpen(false)}
-                  className="block px-4 py-3 text-sm text-center text-primary hover:bg-surface-container-low font-headline-sm transition-colors"
+                  className="block px-3 py-2 text-xs text-center text-[#D45B7A] hover:text-[#382025] hover:bg-[#FAF7F8] rounded-xl font-bold transition-colors"
                 >
-                  View all results
+                  View all results →
                 </Link>
               </div>
             </div>

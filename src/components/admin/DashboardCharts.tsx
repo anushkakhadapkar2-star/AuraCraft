@@ -1,15 +1,13 @@
 "use client";
 
-import { 
+import {
   BarChart,
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
   ResponsiveContainer,
-  LineChart,
-  Line,
   AreaChart,
   Area,
   PieChart,
@@ -18,85 +16,158 @@ import {
   Legend
 } from "recharts";
 
+// Refined Aura Craft palette tokens
+const AURA_COLORS = {
+  primary: "#563A29",     // Deep Artisan Espresso
+  secondary: "#8B5E3C",   // Warm Terracotta Brown
+  accent: "#CDAE91",      // Warm Gold / Beige
+  muted: "#E9DCCB",       // Soft Cream Border
+  sage: "#A4AD91",        // Sage Green (Healthy / Verified)
+  rose: "#D45B7A",        // Artisan Rose
+  bg: "#FAF7F2",          // Cream Canvas
+  textMuted: "#7D6B5E"    // Muted Cocoa Text
+};
+
 const REVENUE_DATA = [
-  { name: 'Mon', revenue: 4000 },
-  { name: 'Tue', revenue: 3000 },
-  { name: 'Wed', revenue: 5000 },
-  { name: 'Thu', revenue: 2780 },
-  { name: 'Fri', revenue: 8900 },
-  { name: 'Sat', revenue: 10500 },
-  { name: 'Sun', revenue: 7300 },
+  { name: 'Mon', revenue: 4200, orders: 8 },
+  { name: 'Tue', revenue: 3800, orders: 7 },
+  { name: 'Wed', revenue: 6400, orders: 12 },
+  { name: 'Thu', revenue: 5100, orders: 9 },
+  { name: 'Fri', revenue: 9800, orders: 16 },
+  { name: 'Sat', revenue: 14200, orders: 24 },
+  { name: 'Sun', revenue: 11500, orders: 19 },
 ];
 
 const ORDER_DATA = [
-  { name: 'Week 1', orders: 120 },
-  { name: 'Week 2', orders: 150 },
-  { name: 'Week 3', orders: 110 },
-  { name: 'Week 4', orders: 190 },
+  { name: 'Week 1', completed: 48, pending: 6 },
+  { name: 'Week 2', completed: 62, pending: 8 },
+  { name: 'Week 3', completed: 55, pending: 5 },
+  { name: 'Week 4', completed: 78, pending: 11 },
 ];
 
 const CATEGORY_DATA = [
-  { name: 'Crochet Flowers', value: 4500 },
-  { name: 'Macrame', value: 3000 },
-  { name: 'Torans', value: 2500 },
-  { name: 'Bouquets', value: 1500 },
+  { name: 'Crochet Flowers', value: 38 },
+  { name: 'Crochet Bouquets', value: 32 },
+  { name: 'Home Décor & Torans', value: 18 },
+  { name: 'Gift Hampers', value: 12 },
 ];
-const COLORS = ['#6f4e37', '#b08d70', '#d4c4b7', '#a0522d'];
+const CATEGORY_COLORS = [AURA_COLORS.primary, AURA_COLORS.secondary, AURA_COLORS.accent, AURA_COLORS.sage];
 
 const TOP_PRODUCTS_DATA = [
-  { name: 'Sunflower Bouquet', sales: 420 },
-  { name: 'Rose Macrame', sales: 380 },
-  { name: 'Lavender Toran', sales: 310 },
-  { name: 'Tulip Setup', sales: 250 },
-  { name: 'Daisy Bundle', sales: 210 },
+  { name: 'Sunflower Duo Bouquet', sales: 48, revenue: 38400 },
+  { name: 'Blooming Pink Lily', sales: 41, revenue: 32800 },
+  { name: 'Festive Marigold Toran', sales: 34, revenue: 27200 },
+  { name: 'Vintage Lavender Bundle', sales: 28, revenue: 22400 },
+  { name: 'White Daisy Flower Pot', sales: 22, revenue: 17600 },
 ];
 
 const TRAFFIC_DATA = [
-  { name: 'Instagram', value: 55 },
-  { name: 'Organic Search', value: 25 },
-  { name: 'Direct', value: 15 },
-  { name: 'Referral', value: 5 },
+  { name: 'Instagram & Social', value: 54 },
+  { name: 'Direct / Organic', value: 28 },
+  { name: 'WhatsApp Inquiries', value: 12 },
+  { name: 'Referral & Word of Mouth', value: 6 },
 ];
-const TRAFFIC_COLORS = ['#E1306C', '#4285F4', '#34A853', '#FBBC05'];
+const TRAFFIC_COLORS = [AURA_COLORS.rose, AURA_COLORS.primary, AURA_COLORS.sage, AURA_COLORS.accent];
 
-export function RevenueChart() {
+// Custom Elegant Tooltip Component
+function CustomChartTooltip({ active, payload, label, prefix = "₹", suffix = "" }: any) {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-white px-3.5 py-2.5 rounded-xl border border-[#E9DCCB] shadow-[0_8px_20px_rgba(86,58,41,0.08)] text-xs">
+        <p className="font-semibold text-[#7D6B5E] mb-1 text-[11px] uppercase tracking-wider">{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <div key={`tooltip-${index}`} className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }} />
+            <span className="text-[#7D6B5E]">{entry.name}:</span>
+            <span className="font-serif font-bold text-[#36251A]">
+              {prefix}{Number(entry.value).toLocaleString("en-IN")}{suffix}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
+}
+
+export function RevenueChart({ data = REVENUE_DATA }: { data?: any[] }) {
+  if (!data || data.length === 0) {
+    return (
+      <div className="w-full h-[280px] flex flex-col items-center justify-center text-center text-[#7D6B5E] text-xs">
+        <p>No revenue data recorded for this time range.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[280px]">
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={REVENUE_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+        <AreaChart data={data} margin={{ top: 12, right: 12, left: -16, bottom: 0 }}>
           <defs>
-            <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#6f4e37" stopOpacity={0.3}/>
-              <stop offset="95%" stopColor="#6f4e37" stopOpacity={0}/>
+            <linearGradient id="auraRevenueGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={AURA_COLORS.primary} stopOpacity={0.22} />
+              <stop offset="95%" stopColor={AURA_COLORS.accent} stopOpacity={0.01} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
-          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} dy={10} />
-          <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} tickFormatter={(value) => `₹${value}`} />
-          <Tooltip 
-            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-            formatter={(value: number) => [`₹${value}`, 'Revenue']}
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E9DCCB" strokeOpacity={0.7} />
+          <XAxis
+            dataKey="name"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 11, fill: '#7D6B5E', fontWeight: 600 }}
+            dy={8}
           />
-          <Area type="monotone" dataKey="revenue" stroke="#6f4e37" strokeWidth={3} fillOpacity={1} fill="url(#colorRevenue)" />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 11, fill: '#7D6B5E' }}
+            tickFormatter={(value) => `₹${value >= 1000 ? `${(value / 1000).toFixed(0)}k` : value}`}
+          />
+          <Tooltip content={<CustomChartTooltip prefix="₹" />} />
+          <Area
+            type="monotone"
+            dataKey="revenue"
+            name="Revenue"
+            stroke={AURA_COLORS.primary}
+            strokeWidth={2.5}
+            fillOpacity={1}
+            fill="url(#auraRevenueGradient)"
+          />
         </AreaChart>
       </ResponsiveContainer>
     </div>
   );
 }
 
-export function OrdersChart() {
+export function OrdersChart({ data = ORDER_DATA }: { data?: any[] }) {
+  if (!data || data.length === 0) {
+    return (
+      <div className="w-full h-[280px] flex flex-col items-center justify-center text-center text-[#7D6B5E] text-xs">
+        <p>No fulfillment data recorded for this time range.</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[280px]">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={ORDER_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }} barSize={32}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
-          <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} dy={10} />
-          <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} />
-          <Tooltip 
-            cursor={{ fill: '#f3f4f6' }}
-            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+        <BarChart data={data} margin={{ top: 12, right: 12, left: -20, bottom: 0 }} barSize={26}>
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E9DCCB" strokeOpacity={0.7} />
+          <XAxis
+            dataKey="name"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 11, fill: '#7D6B5E', fontWeight: 600 }}
+            dy={8}
           />
-          <Bar dataKey="orders" fill="#b08d70" radius={[6, 6, 0, 0]} />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 11, fill: '#7D6B5E' }}
+          />
+          <Tooltip content={<CustomChartTooltip prefix="" suffix=" orders" />} />
+          <Bar dataKey="completed" name="Completed" fill={AURA_COLORS.primary} radius={[6, 6, 0, 0]} />
+          <Bar dataKey="pending" name="In Progress" fill={AURA_COLORS.accent} radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -105,27 +176,34 @@ export function OrdersChart() {
 
 export function SalesByCategoryChart() {
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[280px]">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={CATEGORY_DATA}
             cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={100}
-            paddingAngle={5}
+            cy="46%"
+            innerRadius={55}
+            outerRadius={90}
+            paddingAngle={4}
             dataKey="value"
           >
-            {CATEGORY_DATA.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+            {CATEGORY_DATA.map((_, index) => (
+              <Cell
+                key={`cat-cell-${index}`}
+                fill={CATEGORY_COLORS[index % CATEGORY_COLORS.length]}
+                stroke="#fff"
+                strokeWidth={2}
+              />
             ))}
           </Pie>
-          <Tooltip 
-            formatter={(value: number) => [`₹${value}`, 'Revenue']}
-            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+          <Tooltip content={<CustomChartTooltip prefix="" suffix="%" />} />
+          <Legend
+            verticalAlign="bottom"
+            height={36}
+            iconType="circle"
+            formatter={(value) => <span className="text-xs text-[#7D6B5E] font-medium">{value}</span>}
           />
-          <Legend verticalAlign="bottom" height={36} iconType="circle" />
         </PieChart>
       </ResponsiveContainer>
     </div>
@@ -134,17 +212,32 @@ export function SalesByCategoryChart() {
 
 export function TopSellingProductsChart() {
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[280px]">
       <ResponsiveContainer width="100%" height="100%">
-        <BarChart data={TOP_PRODUCTS_DATA} layout="vertical" margin={{ top: 10, right: 10, left: 30, bottom: 0 }} barSize={20}>
-          <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e5e7eb" />
-          <XAxis type="number" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} />
-          <YAxis type="category" dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: '#6b7280' }} width={100} />
-          <Tooltip 
-            cursor={{ fill: '#f3f4f6' }}
-            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+        <BarChart
+          data={TOP_PRODUCTS_DATA}
+          layout="vertical"
+          margin={{ top: 8, right: 16, left: 10, bottom: 0 }}
+          barSize={16}
+        >
+          <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E9DCCB" strokeOpacity={0.7} />
+          <XAxis
+            type="number"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 11, fill: '#7D6B5E' }}
+            tickFormatter={(v) => `${v} sold`}
           />
-          <Bar dataKey="sales" fill="#b08d70" radius={[0, 4, 4, 0]} />
+          <YAxis
+            type="category"
+            dataKey="name"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fontSize: 11, fill: '#36251A', fontWeight: 600 }}
+            width={130}
+          />
+          <Tooltip content={<CustomChartTooltip prefix="" suffix=" units" />} />
+          <Bar dataKey="sales" name="Units Sold" fill={AURA_COLORS.secondary} radius={[0, 6, 6, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>
@@ -153,25 +246,33 @@ export function TopSellingProductsChart() {
 
 export function TrafficSourcesChart() {
   return (
-    <div className="w-full h-[300px]">
+    <div className="w-full h-[280px]">
       <ResponsiveContainer width="100%" height="100%">
         <PieChart>
           <Pie
             data={TRAFFIC_DATA}
             cx="50%"
-            cy="50%"
-            outerRadius={100}
+            cy="46%"
+            innerRadius={50}
+            outerRadius={88}
+            paddingAngle={4}
             dataKey="value"
-            label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-            labelLine={false}
           >
-            {TRAFFIC_DATA.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={TRAFFIC_COLORS[index % TRAFFIC_COLORS.length]} />
+            {TRAFFIC_DATA.map((_, index) => (
+              <Cell
+                key={`traffic-cell-${index}`}
+                fill={TRAFFIC_COLORS[index % TRAFFIC_COLORS.length]}
+                stroke="#fff"
+                strokeWidth={2}
+              />
             ))}
           </Pie>
-          <Tooltip 
-            formatter={(value: number) => [`${value}%`, 'Traffic Share']}
-            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+          <Tooltip content={<CustomChartTooltip prefix="" suffix="%" />} />
+          <Legend
+            verticalAlign="bottom"
+            height={36}
+            iconType="circle"
+            formatter={(value) => <span className="text-xs text-[#7D6B5E] font-medium">{value}</span>}
           />
         </PieChart>
       </ResponsiveContainer>

@@ -1,48 +1,47 @@
-import { 
-  RevenueChart, 
-  OrdersChart, 
-  SalesByCategoryChart, 
-  TopSellingProductsChart, 
-  TrafficSourcesChart 
-} from "@/components/admin/DashboardCharts";
+import { db as serverDb } from "@/lib/firebase/client";
+import { collection, getCountFromServer as getCount, getDocs, query, orderBy, limit } from "firebase/firestore";
+import AnalyticsClient from "./AnalyticsClient";
 
 export const metadata = {
-  title: "Admin Analytics | Aura Craft",
+  title: "Commerce Analytics | Aura Craft Operations",
+  description: "Real-time store performance, revenue trends, and artisan fulfillment analytics",
 };
 
-export default function AdminAnalyticsPage() {
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="font-display-sm text-primary mb-2">Detailed Analytics</h1>
-        <p className="text-on-surface-variant">Deep dive into your store's performance, revenue trends, and traffic.</p>
-      </div>
+export const dynamic = "force-dynamic";
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-surface p-6 rounded-3xl border border-outline-variant/30 soft-shadow">
-          <h2 className="font-headline-sm text-primary mb-6">Revenue Overview</h2>
-          <RevenueChart />
-        </div>
-        <div className="bg-surface p-6 rounded-3xl border border-outline-variant/30 soft-shadow">
-          <h2 className="font-headline-sm text-primary mb-6">Orders Overview</h2>
-          <OrdersChart />
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-         <div className="bg-surface p-6 rounded-3xl border border-outline-variant/30 soft-shadow lg:col-span-1">
-             <h3 className="font-headline-sm text-primary mb-6">Sales by Category</h3>
-             <SalesByCategoryChart />
-         </div>
-         <div className="bg-surface p-6 rounded-3xl border border-outline-variant/30 soft-shadow lg:col-span-1">
-             <h3 className="font-headline-sm text-primary mb-6">Top Selling Products</h3>
-             <TopSellingProductsChart />
-         </div>
-         <div className="bg-surface p-6 rounded-3xl border border-outline-variant/30 soft-shadow lg:col-span-1">
-             <h3 className="font-headline-sm text-primary mb-6">Traffic Sources</h3>
-             <TrafficSourcesChart />
-         </div>
-      </div>
-    </div>
+export default async function AdminAnalyticsPage() {
+  let totalRevenue = 0;
+  let totalOrders = 0;
+  let totalUsers = 0;
+
+  try {
+    const [usersSnap, ordersCountSnap] = await Promise.all([
+      getCount(collection(serverDb, "users")),
+      getCount(collection(serverDb, "orders")),
+    ]);
+
+    totalUsers = usersSnap.data().count;
+    totalOrders = ordersCountSnap.data().count;
+
+    const ordersSnap = await getDocs(
+      query(collection(serverDb, "orders"), orderBy("createdAt", "desc"), limit(50))
+    );
+
+    let sum = 0;
+    ordersSnap.docs.forEach((doc) => {
+      const data = doc.data();
+      sum += Number(data.totalAmount) || 0;
+    });
+    totalRevenue = sum;
+  } catch (err) {
+    console.error("Error fetching analytics metrics:", err);
+  }
+
+  return (
+    <AnalyticsClient
+      totalRevenue={totalRevenue}
+      totalOrders={totalOrders}
+      totalUsers={totalUsers}
+    />
   );
 }

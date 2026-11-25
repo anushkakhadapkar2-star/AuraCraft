@@ -6,6 +6,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import Link from "next/link";
 import { Package, Users, ShoppingBag, Search } from "lucide-react";
 import Image from "next/image";
+import { getInitials } from "@/lib/utils";
 
 interface AdminSearchClientProps {
   initialQuery: string;
@@ -97,7 +98,7 @@ export default function AdminSearchClient({ initialQuery }: AdminSearchClientPro
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {filteredProducts.slice(0, 6).map(product => (
-                    <Link href={`/admin/products`} key={product.id} className="flex gap-4 p-4 rounded-xl border border-outline-variant/30 bg-surface-container-lowest hover:border-primary transition-colors">
+                    <Link href={`/admin/products/${product.id}`} key={product.id} className="flex gap-4 p-4 rounded-xl border border-outline-variant/30 bg-surface-container-lowest hover:border-primary transition-colors">
                       <div className="w-16 h-16 rounded-lg overflow-hidden bg-surface-container relative shrink-0">
                         {product.images?.[0]?.url && <Image src={product.images[0].url} alt={product.name} fill className="object-cover" />}
                       </div>
@@ -145,8 +146,8 @@ export default function AdminSearchClient({ initialQuery }: AdminSearchClientPro
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                   {filteredUsers.slice(0, 6).map(user => (
                     <Link href={`/admin/customers`} key={user.id} className="flex gap-4 p-4 rounded-xl border border-outline-variant/30 bg-surface-container-lowest hover:border-primary transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold shrink-0">
-                        {user.name?.[0] || 'U'}
+                      <div className="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm shrink-0">
+                        {getInitials(user.name, user.email, 'U')}
                       </div>
                       <div className="min-w-0 flex-1">
                         <h4 className="font-medium text-primary truncate">{user.name || 'Unknown'}</h4>

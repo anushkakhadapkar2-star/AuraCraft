@@ -14,7 +14,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
-
+this
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
@@ -25,7 +25,7 @@ async function migrate() {
   console.log("Migrating Categories...");
   const categories = await prisma.category.findMany();
   const categoryMap = {}; // Maps sqlite ID to firestore Doc Ref or Data
-  
+
   for (const cat of categories) {
     const docRef = doc(db, 'categories', cat.id);
     await setDoc(docRef, {
