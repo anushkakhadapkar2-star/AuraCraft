@@ -8,6 +8,7 @@ import { UserMenu } from "./UserMenu";
 import { SearchBar } from "./SearchBar";
 import { Heart, User, Gift, Home, Store } from "lucide-react";
 import { AuraCraftIcon } from "@/components/brand/AuraCraftLogo";
+import { FloatingNavbarPill } from "@/components/ui/aceternity/FloatingNavbarPill";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -96,26 +97,12 @@ export function Navbar({ session }: { session?: any }) {
             <span className="bg-gradient-to-r from-[#382025] to-[#D45B7A] bg-clip-text text-transparent">AURA CRAFT</span>
           </Link>
 
-          {/* Links Pills */}
-          <ul className="flex items-center gap-1.5 lg:gap-2">
-            {NAV_LINKS.map((link) => {
-              const active = isLinkActive(link.href);
-              return (
-                <li key={link.label}>
-                  <Link 
-                    href={link.href}
-                    className={`inline-block text-xs font-bold transition-all duration-200 select-none ${
-                      active 
-                        ? "clay-btn px-4 py-2" 
-                        : "text-[#8B5E6B] hover:text-[#382025] hover:bg-[#FDF2F5] rounded-2xl px-3.5 py-2"
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          {/* Links Pills with Aceternity Smooth Layout Motion */}
+          <FloatingNavbarPill
+            links={NAV_LINKS}
+            currentPath={pathname}
+            isLinkActive={isLinkActive}
+          />
 
           {/* Actions */}
           <div className="flex items-center gap-2.5 text-[#382025] shrink-0">

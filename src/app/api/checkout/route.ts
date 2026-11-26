@@ -12,7 +12,18 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { items, shippingAddress, totalAmount, subtotal, shipping, paymentMethod, discount, couponCode } = body;
+    const { 
+      items, 
+      shippingAddress, 
+      totalAmount, 
+      subtotal, 
+      shipping, 
+      paymentMethod, 
+      discount, 
+      couponCode,
+      utrNumber,
+      upiId
+    } = body;
 
     if (!items || items.length === 0) {
       return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
@@ -73,8 +84,14 @@ export async function POST(req: Request) {
         couponCode: couponCode || null,
         tax: 0,
         orderStatus: "ORDER_PLACED",
-        paymentStatus: paymentMethod === "COD" ? "PENDING" : "PAID",
+        paymentStatus: paymentMethod === "COD" 
+          ? "PENDING" 
+          : paymentMethod === "UPI" 
+            ? "PENDING_VERIFICATION" 
+            : "PAID",
         paymentMethod: paymentMethod || "COD",
+        utrNumber: utrNumber || null,
+        upiId: upiId || null,
         shippingAddress: shippingAddress,
         items: items.map((item: any) => ({
           productId: item.productId,

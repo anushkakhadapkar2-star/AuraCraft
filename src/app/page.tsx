@@ -5,6 +5,8 @@ import { db } from "@/lib/firebase/client";
 import { doc, getDoc, collection, getDocs, query, where, limit } from "firebase/firestore";
 import { ProductCard } from "@/components/product/ProductCard";
 import { HomeHeroSlider } from "@/components/home/HomeHeroSlider";
+import { InfiniteMovingCards } from "@/components/ui/aceternity/InfiniteMovingCards";
+import { BackgroundGradient } from "@/components/ui/aceternity/BackgroundGradient";
 import { 
   Sparkles, 
   ArrowRight, 
@@ -118,7 +120,7 @@ export default async function Home() {
               <Link 
                 key={cat.id} 
                 href={`/shop?category=${cat.slug}`} 
-                className="group clay-card flex flex-col items-center text-center p-4 rounded-[28px] hover:border-[#F8CAD5] transition-all duration-300"
+                className="group clay-card tactile-bounce flex flex-col items-center text-center p-4 rounded-[28px] hover:border-[#F8CAD5] transition-all duration-300"
               >
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden relative mb-3 bg-[#FAF7F8] border-2 border-white shadow-[0_6px_16px_rgba(212,91,122,0.12)] group-hover:scale-105 transition-transform duration-300 ring-2 ring-[#F3E1E5] group-hover:ring-[#F8CAD5]">
                   {cat.imageUrl ? (
@@ -278,67 +280,47 @@ export default async function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="clay-card p-6 rounded-[28px] flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex text-[#FFBF00]">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3.5 h-3.5 fill-[#FFBF00] text-[#FFBF00]" />
-                ))}
-              </div>
-              <p className="text-xs sm:text-sm text-[#382025] leading-relaxed italic font-serif">
-                "Ordered the sunflower and rose bouquet for my sister's graduation. The stitching and packaging exceeded my expectations. She keeps it on her study desk!"
-              </p>
-            </div>
-            <div className="mt-4 pt-4 border-t border-[#F3E1E5] flex items-center justify-between">
-              <div>
-                <h4 className="font-serif font-bold text-xs text-[#382025]">Rhea Deshmukh</h4>
-                <p className="text-[11px] text-[#8B5E6B]">Mumbai • Verified Buyer</p>
-              </div>
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            </div>
-          </div>
-
-          <div className="clay-card p-6 rounded-[28px] flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex text-[#FFBF00]">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3.5 h-3.5 fill-[#FFBF00] text-[#FFBF00]" />
-                ))}
-              </div>
-              <p className="text-xs sm:text-sm text-[#382025] leading-relaxed italic font-serif">
-                "The festive toran is stunning! It looks so rich on our front entrance door. Beautifully crafted with high quality yarn that doesn't fray."
-              </p>
-            </div>
-            <div className="mt-4 pt-4 border-t border-[#F3E1E5] flex items-center justify-between">
-              <div>
-                <h4 className="font-serif font-bold text-xs text-[#382025]">Pooja Kulkarni</h4>
-                <p className="text-[11px] text-[#8B5E6B]">Pune • Verified Buyer</p>
-              </div>
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            </div>
-          </div>
-
-          <div className="clay-card p-6 rounded-[28px] flex flex-col justify-between">
-            <div className="space-y-3">
-              <div className="flex text-[#FFBF00]">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-3.5 h-3.5 fill-[#FFBF00] text-[#FFBF00]" />
-                ))}
-              </div>
-              <p className="text-xs sm:text-sm text-[#382025] leading-relaxed italic font-serif">
-                "Requested custom pastel colors for a wedding hamper gift. The artisan team was super responsive on WhatsApp and delivered right on time."
-              </p>
-            </div>
-            <div className="mt-4 pt-4 border-t border-[#F3E1E5] flex items-center justify-between">
-              <div>
-                <h4 className="font-serif font-bold text-xs text-[#382025]">Aditya Sharma</h4>
-                <p className="text-[11px] text-[#8B5E6B]">Bengaluru • Verified Buyer</p>
-              </div>
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-            </div>
-          </div>
-        </div>
+        {/* Aceternity Infinite Moving Reviews Marquee */}
+        <InfiniteMovingCards
+          items={[
+            {
+              id: 1,
+              quote: "Ordered the sunflower and rose bouquet for my sister's graduation. The stitching and packaging exceeded my expectations. She keeps it on her study desk!",
+              name: "Rhea Deshmukh",
+              title: "Mumbai • Verified Buyer",
+              rating: 5,
+            },
+            {
+              id: 2,
+              quote: "The festive toran is stunning! It looks so rich on our front entrance door. Beautifully crafted with high quality yarn that doesn't fray.",
+              name: "Pooja Kulkarni",
+              title: "Pune • Verified Buyer",
+              rating: 5,
+            },
+            {
+              id: 3,
+              quote: "Requested custom pastel colors for a wedding hamper gift. The artisan team was super responsive on WhatsApp and delivered right on time.",
+              name: "Aditya Sharma",
+              title: "Bengaluru • Verified Buyer",
+              rating: 5,
+            },
+            {
+              id: 4,
+              quote: "The crochet tulip bunch brought such a delicate warmth to my living room. Never wilts, beautifully wrapped with craft paper and satin ribbon.",
+              name: "Ananya Roy",
+              title: "Kolkata • Verified Buyer",
+              rating: 5,
+            },
+            {
+              id: 5,
+              quote: "Got the Punjabi brass kada along with chocolate box for my fiancé. The unboxing experience felt super premium and handcrafted with immense care.",
+              name: "Sneha Patel",
+              title: "Ahmedabad • Verified Buyer",
+              rating: 5,
+            },
+          ]}
+          speed="slow"
+        />
 
         <div className="text-center mt-6">
           <Link 
@@ -351,37 +333,39 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* 7. Bespoke Custom Orders Callout */}
-      <section className="p-8 md:p-14 rounded-[36px] bg-gradient-to-br from-[#D45B7A] via-[#B03E5D] to-[#6E1C32] text-white flex flex-col md:flex-row items-center justify-between gap-8 fade-in-up shadow-[0_20px_50px_rgba(212,91,122,0.25),_inset_0_2px_4px_rgba(255,255,255,0.3)]">
-        <div className="max-w-xl text-center md:text-left">
-          <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white font-bold text-xs uppercase tracking-wider mb-3 backdrop-blur-xs">
-            Have a Dream Craft Idea?
-          </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 tracking-tight text-white">
-            We Create Custom Handmade Orders
-          </h2>
-          <p className="font-sans text-white/90 text-xs md:text-sm leading-relaxed">
-            Need customized floral arrangements for weddings, baby showers, or corporate gifts? Share your inspiration and we'll handcraft it for you.
-          </p>
-        </div>
+      {/* 7. Bespoke Custom Orders Callout with Aceternity BackgroundGradient */}
+      <BackgroundGradient containerClassName="w-full">
+        <section className="p-8 md:p-14 rounded-[35px] bg-gradient-to-br from-[#D45B7A] via-[#B03E5D] to-[#6E1C32] text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-[0_20px_50px_rgba(212,91,122,0.25),_inset_0_2px_4px_rgba(255,255,255,0.3)]">
+          <div className="max-w-xl text-center md:text-left">
+            <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white font-bold text-xs uppercase tracking-wider mb-3 backdrop-blur-xs">
+              Have a Dream Craft Idea?
+            </span>
+            <h2 className="font-serif text-3xl md:text-4xl font-bold mb-3 tracking-tight text-white">
+              We Create Custom Handmade Orders
+            </h2>
+            <p className="font-sans text-white/90 text-xs md:text-sm leading-relaxed">
+              Need customized floral arrangements for weddings, baby showers, or corporate gifts? Share your inspiration and we'll handcraft it for you.
+            </p>
+          </div>
 
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <Link
-            href="/custom-gifts"
-            className="clay-btn-secondary px-8 py-3.5 rounded-2xl text-xs font-bold text-[#D45B7A] bg-white hover:bg-[#FAF7F8] transition-all text-center shadow-[0_6px_16px_rgba(0,0,0,0.1)]"
-          >
-            Customize Your Gift →
-          </Link>
-          <a
-            href="https://wa.me/919324488603?text=Hi%20Aura%20Craft%2C%20I%20want%20to%20discuss%20a%20custom%20order."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-8 py-3.5 rounded-2xl text-xs font-bold text-white bg-white/15 hover:bg-white/25 border border-white/30 transition-all text-center backdrop-blur-xs"
-          >
-            Chat on WhatsApp
-          </a>
-        </div>
-      </section>
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <Link
+              href="/custom-gifts"
+              className="clay-btn-secondary tactile-bounce foil-sweep px-8 py-3.5 rounded-2xl text-xs font-bold text-[#D45B7A] bg-white hover:bg-[#FAF7F8] transition-all text-center shadow-[0_6px_16px_rgba(0,0,0,0.1)]"
+            >
+              Customize Your Gift →
+            </Link>
+            <a
+              href="https://wa.me/919324488603?text=Hi%20Aura%20Craft%2C%20I%20want%20to%20discuss%20a%20custom%20order."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3.5 rounded-2xl text-xs font-bold text-white bg-white/15 hover:bg-white/25 border border-white/30 transition-all text-center backdrop-blur-xs tactile-bounce"
+            >
+              Chat on WhatsApp
+            </a>
+          </div>
+        </section>
+      </BackgroundGradient>
 
     </div>
   );

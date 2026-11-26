@@ -111,6 +111,26 @@ export default async function TrackOrderPage({
                 </div>
                 <span className="font-semibold text-lg text-gray-800">Order ID : <span className="text-[#2E7D32]">#{order.id.slice(-6).toUpperCase()}</span></span>
               </div>
+              <div className="flex flex-wrap items-center gap-2">
+                {order.paymentMethod === "UPI" ? (
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
+                    order.paymentStatus === "PAID"
+                      ? "bg-emerald-50 text-emerald-800 border-emerald-300"
+                      : "bg-amber-50 text-amber-800 border-amber-300 animate-pulse"
+                  }`}>
+                    {order.paymentStatus === "PAID" ? "UPI Paid ✓" : "UPI: Verification Pending"}
+                  </span>
+                ) : (
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200">
+                    Cash on Delivery
+                  </span>
+                )}
+                {order.utrNumber && (
+                  <span className="text-[11px] font-mono text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md">
+                    UTR: {order.utrNumber}
+                  </span>
+                )}
+              </div>
               {!isCancelled && order.orderStatus !== "DELIVERED" && (
                 <CancelOrderButton
                   orderId={order.id}

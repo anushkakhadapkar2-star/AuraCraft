@@ -41,6 +41,8 @@ interface Order {
   orderStatus: string;
   paymentStatus: string;
   paymentMethod: string;
+  utrNumber?: string;
+  upiId?: string;
   shippingAddress: {
     fullName: string;
     phone: string;
@@ -138,6 +140,25 @@ export default function AdminOrdersClient() {
       showFeedback("error", "Failed to update order status.");
     } finally {
       setUpdatingStatusId(null);
+    }
+  };
+
+  const handlePaymentStatusChange = async (orderId: string, newPaymentStatus: string) => {
+    try {
+      const orderRef = doc(db, "orders", orderId);
+      await updateDoc(orderRef, {
+        paymentStatus: newPaymentStatus,
+        updatedAt: new Date().toISOString()
+      });
+
+      setOrders(prev => prev.map(o => o.id === orderId ? { ...o, paymentStatus: newPaymentStatus } : o));
+      if (selectedOrderForDrawer?.id === orderId) {
+        setSelectedOrderForDrawer(prev => prev ? { ...prev, paymentStatus: newPaymentStatus } : null);
+      }
+      showFeedback("success", `Payment marked as ${newPaymentStatus}.`);
+    } catch (err: any) {
+      console.error("Error updating payment status:", err);
+      showFeedback("error", "Failed to update payment status.");
     }
   };
 
@@ -972,10 +993,38 @@ export default function AdminOrdersClient() {
                     <span>Total Amount</span>
                     <span>₹{Number(selectedOrderForDrawer.totalAmount || 0).toLocaleString("en-IN")}</span>
                   </div>
-                  <div className="flex justify-between text-[11px] text-[#563A29]/70 pt-1">
+                  <div className="flex justify-between items-center text-[11px] text-[#563A29]/70 pt-1">
                     <span>Payment Method: {selectedOrderForDrawer.paymentMethod || "COD"}</span>
-                    <span className="font-bold">{selectedOrderForDrawer.paymentStatus || "PENDING"}</span>
+                    <span className={`font-bold px-2 py-0.5 rounded-full text-[10px] ${
+                      selectedOrderForDrawer.paymentStatus === "PAID" 
+                        ? "bg-emerald-100 text-emerald-800" 
+                        : selectedOrderForDrawer.paymentStatus === "PENDING_VERIFICATION" 
+                          ? "bg-amber-100 text-amber-800 animate-pulse" 
+                          : "bg-gray-100 text-gray-800"
+                    }`}>
+                      {selectedOrderForDrawer.paymentStatus === "PENDING_VERIFICATION" 
+                        ? "UPI Verification Pending" 
+                        : selectedOrderForDrawer.paymentStatus || "PENDING"}
+                    </span>
                   </div>
+
+                  {selectedOrderForDrawer.utrNumber && (
+                    <div className="mt-2.5 p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-amber-700 block">Submitted UPI UTR</span>
+                        <span className="font-mono font-bold text-xs tracking-wider">{selectedOrderForDrawer.utrNumber}</span>
+                      </div>
+                      {selectedOrderForDrawer.paymentStatus !== "PAID" && (
+                        <button
+                          type="button"
+                          onClick={() => handlePaymentStatusChange(selectedOrderForDrawer.id, "PAID")}
+                          className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[11px] transition-colors shadow-xs cursor-pointer"
+                        >
+                          Mark Paid ✓
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
 

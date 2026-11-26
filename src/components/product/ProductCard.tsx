@@ -2,6 +2,7 @@ import Link from "next/link";
 import { WishlistButton } from "./WishlistButton";
 import { ProductQuickAdd } from "./ProductQuickAdd";
 import { ProductCardImage } from "./ProductCardImage";
+import { Card3DTilt } from "@/components/ui/aceternity/Card3DTilt";
 import { Star } from "lucide-react";
 
 export function ProductCard({ product }: { product: any }) {
@@ -36,9 +37,10 @@ export function ProductCard({ product }: { product: any }) {
   }
 
   return (
-    <div className={`group clay-card flex flex-col cursor-pointer relative p-3 rounded-[28px] border transition-all duration-300 ${
-      isOutOfStock ? "border-[#F3E1E5] opacity-90" : "border-[#F3E1E5] hover:border-[#F8CAD5]"
-    }`}>
+    <Card3DTilt containerClassName="w-full">
+      <div className={`group clay-card flex flex-col cursor-pointer relative p-3 rounded-[28px] border transition-all duration-300 h-full ${
+        isOutOfStock ? "border-[#F3E1E5] opacity-90" : "border-[#F3E1E5] hover:border-[#F8CAD5]"
+      }`}>
       <Link href={`/product/${product.slug}`} className="absolute inset-0 z-10" aria-label={`View ${product.name}`}>
         <span className="sr-only">View {product.name}</span>
       </Link>
@@ -144,5 +146,6 @@ export function ProductCard({ product }: { product: any }) {
         </div>
       </div>
     </div>
+  </Card3DTilt>
   );
 }

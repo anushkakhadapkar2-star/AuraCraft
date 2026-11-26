@@ -15,6 +15,8 @@ import {
   Check, 
   Sparkle
 } from "lucide-react";
+import { Spotlight } from "@/components/ui/aceternity/Spotlight";
+import { TextGenerateEffect } from "@/components/ui/aceternity/TextGenerateEffect";
 
 export interface HeroSlide {
   id: string;
@@ -208,6 +210,9 @@ export function HomeHeroSlider({ initialContent }: HomeHeroSliderProps) {
       aria-roledescription="carousel"
       aria-label="Aura Craft Highlights & Offers"
     >
+      {/* Aceternity Warm Ambient Spotlight */}
+      <Spotlight className="-top-40 left-0 md:left-10 md:-top-20 opacity-80" />
+
       {/* 1. HORIZONTAL SLIDING TRACK (Smooth Right-to-Left / Left-to-Right Carousel) */}
       <div 
         className="flex w-full h-full min-h-[560px] md:min-h-[640px] transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform"
@@ -249,7 +254,11 @@ export function HomeHeroSlider({ initialContent }: HomeHeroSliderProps) {
                 
                 {/* Headline */}
                 <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#382025] mb-5 leading-[1.12] font-bold tracking-tight drop-shadow-2xs">
-                  {slide.title}
+                  {index === 0 ? (
+                    <TextGenerateEffect words={slide.title} />
+                  ) : (
+                    slide.title
+                  )}
                 </h1>
                 
                 {/* Subtitle */}

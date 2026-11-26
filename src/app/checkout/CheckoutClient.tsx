@@ -22,6 +22,8 @@ import {
 import Link from "next/link";
 import { db } from "@/lib/firebase/client";
 import { collection, query, where, getDocs } from "firebase/firestore";
+import { UpiPaymentModal } from "@/components/checkout/UpiPaymentModal";
+import { GooglePayLogo, PhonePeLogo, PaytmLogo, UpiLogo } from "@/components/checkout/PaymentLogos";
 
 interface CheckoutClientProps {
   savedAddresses?: any[];
@@ -43,6 +45,7 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
   const [confirmedOrderId, setConfirmedOrderId] = useState<string | null>(null);
   const [confirmedOrderDetails, setConfirmedOrderDetails] = useState<any>(null);
   const [paymentMethod, setPaymentMethod] = useState("COD");
+  const [isUpiModalOpen, setIsUpiModalOpen] = useState(false);
   const [showPaymentSimulation, setShowPaymentSimulation] = useState(false);
   const [isSimulatingPayment, setIsSimulatingPayment] = useState(false);
 
@@ -196,7 +199,9 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
   };
 
   const onPlaceOrderClick = () => {
-    if (paymentMethod !== "COD") {
+    if (paymentMethod === "UPI") {
+      setIsUpiModalOpen(true);
+    } else if (paymentMethod === "CARD") {
       setShowPaymentSimulation(true);
     } else {
       handleCheckout();
@@ -212,7 +217,7 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
     }, 1500);
   };
 
-  const handleCheckout = async () => {
+  const handleCheckout = async (utrNumber?: string) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -235,6 +240,7 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
           discount: discountAmount,
           couponCode: appliedCoupon?.code || null,
           paymentMethod,
+          utrNumber: utrNumber || null,
         }),
       });
 
@@ -249,9 +255,11 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
         total: total,
         paymentMethod: paymentMethod,
         discount: discountAmount,
+        utrNumber: utrNumber || null,
       });
       clearCart();
       setConfirmedOrderId(data.orderId);
+      setIsUpiModalOpen(false);
       setShowSuccessPopup(true);
     } catch (err: any) {
       setError(err.message);
@@ -521,10 +529,26 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
                 <label className={`flex items-start gap-4 p-4 border rounded-2xl cursor-pointer transition-all ${paymentMethod === 'UPI' ? 'border-[#D45B7A] bg-[#FFF9FA] ring-2 ring-[#F8CAD5]/40 shadow-xs' : 'border-[#F3E1E5] hover:bg-[#FAF7F8]'}`}>
                   <input type="radio" name="payment" value="UPI" checked={paymentMethod === 'UPI'} onChange={(e) => setPaymentMethod(e.target.value)} className="mt-1 accent-[#D45B7A]" />
                   <div className="flex-1">
-                    <p className={`font-serif text-sm font-bold ${paymentMethod === 'UPI' ? 'text-[#D45B7A]' : 'text-[#382025]'}`}>
-                      UPI (Google Pay, PhonePe, Paytm, BHIM)
-                    </p>
-                    <p className="text-xs text-[#8B5E6B] mt-0.5">Instant zero-fee transfer via any UPI app.</p>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className={`font-serif text-sm font-bold ${paymentMethod === 'UPI' ? 'text-[#D45B7A]' : 'text-[#382025]'}`}>
+                        UPI (Google Pay, PhonePe, Paytm, BHIM)
+                      </p>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="w-5 h-5 rounded-md overflow-hidden flex items-center justify-center shadow-2xs">
+                          <GooglePayLogo className="w-full h-full" />
+                        </span>
+                        <span className="w-5 h-5 rounded-md overflow-hidden flex items-center justify-center shadow-2xs">
+                          <PhonePeLogo className="w-full h-full" />
+                        </span>
+                        <span className="w-5 h-5 rounded-md overflow-hidden flex items-center justify-center shadow-2xs">
+                          <PaytmLogo className="w-full h-full" />
+                        </span>
+                        <span className="w-5 h-5 rounded-md overflow-hidden flex items-center justify-center shadow-2xs">
+                          <UpiLogo className="w-full h-full" />
+                        </span>
+                      </div>
+                    </div>
+                    <p className="text-xs text-[#8B5E6B] mt-0.5">Instant zero-fee transfer via any UPI app or scannable QR code.</p>
                   </div>
                 </label>
 
@@ -689,7 +713,16 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
         </div>
       </div>
 
-      {/* Payment Simulation Modal (For UPI / Card Test Flow) */}
+      {/* Direct UPI Intent & Scannable QR Modal */}
+      <UpiPaymentModal
+        isOpen={isUpiModalOpen}
+        onClose={() => setIsUpiModalOpen(false)}
+        totalAmount={total}
+        onConfirmPayment={(utr) => handleCheckout(utr)}
+        isLoading={isLoading}
+      />
+
+      {/* Payment Simulation Modal (For Card Test Flow) */}
       {showPaymentSimulation && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-in fade-in duration-300">
           <div className="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl flex flex-col transform transition-all scale-100 border border-[#F3E1E5]">
@@ -739,9 +772,21 @@ export default function CheckoutClient({ savedAddresses = [], userDetails = {} }
               Thank you for supporting Indian artisans. Your order ID is:
             </p>
             
-            <div className="px-4 py-2 rounded-xl bg-[#FDF2F5] text-[#D45B7A] font-mono font-bold text-sm mb-6 border border-[#F3E1E5]">
+            <div className="px-4 py-2 rounded-xl bg-[#FDF2F5] text-[#D45B7A] font-mono font-bold text-sm mb-4 border border-[#F3E1E5]">
               #{confirmedOrderId || "AC-ORD-SUCCESS"}
             </div>
+
+            {confirmedOrderDetails?.paymentMethod === "UPI" && (
+              <div className="mb-6 p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 text-left space-y-1 w-full">
+                <div className="flex items-center gap-1.5 font-bold">
+                  <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                  <span>UPI Payment Received • Under Verification</span>
+                </div>
+                <p className="text-[11px] text-amber-800 leading-relaxed">
+                  Submitted UTR: <span className="font-mono font-bold">{confirmedOrderDetails?.utrNumber || "N/A"}</span>. We will cross-check the transaction and start packaging your order.
+                </p>
+              </div>
+            )}
 
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               {confirmedOrderId && (
