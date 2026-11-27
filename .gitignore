@@ -91,3 +91,5 @@ next-env.d.ts
 .zencoder/
 skills/
 skills-lock.json
+
+.vercel
