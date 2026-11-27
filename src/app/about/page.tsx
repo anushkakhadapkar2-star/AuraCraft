@@ -39,7 +39,7 @@ export default async function AboutPage() {
   }
 
   return (
-    <main className="min-h-screen bg-surface-container-lowest pt-24 pb-20">
+    <div className="pb-20 w-full">
       <div className="container mx-auto px-4 md:px-6">
         
         {/* Hero Section */}
@@ -95,6 +95,6 @@ export default async function AboutPage() {
         </section>
 
       </div>
-    </main>
+    </div>
   );
 }

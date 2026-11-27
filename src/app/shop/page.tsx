@@ -37,12 +37,12 @@ export default async function ShopPage() {
   }
 
   return (
-    <main className="flex-grow pt-6 sm:pt-8 pb-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+    <div className="flex-grow pb-20 max-w-7xl mx-auto w-full">
       <ShopCatalogClient 
         initialProducts={products}
         categories={categories}
         shopContent={shopContent}
       />
-    </main>
+    </div>
   );
 }

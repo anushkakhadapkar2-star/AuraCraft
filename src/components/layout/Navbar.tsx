@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { CartSheet } from "@/components/cart/CartSheet";
 import { UserMenu } from "./UserMenu";
@@ -19,10 +19,7 @@ const NAV_LINKS = [
 ];
 
 export function Navbar({ session }: { session?: any }) {
-  const [isNavHidden, setIsNavHidden] = useState(false);
   const pathname = usePathname();
-  const lastScrollY = useRef(0);
-  const rafId = useRef<number | null>(null);
 
   const isLinkActive = useCallback((href: string) => {
     if (href === "/") {
@@ -43,54 +40,19 @@ export function Navbar({ session }: { session?: any }) {
     return pathname.startsWith(href);
   }, [pathname]);
 
-  // 60 FPS Throttled Scroll Listener using requestAnimationFrame
-  useEffect(() => {
-    const handleScroll = () => {
-      if (rafId.current !== null) return;
-
-      rafId.current = window.requestAnimationFrame(() => {
-        const currentScroll = window.scrollY;
-        
-        if (currentScroll <= 80) {
-          setIsNavHidden(false);
-        } else if (currentScroll > lastScrollY.current + 12 && currentScroll > 120) {
-          // Scrolling down - hide navbar
-          setIsNavHidden(true);
-        } else if (currentScroll < lastScrollY.current - 12) {
-          // Scrolling up - reveal navbar
-          setIsNavHidden(false);
-        }
-        
-        lastScrollY.current = currentScroll;
-        rafId.current = null;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafId.current !== null) {
-        window.cancelAnimationFrame(rafId.current);
-      }
-    };
-  }, []);
-
-  const navTransformClass = isNavHidden ? "-translate-y-full" : "translate-y-0";
-
   return (
     <>
-      {/* Announcement Bar */}
-      <div className="fixed top-0 w-full z-[101] bg-[#24483B] text-[#EDE3D5] py-1.5 px-4 text-center font-medium text-xs tracking-wider shadow-xs select-none flex items-center justify-center gap-2">
-        <span className="text-[#C9A45C]">✦</span>
-        <span>Handcrafted with Care & Passion • Free Pan-India Delivery on Orders Above ₹999</span>
-        <span className="text-[#C9A45C]">✦</span>
-      </div>
+      {/* Unified Solid Sticky Header: 100% Opaque Cream, Zero Gaps, Perfectly Aligned */}
+      <header className="sticky top-0 z-50 w-full bg-[#FAF7F2] border-b border-[#E6DDCF] shadow-[0_2px_14px_rgba(41,40,37,0.05)] transition-shadow">
+        {/* Top Announcement Bar */}
+        <div className="w-full bg-[#24483B] text-[#EDE3D5] py-2 px-4 text-center font-medium text-xs tracking-wider select-none flex items-center justify-center gap-2">
+          <span className="text-[#C9A45C]">✦</span>
+          <span>Handcrafted with Care &amp; Passion • Free Pan-India Delivery on Orders Above ₹999</span>
+          <span className="text-[#C9A45C]">✦</span>
+        </div>
 
-      {/* TopNavBar (Web) */}
-      <nav 
-        className={`hidden md:flex fixed top-[32px] w-full z-[100] bg-[#FAF7F2]/90 backdrop-blur-xl border-b border-[#E6DDCF] shadow-[0_4px_20px_rgba(41,40,37,0.03)] transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform font-sans ${navTransformClass}`}
-      >
-        <div className="flex justify-between items-center px-margin-desktop py-3.5 max-w-container-max mx-auto w-full">
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex justify-between items-center px-margin-desktop py-3.5 max-w-container-max mx-auto w-full bg-[#FAF7F2] font-sans">
           {/* Brand */}
           <Link className="font-serif text-2xl font-bold text-[#24483B] tracking-tight hover:opacity-90 transition-opacity shrink-0 flex items-center gap-2.5 group" href="/">
             <div className="transition-transform duration-200 group-hover:scale-105">
@@ -120,25 +82,23 @@ export function Navbar({ session }: { session?: any }) {
             <CartSheet />
             <UserMenu session={session} />
           </div>
-        </div>
-      </nav>
+        </nav>
 
-      {/* Mobile Top Header */}
-      <header 
-        className={`md:hidden fixed top-[32px] w-full z-[100] bg-[#FAF7F2]/95 backdrop-blur-xl border-b border-[#E6DDCF] shadow-xs px-margin-mobile py-2.5 flex justify-between items-center transition-transform duration-300 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform ${navTransformClass}`}
-      >
-        <Link className="font-serif text-xl font-bold text-[#24483B] tracking-tight flex items-center gap-2" href="/">
-          <AuraCraftIcon size={26} />
-          <span>AURA CRAFT</span>
-        </Link>
-        <div className="flex items-center gap-2">
-          <SearchBar />
-          <CartSheet />
+        {/* Mobile Top Header */}
+        <div className="md:hidden flex justify-between items-center px-margin-mobile py-2.5 bg-[#FAF7F2] border-t border-[#E6DDCF]/40">
+          <Link className="font-serif text-xl font-bold text-[#24483B] tracking-tight flex items-center gap-2" href="/">
+            <AuraCraftIcon size={26} />
+            <span>AURA CRAFT</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <SearchBar />
+            <CartSheet />
+          </div>
         </div>
       </header>
 
       {/* BottomNavBar (Mobile) */}
-      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-[28px] bg-[#FAF7F2]/95 backdrop-blur-xl border-t border-[#E6DDCF] shadow-[0_-8px_30px_rgba(41,40,37,0.06)]">
+      <nav className="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-[28px] bg-[#FAF7F2] border-t border-[#E6DDCF] shadow-[0_-8px_30px_rgba(41,40,37,0.06)]">
         <div className="flex justify-around items-center px-margin-mobile py-1.5">
           <Link 
             className={`min-touch flex flex-col items-center justify-center p-2 rounded-2xl transition-all ${pathname === "/" ? "clay-btn px-3.5 py-1.5 shadow-[0_4px_12px_rgba(36,72,59,0.35)]" : "text-[#706E6B] hover:text-[#24483B]"}`} 

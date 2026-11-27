@@ -17,13 +17,13 @@ export function AppLayoutWrapper({ children, session }: { children: React.ReactN
       <NavigationProgressBar />
       <div className={cn(
         "min-h-screen flex flex-col selection:bg-[#EDE3D5] selection:text-[#24483B]",
-        !isAdminPath && (isAuthPage ? "pt-[72px]" : "pt-28 md:pt-36 pb-24 md:pb-0 bg-[#FAF7F2]")
+        !isAdminPath && "bg-[#FAF7F2] pb-24 md:pb-0"
       )}>
         {!isAdminPath && <Navbar session={session} />}
 
         <main className={cn(
           "flex-1 w-full",
-          !isAdminPath && !isAuthPage && "max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop"
+          !isAdminPath && !isAuthPage && "max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-4 sm:py-6 md:py-8"
         )}>
           {children}
         </main>

@@ -51,7 +51,7 @@ export default async function CategoriesPage() {
   };
 
   return (
-    <main className="flex-grow pt-6 md:pt-10 pb-16 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+    <div className="flex-grow pb-16 max-w-7xl mx-auto w-full">
       {/* Category Header */}
       <section className="mb-10 md:mb-14 text-center max-w-3xl mx-auto fade-in-up">
         <div className="clay-badge mb-4">
@@ -151,6 +151,6 @@ export default async function CategoriesPage() {
           </Link>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

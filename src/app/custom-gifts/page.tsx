@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 
 export default function CustomGiftsPage() {
   return (
-    <main className="min-h-screen bg-[#FAF7F8] pt-6 sm:pt-10 pb-24">
+    <div className="pb-24 w-full">
       <CustomGiftsClient />
-    </main>
+    </div>
   );
 }
