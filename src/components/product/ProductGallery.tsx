@@ -19,8 +19,8 @@ export function ProductGallery({ images = [], productName }: ProductGalleryProps
 
   if (!images || images.length === 0) {
     return (
-      <div className="w-full aspect-[4/5] rounded-3xl bg-surface-container-low flex items-center justify-center text-on-surface-variant border border-outline-variant/30">
-        <span className="font-body-md text-sm">No image available</span>
+      <div className="w-full aspect-[4/5] rounded-[28px] bg-[#FAF7F2] flex items-center justify-center text-[#706E6B] border border-[#E6DDCF]">
+        <span className="font-body-md text-sm">No photo available</span>
       </div>
     );
   }
@@ -41,8 +41,8 @@ export function ProductGallery({ images = [], productName }: ProductGalleryProps
                 onClick={() => setSelectedIndex(idx)}
                 className={`w-18 h-20 md:w-20 md:h-24 rounded-2xl overflow-hidden relative transition-all duration-200 shrink-0 cursor-pointer ${
                   isSelected
-                    ? "ring-2 ring-primary ring-offset-2 opacity-100 shadow-sm"
-                    : "border border-outline-variant/40 opacity-60 hover:opacity-100"
+                    ? "ring-2 ring-[#24483B] ring-offset-2 ring-offset-[#FAF7F2] opacity-100 shadow-xs"
+                    : "border border-[#E6DDCF] opacity-65 hover:opacity-100"
                 }`}
                 aria-label={`View photo ${idx + 1} of ${productName}`}
               >
@@ -59,20 +59,20 @@ export function ProductGallery({ images = [], productName }: ProductGalleryProps
         </div>
       )}
 
-      {/* Main Large Image */}
-      <div className="w-full rounded-3xl overflow-hidden bg-surface-container-low relative flex-grow aspect-square md:aspect-[4/5] border border-outline-variant/30 shadow-xs">
+      {/* Main Large Image with Subtle Interactive Zoom on Hover */}
+      <div className="w-full rounded-[28px] overflow-hidden bg-[#FAF7F2] relative flex-grow aspect-square md:aspect-[4/5] border border-[#E6DDCF] shadow-xs group">
         <Image
           src={activeImage.url}
           alt={productName}
           fill
           priority
           sizes="(max-width: 768px) 100vw, 55vw"
-          className="object-cover transition-all duration-300"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
         {/* Counter Badge */}
         {images.length > 1 && (
-          <div className="absolute bottom-4 right-4 bg-black/60 backdrop-blur-xs text-white text-xs font-medium px-3 py-1 rounded-full shadow-xs">
+          <div className="absolute bottom-4 right-4 bg-[#24483B]/80 backdrop-blur-xs text-white text-xs font-semibold px-3 py-1 rounded-full shadow-xs">
             {selectedIndex + 1} / {images.length}
           </div>
         )}

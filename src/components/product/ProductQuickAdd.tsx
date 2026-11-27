@@ -30,7 +30,7 @@ export function ProductQuickAdd({ product, disabled = false }: { product: any; d
   if (disabled) {
     return (
       <div 
-        className="w-full py-2 px-3 rounded-2xl text-[11px] font-bold flex items-center justify-center gap-1 bg-[#FAF7F8]/90 text-[#8B5E6B]/70 border border-[#F3E1E5] select-none cursor-not-allowed"
+        className="w-full py-2 px-3 rounded-2xl text-[11px] font-bold flex items-center justify-center gap-1 bg-[#FAF7F2] text-[#706E6B]/70 border border-[#EDE3D5] select-none cursor-not-allowed"
         title="Currently Out of Stock"
       >
         <span>Out of Stock</span>
@@ -45,7 +45,7 @@ export function ProductQuickAdd({ product, disabled = false }: { product: any; d
       className={`w-full py-2.5 px-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all duration-200 cursor-pointer ${
         isAdded
           ? "bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
-          : "clay-btn shadow-[0_6px_16px_rgba(212,91,122,0.35)]"
+          : "clay-btn shadow-[0_4px_14px_rgba(36,72,59,0.3)]"
       }`}
       title="Quick Add to Bag"
     >

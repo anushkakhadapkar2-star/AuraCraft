@@ -28,37 +28,35 @@ export default async function AdminReturnsPage() {
   const totalRefundAmount = cancelledOrders.reduce((sum, o) => sum + (Number(o.totalAmount) || 0), 0);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Returns & Cancellations
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
-                {cancelledOrders.length} Cancelled / Returned
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Monitor cancelled handcrafted orders, customer return reasons, and restocked items.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Returns & Cancellations
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+              {cancelledOrders.length} Cancelled / Returned
+            </span>
           </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/admin/orders"
-              className="btn-press px-4 py-2 rounded-xl bg-white border border-[#E9DCCB] text-[#563A29] text-xs font-semibold hover:bg-[#FAF7F2] transition-all shadow-2xs"
-            >
-              View Active Orders
-            </Link>
-          </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Monitor cancelled handcrafted orders, customer return reasons, and restocked items.
+          </p>
         </div>
-      </header>
+
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin/orders"
+            className="btn-press px-4 py-2 rounded-xl bg-white border border-[#E9DCCB] text-[#563A29] text-xs font-semibold hover:bg-[#FAF7F2] transition-all shadow-2xs"
+          >
+            View Active Orders
+          </Link>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         {/* KPI Strip */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div className="bg-white/80 backdrop-blur-sm border border-[#E9DCCB] rounded-2xl p-4 shadow-xs">
@@ -179,7 +177,7 @@ export default async function AdminReturnsPage() {
             </div>
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

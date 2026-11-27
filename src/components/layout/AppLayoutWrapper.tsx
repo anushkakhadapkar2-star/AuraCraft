@@ -16,8 +16,8 @@ export function AppLayoutWrapper({ children, session }: { children: React.ReactN
     <ToastProvider>
       <NavigationProgressBar />
       <div className={cn(
-        "min-h-screen flex flex-col selection:bg-[#F8CAD5] selection:text-[#382025]",
-        !isAdminPath && (isAuthPage ? "pt-[72px]" : "pt-28 md:pt-36 pb-24 md:pb-0 bg-gradient-to-b from-[#FAF7F8] via-[#FFF9FA] to-[#FAF7F8]")
+        "min-h-screen flex flex-col selection:bg-[#EDE3D5] selection:text-[#24483B]",
+        !isAdminPath && (isAuthPage ? "pt-[72px]" : "pt-28 md:pt-36 pb-24 md:pb-0 bg-[#FAF7F2]")
       )}>
         {!isAdminPath && <Navbar session={session} />}
 

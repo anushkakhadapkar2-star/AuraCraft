@@ -87,18 +87,18 @@ export function ProductPurchaseActions({ product, inStock }: ProductPurchaseActi
       {/* 1. Quantity Stepper & Wishlist */}
       <div className="flex items-center gap-3">
         {/* Stepper */}
-        <div className="flex items-center bg-[#FFF9FA] border border-[#F3E1E5] rounded-2xl p-1 shadow-[inset_0_1px_3px_rgba(212,91,122,0.05)]">
+        <div className="flex items-center bg-[#FAF7F2] border border-[#E6DDCF] rounded-2xl p-1 shadow-2xs">
           <button
             type="button"
             onClick={handleDecrease}
             disabled={!inStock || quantity <= 1}
-            className="w-9 h-9 flex items-center justify-center rounded-xl text-[#382025] hover:bg-white disabled:opacity-30 transition-all cursor-pointer shadow-2xs"
+            className="w-9 h-9 flex items-center justify-center rounded-xl text-[#292825] hover:bg-white disabled:opacity-30 transition-all cursor-pointer shadow-2xs"
             aria-label="Decrease quantity"
           >
             <Minus className="w-4 h-4" />
           </button>
 
-          <span className="w-10 text-center font-bold text-sm text-[#382025] select-none">
+          <span className="w-10 text-center font-bold text-sm text-[#24483B] select-none">
             {quantity}
           </span>
 
@@ -106,7 +106,7 @@ export function ProductPurchaseActions({ product, inStock }: ProductPurchaseActi
             type="button"
             onClick={handleIncrease}
             disabled={!inStock || quantity >= maxStock}
-            className="w-9 h-9 flex items-center justify-center rounded-xl text-[#382025] hover:bg-white disabled:opacity-30 transition-all cursor-pointer shadow-2xs"
+            className="w-9 h-9 flex items-center justify-center rounded-xl text-[#292825] hover:bg-white disabled:opacity-30 transition-all cursor-pointer shadow-2xs"
             aria-label="Increase quantity"
           >
             <Plus className="w-4 h-4" />
@@ -116,11 +116,11 @@ export function ProductPurchaseActions({ product, inStock }: ProductPurchaseActi
         {/* Wishlist Button */}
         <WishlistButton
           productId={product.id}
-          className="w-11 h-11 flex items-center justify-center rounded-2xl border border-[#F3E1E5] bg-white text-[#D45B7A] hover:text-[#382025] hover:bg-[#FAF7F8] transition-all shadow-[0_3px_8px_rgba(212,91,122,0.08),_inset_0_1px_2px_rgba(255,255,255,0.95)] shrink-0"
+          className="w-11 h-11 flex items-center justify-center rounded-2xl border border-[#E6DDCF] bg-white text-[#24483B] hover:text-[#C9A45C] hover:bg-[#FAF7F2] transition-all shadow-xs shrink-0"
         />
 
         {inStock && maxStock <= 5 && (
-          <span className="text-[11px] font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-xl">
+          <span className="text-[11px] font-bold text-[#C9A45C] bg-[#FBF7EE] border border-[#E6DDCF] px-3 py-1 rounded-xl">
             Only {maxStock} left
           </span>
         )}
@@ -134,9 +134,9 @@ export function ProductPurchaseActions({ product, inStock }: ProductPurchaseActi
           disabled={!inStock}
           onClick={handleAddToCart}
           className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm tactile-bounce flex items-center justify-center gap-2 cursor-pointer ${isAdded
-            ? "bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-[0_4px_12px_rgba(16,185,129,0.2)]"
+            ? "bg-emerald-50 text-emerald-800 border border-emerald-300 shadow-xs"
             : inStock
-              ? "clay-btn-secondary"
+              ? "clay-btn shadow-[0_8px_20px_rgba(36,72,59,0.3)]"
               : "bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed"
             }`}
         >
@@ -158,21 +158,21 @@ export function ProductPurchaseActions({ product, inStock }: ProductPurchaseActi
           type="button"
           disabled={!inStock || isBuyingNow}
           onClick={handleBuyNow}
-          className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm text-white tactile-bounce foil-sweep flex items-center justify-center gap-2 cursor-pointer ${
+          className={`w-full py-3.5 px-6 rounded-2xl font-bold text-sm tactile-bounce flex items-center justify-center gap-2 cursor-pointer ${
             inStock
-              ? "clay-btn shadow-[0_8px_20px_rgba(212,91,122,0.4)] hover:shadow-[0_12px_28px_rgba(212,91,122,0.5)]"
-              : "bg-gray-300 cursor-not-allowed opacity-50"
+              ? "clay-btn-secondary border-[#E6DDCF] hover:border-[#24483B]"
+              : "bg-gray-200 cursor-not-allowed opacity-50"
           }`}
         >
-          <Zap className="w-4 h-4 fill-white" />
+          <Zap className="w-4 h-4 fill-[#24483B]" />
           <span>{isBuyingNow ? "Proceeding..." : "Buy Now"}</span>
         </button>
       </div>
 
       {/* 3. Interactive Pincode Checker */}
-      <div className="clay-card p-4 rounded-2xl border border-[#F3E1E5] space-y-2.5">
-        <div className="flex items-center gap-2 text-xs font-bold text-[#D45B7A] uppercase tracking-wider">
-          <Truck className="w-4 h-4 text-[#F2A4B7]" />
+      <div className="clay-card p-4 rounded-2xl border border-[#E6DDCF] space-y-2.5">
+        <div className="flex items-center gap-2 text-xs font-bold text-[#24483B] uppercase tracking-wider">
+          <Truck className="w-4 h-4 text-[#A8B8A0]" />
           <span>Delivery & Dispatch Availability</span>
         </div>
 
@@ -185,13 +185,13 @@ export function ProductPurchaseActions({ product, inStock }: ProductPurchaseActi
               setPincode(e.target.value.replace(/\D/g, ""));
               if (pincodeStatus !== "idle") setPincodeStatus("idle");
             }}
-            placeholder="Enter 6-digit Pincode"
-            className="flex-1 bg-[#FFF9FA] border border-[#F3E1E5] rounded-xl px-3.5 py-2 text-xs text-[#382025] placeholder-[#A88C94] focus:outline-none focus:border-[#F2A4B7] focus:ring-4 focus:ring-[#F8CAD5]/20 focus:bg-white transition-all font-mono shadow-[inset_0_1px_3px_rgba(212,91,122,0.05)]"
+            placeholder="Enter 6-digit PIN code"
+            className="flex-1 bg-white border border-[#E6DDCF] rounded-xl px-3.5 py-2 text-xs text-[#292825] placeholder-[#A8A49E] focus:outline-none focus:border-[#24483B] focus:ring-4 focus:ring-[#24483B]/10 transition-all font-mono shadow-2xs"
           />
           <button
             type="submit"
             disabled={pincodeStatus === "checking" || pincode.length !== 6}
-            className="clay-btn px-4 py-2 rounded-xl text-xs font-bold shadow-[0_4px_12px_rgba(212,91,122,0.35)] disabled:opacity-40"
+            className="clay-btn px-4 py-2 rounded-xl text-xs font-bold shadow-xs disabled:opacity-40"
           >
             {pincodeStatus === "checking" ? "Checking..." : "Check"}
           </button>
@@ -212,7 +212,7 @@ export function ProductPurchaseActions({ product, inStock }: ProductPurchaseActi
         )}
 
         {pincodeStatus === "idle" && (
-          <p className="text-[11px] text-[#8B5E6B] leading-relaxed">
+          <p className="text-[11px] text-[#706E6B] leading-relaxed">
             Usually dispatches in 1-2 business days from our Mumbai artisan studio.
           </p>
         )}

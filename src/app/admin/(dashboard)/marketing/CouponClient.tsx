@@ -123,7 +123,7 @@ export default function CouponClient() {
   const inactiveCount = useMemo(() => coupons.filter(c => c.status !== "ACTIVE").length, [coupons]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Toast Feedback */}
       {feedback && (
         <div
@@ -137,37 +137,35 @@ export default function CouponClient() {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Marketing & Coupons
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
-                {activeCount} Live Offers
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Create promotional discount codes, festive vouchers, and free shipping incentives.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Marketing & Coupons
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
+              {activeCount} Live Offers
+            </span>
           </div>
-
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="btn-press btn-shimmer w-full md:w-auto flex items-center justify-center gap-2 bg-[#563A29] text-white px-5 py-2.5 rounded-xl font-semibold text-xs hover:bg-[#3d2719] transition-all shadow-xs cursor-pointer min-h-[44px]"
-            >
-              <Plus className="w-4 h-4 text-[#CDAE91]" />
-              <span>Create Coupon</span>
-            </button>
-          </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Create promotional discount codes, festive vouchers, and free shipping incentives.
+          </p>
         </div>
-      </header>
+
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="btn-press btn-shimmer w-full md:w-auto flex items-center justify-center gap-2 bg-[#563A29] text-white px-5 py-2.5 rounded-xl font-semibold text-xs hover:bg-[#3d2719] transition-all shadow-xs cursor-pointer min-h-[44px]"
+          >
+            <Plus className="w-4 h-4 text-[#CDAE91]" />
+            <span>Create Coupon</span>
+          </button>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         {/* KPI Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="bg-white/80 backdrop-blur-sm border border-[#E9DCCB] rounded-2xl p-4 shadow-xs">
@@ -324,7 +322,7 @@ export default function CouponClient() {
             </div>
           </div>
         )}
-      </main>
+      </div>
 
       {/* Delete Confirmation Modal */}
       {couponToDelete && (

@@ -1,0 +1,45 @@
+services:
+  # ============================================================
+  # 🛍️ Storefront Website Service (Customer App)
+  # ============================================================
+  storefront:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auracraft-storefront
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - auracraft-network
+
+  # ============================================================
+  # 🔐 Admin Console Service (Artisan Ops Panel)
+  # ============================================================
+  admin-panel:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    container_name: auracraft-admin
+    ports:
+      - "3001:3001"
+    environment:
+      - ADMIN_PORT=3001
+      - WEBSITE_HOST=storefront
+      - WEBSITE_PORT=3000
+      - NODE_ENV=production
+    depends_on:
+      - storefront
+    restart: unless-stopped
+    networks:
+      - auracraft-network
+
+networks:
+  auracraft-network:
+    driver: bridge

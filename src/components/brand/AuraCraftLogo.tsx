@@ -24,43 +24,43 @@ export function AuraCraftIcon({ size = 36, className = "" }: { size?: number; cl
         {/* Background Gradient */}
         <radialGradient id="craftIconBg" cx="40%" cy="30%" r="70%">
           <stop offset="0%" stopColor="#FFFFFF" />
-          <stop offset="50%" stopColor="#FAF7F8" />
-          <stop offset="100%" stopColor="#F3E1E5" />
+          <stop offset="50%" stopColor="#FAF7F2" />
+          <stop offset="100%" stopColor="#EDE3D5" />
         </radialGradient>
 
-        {/* English Rose & Dusty Blush Gradient (Palette 4) */}
+        {/* Artisanal Flora & Petal Gradient */}
         <linearGradient id="craftPetalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#F8CAD5" />
-          <stop offset="60%" stopColor="#F2A4B7" />
-          <stop offset="100%" stopColor="#D45B7A" />
+          <stop offset="0%" stopColor="#EDE3D5" />
+          <stop offset="50%" stopColor="#D99A9C" />
+          <stop offset="100%" stopColor="#24483B" />
         </linearGradient>
 
         {/* Crochet Hook Wooden Grip Gradient */}
         <linearGradient id="craftHookWood" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#7E563B" />
-          <stop offset="50%" stopColor="#382025" />
-          <stop offset="100%" stopColor="#24140A" />
+          <stop offset="50%" stopColor="#292825" />
+          <stop offset="100%" stopColor="#19342A" />
         </linearGradient>
 
-        {/* Metallic Rose Hook Shank Gradient */}
+        {/* Metallic Gold Hook Shank Gradient */}
         <linearGradient id="craftHookMetal" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FAF7F8" />
-          <stop offset="60%" stopColor="#F8CAD5" />
-          <stop offset="100%" stopColor="#D45B7A" />
+          <stop offset="0%" stopColor="#FAF7F2" />
+          <stop offset="60%" stopColor="#EDE3D5" />
+          <stop offset="100%" stopColor="#C9A45C" />
         </linearGradient>
 
         {/* Warm Sage Leaf Gradient */}
         <linearGradient id="craftLeafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#BDC6AA" />
-          <stop offset="60%" stopColor="#A4AD91" />
-          <stop offset="100%" stopColor="#7A8466" />
+          <stop offset="0%" stopColor="#C2CDBB" />
+          <stop offset="60%" stopColor="#A8B8A0" />
+          <stop offset="100%" stopColor="#24483B" />
         </linearGradient>
       </defs>
 
       {/* Canvas Squircle */}
-      <rect x="24" y="24" width="464" height="464" rx="124" fill="url(#craftIconBg)" stroke="#F3E1E5" strokeWidth="8"/>
+      <rect x="24" y="24" width="464" height="464" rx="124" fill="url(#craftIconBg)" stroke="#EDE3D5" strokeWidth="8"/>
       {/* Stitched Perimeter Ring */}
-      <rect x="42" y="42" width="428" height="428" rx="106" fill="none" stroke="#F2A4B7" strokeWidth="2.5" strokeDasharray="9 9" opacity="0.6"/>
+      <rect x="42" y="42" width="428" height="428" rx="106" fill="none" stroke="#C9A45C" strokeWidth="2.5" strokeDasharray="9 9" opacity="0.6"/>
 
       {/* SAGE CROCHET LEAVES */}
       <path d="M 270 280 C 220 280 180 320 180 360 C 220 370 260 330 270 280 Z" fill="url(#craftLeafGrad)" opacity="0.95" />

@@ -125,7 +125,7 @@ export function ProfileClient({
 }: ProfileClientProps) {
   // Navigation tabs (Amazon / Myntra inspired)
   const [activeTab, setActiveTab] = useState<
-    "orders" | "buyAgain" | "profile" | "wishlist" | "reviews" | "payments" | "coupons" | "notifications" | "help"
+    "orders" | "profile" | "wishlist" | "reviews" | "payments" | "coupons" | "notifications" | "help"
   >("orders");
 
   // Orders Search & Filter state
@@ -440,30 +440,6 @@ export function ProfileClient({
     }
   };
 
-  // Buy Again products extracted from past orders (Amazon hallmark)
-  const buyAgainProducts = useMemo(() => {
-    const itemsMap = new Map();
-    for (const order of initialOrders) {
-      if (Array.isArray(order.items)) {
-        for (const item of order.items) {
-          const key = item.productId || item.product?.id || item.product?.slug || item.name;
-          if (key && !itemsMap.has(key)) {
-            itemsMap.set(key, {
-              id: key,
-              name: item.product?.name || item.name || "Handmade Product",
-              price: item.price || item.product?.price || 999,
-              discountPrice: item.product?.discountPrice,
-              image: item.product?.image || item.product?.images?.[0]?.url || item.product?.images?.[0] || "",
-              slug: item.product?.slug || "",
-              category: item.product?.category || "Crochet Craft",
-              lastOrdered: order.createdAt,
-            });
-          }
-        }
-      }
-    }
-    return Array.from(itemsMap.values());
-  }, [initialOrders]);
 
   // Filtered orders with search & year filtering (Amazon hallmark)
   const filteredOrders = useMemo(() => {
@@ -619,24 +595,6 @@ export function ProfileClient({
               </span>
             </button>
 
-            <button
-              onClick={() => setActiveTab("buyAgain")}
-              className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
-                activeTab === "buyAgain"
-                  ? "bg-[#553722] text-white shadow-xs"
-                  : "text-[#50453e] hover:bg-[#f8f5f1] hover:text-[#2d1b11]"
-              }`}
-            >
-              <div className="flex items-center gap-2.5">
-                <RotateCcw className="w-4 h-4 shrink-0" />
-                <span>Buy Again</span>
-              </div>
-              {buyAgainProducts.length > 0 && (
-                <span className="text-[11px] text-[#82746d] font-semibold">
-                  {buyAgainProducts.length} items
-                </span>
-              )}
-            </button>
 
             <button
               onClick={() => setActiveTab("wishlist")}
@@ -1068,96 +1026,6 @@ export function ProfileClient({
             </div>
           )}
 
-          {/* ======================================================= */}
-          {/* TAB 2: BUY AGAIN (AMAZON HALLMARK FEATURE)              */}
-          {/* ======================================================= */}
-          {activeTab === "buyAgain" && (
-            <div className="bg-white rounded-2xl border border-[#e8e2dc] shadow-xs p-6 space-y-6">
-              <div className="border-b border-[#e8e2dc] pb-4">
-                <h2 className="font-serif text-xl font-semibold text-[#2d1b11]">Buy Again</h2>
-                <p className="text-xs text-[#82746d] mt-0.5">
-                  Frequently reordered handmade favorites from your purchase history.
-                </p>
-              </div>
-
-              {buyAgainProducts.length === 0 ? (
-                <div className="py-12 text-center space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-[#fbf9f8] text-[#82746d] flex items-center justify-center mx-auto border border-[#e8e2dc]">
-                    <RotateCcw className="w-5 h-5" />
-                  </div>
-                  <h3 className="font-serif text-lg font-medium text-[#2d1b11]">No previous purchases</h3>
-                  <p className="text-xs text-[#82746d] max-w-sm mx-auto">
-                    Items you purchase will appear here for fast 1-click reordering in the future.
-                  </p>
-                  <Link
-                    href="/shop"
-                    className="inline-block mt-2 bg-[#553722] hover:bg-[#3d2617] text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition-colors"
-                  >
-                    Start Shopping
-                  </Link>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-                  {buyAgainProducts.map((p) => (
-                    <div
-                      key={p.id}
-                      className="border border-[#e8e2dc] rounded-xl overflow-hidden hover:border-[#d8cec5] transition-colors flex flex-col justify-between"
-                    >
-                      <div>
-                        <div className="relative aspect-square bg-[#f5ede3] overflow-hidden">
-                          {p.image ? (
-                            <Image
-                              src={p.image}
-                              alt={p.name}
-                              fill
-                              unoptimized
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-[#82746d]">
-                              <Package className="w-6 h-6" />
-                            </div>
-                          )}
-                        </div>
-
-                        <div className="p-3.5">
-                          <span className="text-[10px] text-[#82746d] uppercase tracking-wider font-semibold">
-                            {p.category}
-                          </span>
-                          <Link
-                            href={`/product/${p.slug}`}
-                            className="font-medium text-xs sm:text-sm text-[#2d1b11] hover:text-[#553722] truncate block mt-0.5"
-                          >
-                            {p.name}
-                          </Link>
-                          <p className="font-serif font-bold text-sm text-[#2d1b11] mt-1">
-                            ₹{(p.discountPrice || p.price).toLocaleString("en-IN")}
-                          </p>
-                          <p className="text-[10px] text-[#82746d] mt-1">
-                            Ordered: {new Date(p.lastOrdered).toLocaleDateString("en-IN", { month: "short", day: "numeric" })}
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="p-3.5 pt-0">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            addItem(p, 1);
-                            showToast(`Added ${p.name} to cart`);
-                          }}
-                          className="w-full bg-[#553722] hover:bg-[#3d2617] text-white py-2 rounded-lg text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                        >
-                          <ShoppingBag className="w-3.5 h-3.5" />
-                          <span>Add to Cart</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
 
           {/* ======================================================= */}
           {/* TAB 3: PERSONAL DETAILS & ADDRESSES (INTEGRATED)       */}

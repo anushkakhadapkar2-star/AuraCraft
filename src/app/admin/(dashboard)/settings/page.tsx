@@ -66,7 +66,7 @@ export default function AdminSettingsPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Toast Feedback */}
       {(saveSuccess || saveError) && (
         <div
@@ -80,44 +80,42 @@ export default function AdminSettingsPage() {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Store Settings
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
-                System Config
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Manage artisan storefront preferences, delivery rules, checkout rates, and security policies.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Store Settings
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
+              System Config
+            </span>
           </div>
-
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleSave}
-              disabled={isSaving}
-              className="btn-press btn-shimmer flex items-center gap-2 bg-[#563A29] text-white px-5 py-2.5 rounded-xl font-semibold text-xs hover:bg-[#3d2719] transition-all shadow-sm cursor-pointer disabled:opacity-50"
-            >
-              {isSaving ? (
-                <Loader2 className="w-4 h-4 animate-spin" />
-              ) : saveSuccess ? (
-                <Check className="w-4 h-4 text-emerald-400" />
-              ) : (
-                <Save className="w-4 h-4" />
-              )}
-              <span>{isSaving ? "Saving..." : saveSuccess ? "Saved!" : "Save Changes"}</span>
-            </button>
-          </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Manage artisan storefront preferences, delivery rules, checkout rates, and security policies.
+          </p>
         </div>
-      </header>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className="btn-press btn-shimmer flex items-center gap-2 bg-[#563A29] text-white px-5 py-2.5 rounded-xl font-semibold text-xs hover:bg-[#3d2719] transition-all shadow-sm cursor-pointer disabled:opacity-50"
+          >
+            {isSaving ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : saveSuccess ? (
+              <Check className="w-4 h-4 text-emerald-400" />
+            ) : (
+              <Save className="w-4 h-4" />
+            )}
+            <span>{isSaving ? "Saving..." : saveSuccess ? "Saved!" : "Save Changes"}</span>
+          </button>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         <div className="flex flex-col md:flex-row gap-6">
 
           {/* Settings Tabs Sidebar */}
@@ -368,7 +366,7 @@ export default function AdminSettingsPage() {
             )}
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

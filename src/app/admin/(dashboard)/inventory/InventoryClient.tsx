@@ -105,36 +105,34 @@ export default function InventoryClient({ initialProducts }: { initialProducts: 
   }, [filteredProducts, safeCurrentPage, pageSize]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Inventory & Stock Control
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
-                Live Units Sync
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Instant inventory adjustments, threshold monitoring, and out-of-stock restocking.
-            </p>
-          </div>
-
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
           <div className="flex items-center gap-2.5">
-            <div className="text-right hidden sm:block">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#563A29]/60 block">Total Units</span>
-              <span className="font-serif font-bold text-lg text-[#563A29]">{stats.totalUnits.toLocaleString("en-IN")} units</span>
-            </div>
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Inventory & Stock Control
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
+              Live Units Sync
+            </span>
+          </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Instant inventory adjustments, threshold monitoring, and out-of-stock restocking.
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <div className="text-right hidden sm:block">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#563A29]/60 block">Total Units</span>
+            <span className="font-serif font-bold text-lg text-[#563A29]">{stats.totalUnits.toLocaleString("en-IN")} units</span>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         {errorMsg && (
           <div className="p-4 bg-red-50 border border-red-200 rounded-2xl text-red-700 text-xs font-medium flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -457,7 +455,7 @@ export default function InventoryClient({ initialProducts }: { initialProducts: 
             </div>
           )}
         </div>
-      </main>
+      </div>
     </div>
   );
 }

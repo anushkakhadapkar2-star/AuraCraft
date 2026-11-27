@@ -301,7 +301,7 @@ export default function AdminOrdersClient() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Toast Feedback */}
       {feedback && (
         <div
@@ -315,47 +315,45 @@ export default function AdminOrdersClient() {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Orders & Fulfillment
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29] animate-pulse"></span>
-                Live
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Manage artisan deliveries, track dispatch statuses, and process customer fulfillment.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Orders & Fulfillment
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29] animate-pulse"></span>
+              Live
+            </span>
           </div>
-
-          <div className="flex items-center gap-2.5 w-full md:w-auto">
-            <button
-              onClick={fetchOrders}
-              disabled={refreshing}
-              className="btn-press flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-[#E9DCCB] text-[#563A29] text-xs font-semibold hover:bg-[#E9DCCB]/30 hover:border-[#CDAE91] transition-all shadow-xs"
-              title="Refresh Orders"
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin text-[#563A29]" : "text-[#563A29]/70"}`} />
-              <span>Refresh</span>
-            </button>
-
-            <button
-              onClick={exportToCSV}
-              className="btn-press flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-[#E9DCCB] text-[#563A29] text-xs font-semibold hover:bg-[#E9DCCB]/30 hover:border-[#CDAE91] transition-all shadow-xs"
-            >
-              <Download className="w-3.5 h-3.5 text-[#563A29]/70" />
-              <span>Export CSV</span>
-            </button>
-          </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Manage artisan deliveries, track dispatch statuses, and process customer fulfillment.
+          </p>
         </div>
-      </header>
+
+        <div className="flex items-center gap-2.5 w-full md:w-auto">
+          <button
+            onClick={fetchOrders}
+            disabled={refreshing}
+            className="btn-press flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-[#E9DCCB] text-[#563A29] text-xs font-semibold hover:bg-[#E9DCCB]/30 hover:border-[#CDAE91] transition-all shadow-xs"
+            title="Refresh Orders"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin text-[#563A29]" : "text-[#563A29]/70"}`} />
+            <span>Refresh</span>
+          </button>
+
+          <button
+            onClick={exportToCSV}
+            className="btn-press flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-[#E9DCCB] text-[#563A29] text-xs font-semibold hover:bg-[#E9DCCB]/30 hover:border-[#CDAE91] transition-all shadow-xs"
+          >
+            <Download className="w-3.5 h-3.5 text-[#563A29]/70" />
+            <span>Export CSV</span>
+          </button>
+        </div>
+      </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
 
         {/* KPI Summary Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
@@ -818,7 +816,7 @@ export default function AdminOrdersClient() {
             </div>
           )}
         </div>
-      </main>
+      </div>
 
       {/* Slide-out Order Details Drawer */}
       {selectedOrderForDrawer && (

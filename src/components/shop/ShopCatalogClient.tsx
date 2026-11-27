@@ -296,32 +296,32 @@ export function ShopCatalogClient({
     <div className="w-full">
       {/* 1. TOP BREADCRUMB & INTRO */}
       <div className="mb-6">
-        <nav className="text-xs text-[#8B5E6B] mb-2 flex items-center gap-1.5 flex-wrap">
-          <Link href="/" className="hover:text-[#382025] transition-colors">Home</Link>
+        <nav className="text-xs text-[#706E6B] mb-2 flex items-center gap-1.5 flex-wrap">
+          <Link href="/" className="hover:text-[#292825] transition-colors">Home</Link>
           <span>/</span>
-          <Link href="/shop" className="hover:text-[#382025] transition-colors">Shop</Link>
+          <Link href="/shop" className="hover:text-[#292825] transition-colors">Shop</Link>
           {selectedCategory && (
             <>
               <span>/</span>
-              <span className="font-semibold text-[#382025]">{currentCategoryName}</span>
+              <span className="font-semibold text-[#292825]">{currentCategoryName}</span>
             </>
           )}
         </nav>
 
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#F3E1E5] pb-5">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-[#E6DDCF] pb-5">
           <div>
-            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#382025] tracking-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#292825] tracking-tight">
               {searchQuery ? `Results for "${searchQuery}"` : currentCategoryName}
             </h1>
-            <p className="text-[#8B5E6B] text-xs sm:text-sm mt-1.5 font-medium">
-              Showing <strong className="text-[#382025]">{filteredProducts.length}</strong> handcrafted {filteredProducts.length === 1 ? "creation" : "creations"}
+            <p className="text-[#706E6B] text-xs sm:text-sm mt-1.5 font-medium">
+              Showing <strong className="text-[#292825]">{filteredProducts.length}</strong> handcrafted {filteredProducts.length === 1 ? "creation" : "creations"}
               {inStockOnly ? " (Ready to Ship)" : ""} • Hand-stitched with love
             </p>
           </div>
 
           {/* Quick Search Input */}
           <div className="relative w-full sm:w-64">
-            <Search className="w-4 h-4 text-[#8B5E6B] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#706E6B] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search in catalog..."
@@ -330,7 +330,7 @@ export function ShopCatalogClient({
                 setSearchQuery(e.target.value);
                 updateUrl(undefined, undefined, e.target.value);
               }}
-              className="w-full pl-9 pr-8 py-2 text-xs rounded-full bg-[#FFF9FA] border border-[#F3E1E5] text-[#382025] placeholder:text-[#A88C94] focus:outline-none focus:border-[#F2A4B7] focus:ring-4 focus:ring-[#F8CAD5]/20 focus:bg-white transition-all shadow-[inset_0_2px_4px_rgba(212,91,122,0.05)]"
+              className="w-full pl-9 pr-8 py-2 text-xs rounded-full bg-[#FAF7F2] border border-[#E6DDCF] text-[#292825] placeholder:text-[#A88C94] focus:outline-none focus:border-[#A8B8A0] focus:ring-4 focus:ring-[#EDE3D5]/20 focus:bg-white transition-all shadow-[inset_0_2px_4px_rgba(212,91,122,0.05)]"
             />
             {searchQuery && (
               <button
@@ -338,7 +338,7 @@ export function ShopCatalogClient({
                   setSearchQuery("");
                   updateUrl(undefined, undefined, "");
                 }}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#8B5E6B] hover:text-[#382025]"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#706E6B] hover:text-[#292825]"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -362,7 +362,7 @@ export function ShopCatalogClient({
             }`}
           >
             <span>All Products</span>
-            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${!selectedCategory ? 'bg-white/25 text-white' : 'bg-[#FDF2F5] text-[#B03E5D]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${!selectedCategory ? 'bg-white/25 text-white' : 'bg-[#FAF7F2] text-[#24483B]'}`}>
               {categoryCounts.all || 0}
             </span>
           </button>
@@ -385,7 +385,7 @@ export function ShopCatalogClient({
               >
                 <span>{cat.name}</span>
                 {count > 0 && (
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/25 text-white' : 'bg-[#FDF2F5] text-[#B03E5D]'}`}>
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/25 text-white' : 'bg-[#FAF7F2] text-[#24483B]'}`}>
                     {count}
                   </span>
                 )}
@@ -411,7 +411,7 @@ export function ShopCatalogClient({
             }`}
           >
             <span>✨ All Jewellery</span>
-            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedGender === 'all' ? 'bg-white/25 text-white' : 'bg-[#FDF2F5] text-[#B03E5D]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedGender === 'all' ? 'bg-white/25 text-white' : 'bg-[#FAF7F2] text-[#24483B]'}`}>
               {jewelleryRecipientCounts.all}
             </span>
           </button>
@@ -429,7 +429,7 @@ export function ShopCatalogClient({
             }`}
           >
             <span>👨 Gifts for Men</span>
-            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedGender === 'men' ? 'bg-white/25 text-white' : 'bg-[#FDF2F5] text-[#B03E5D]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedGender === 'men' ? 'bg-white/25 text-white' : 'bg-[#FAF7F2] text-[#24483B]'}`}>
               {jewelleryRecipientCounts.men}
             </span>
           </button>
@@ -447,7 +447,7 @@ export function ShopCatalogClient({
             }`}
           >
             <span>👩 Gifts for Women</span>
-            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedGender === 'women' ? 'bg-white/25 text-white' : 'bg-[#FDF2F5] text-[#B03E5D]'}`}>
+            <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${selectedGender === 'women' ? 'bg-white/25 text-white' : 'bg-[#FAF7F2] text-[#24483B]'}`}>
               {jewelleryRecipientCounts.women}
             </span>
           </button>
@@ -459,15 +459,15 @@ export function ShopCatalogClient({
         
         {/* ===================== DESKTOP STICKY FILTER SIDEBAR ===================== */}
         <aside className="hidden lg:block lg:col-span-3 sticky top-28 clay-card p-5 rounded-[26px] space-y-6">
-          <div className="flex items-center justify-between pb-3 border-b border-[#F3E1E5]">
+          <div className="flex items-center justify-between pb-3 border-b border-[#E6DDCF]">
             <div className="flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4 text-[#D45B7A]" />
-              <h2 className="font-serif font-bold text-sm text-[#382025]">Filters & Attributes</h2>
+              <SlidersHorizontal className="w-4 h-4 text-[#24483B]" />
+              <h2 className="font-serif font-bold text-sm text-[#292825]">Filters & Attributes</h2>
             </div>
             {activeFiltersCount > 0 && (
               <button
                 onClick={handleClearAll}
-                className="text-[11px] text-[#D45B7A] hover:text-[#382025] hover:underline font-bold flex items-center gap-1 cursor-pointer"
+                className="text-[11px] text-[#24483B] hover:text-[#292825] hover:underline font-bold flex items-center gap-1 cursor-pointer"
               >
                 <RotateCcw className="w-3 h-3" /> Reset
               </button>
@@ -476,7 +476,7 @@ export function ShopCatalogClient({
 
           {/* Categories Accordion */}
           <div>
-            <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5">
               Categories
             </h3>
             <div className="space-y-1 text-xs">
@@ -487,8 +487,8 @@ export function ShopCatalogClient({
                 }}
                 className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-left transition-colors cursor-pointer ${
                   !selectedCategory
-                    ? "bg-[#FDF2F5] text-[#B03E5D] font-bold shadow-2xs"
-                    : "text-[#8B5E6B] hover:text-[#382025] hover:bg-[#FAF7F8]"
+                    ? "bg-[#FAF7F2] text-[#24483B] font-bold shadow-2xs"
+                    : "text-[#706E6B] hover:text-[#292825] hover:bg-[#FAF7F8]"
                 }`}
               >
                 <span>All Categories</span>
@@ -507,8 +507,8 @@ export function ShopCatalogClient({
                     }}
                     className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-left transition-colors cursor-pointer ${
                       isSelected
-                        ? "bg-[#FDF2F5] text-[#B03E5D] font-bold shadow-2xs"
-                        : "text-[#8B5E6B] hover:text-[#382025] hover:bg-[#FAF7F8]"
+                        ? "bg-[#FAF7F2] text-[#24483B] font-bold shadow-2xs"
+                        : "text-[#706E6B] hover:text-[#292825] hover:bg-[#FAF7F8]"
                     }`}
                   >
                     <span className="truncate">{cat.name}</span>
@@ -521,9 +521,9 @@ export function ShopCatalogClient({
 
           {/* Recipient / Gifts For Filter (Jewellery only) */}
           {isJewelleryCategory && (
-            <div className="pt-4 border-t border-[#F3E1E5]">
-              <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5 flex items-center gap-1.5">
-                <Gift className="w-3.5 h-3.5 text-[#D45B7A]" /> Jewellery For
+            <div className="pt-4 border-t border-[#E6DDCF]">
+              <h3 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5 flex items-center gap-1.5">
+                <Gift className="w-3.5 h-3.5 text-[#24483B]" /> Jewellery For
               </h3>
               <div className="space-y-1 text-xs">
                 {[
@@ -540,8 +540,8 @@ export function ShopCatalogClient({
                     }}
                     className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-left transition-colors cursor-pointer ${
                       selectedGender === r.id
-                        ? "bg-[#FDF2F5] text-[#B03E5D] font-bold shadow-2xs"
-                        : "text-[#8B5E6B] hover:text-[#382025] hover:bg-[#FAF7F8]"
+                        ? "bg-[#FAF7F2] text-[#24483B] font-bold shadow-2xs"
+                        : "text-[#706E6B] hover:text-[#292825] hover:bg-[#FAF7F8]"
                     }`}
                   >
                     <span>{r.label}</span>
@@ -553,11 +553,11 @@ export function ShopCatalogClient({
           )}
 
           {/* Price Range Filter */}
-          <div className="pt-4 border-t border-[#F3E1E5]">
-            <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5">
+          <div className="pt-4 border-t border-[#E6DDCF]">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5">
               Price Range
             </h3>
-            <div className="space-y-1.5 text-xs text-[#8B5E6B]">
+            <div className="space-y-1.5 text-xs text-[#706E6B]">
               {[
                 { id: "all", label: "All Prices" },
                 { id: "under-500", label: "Under ₹500 (Pocket Blooms)" },
@@ -567,14 +567,14 @@ export function ShopCatalogClient({
               ].map((p) => (
                 <label
                   key={p.id}
-                  className="flex items-center gap-2 cursor-pointer hover:text-[#382025] py-0.5"
+                  className="flex items-center gap-2 cursor-pointer hover:text-[#292825] py-0.5"
                 >
                   <input
                     type="radio"
                     name="priceRange"
                     checked={selectedPriceRange === p.id}
                     onChange={() => setSelectedPriceRange(p.id)}
-                    className="accent-[#D45B7A] w-3.5 h-3.5 cursor-pointer"
+                    className="accent-[#24483B] w-3.5 h-3.5 cursor-pointer"
                   />
                   <span>{p.label}</span>
                 </label>
@@ -583,44 +583,44 @@ export function ShopCatalogClient({
           </div>
 
           {/* Availability Checkbox */}
-          <div className="pt-4 border-t border-[#F3E1E5]">
-            <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5">
+          <div className="pt-4 border-t border-[#E6DDCF]">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5">
               Availability
             </h3>
-            <label className="flex items-center gap-2 text-xs text-[#8B5E6B] cursor-pointer hover:text-[#382025]">
+            <label className="flex items-center gap-2 text-xs text-[#706E6B] cursor-pointer hover:text-[#292825]">
               <input
                 type="checkbox"
                 checked={inStockOnly}
                 onChange={(e) => setInStockOnly(e.target.checked)}
-                className="accent-[#D45B7A] w-3.5 h-3.5 rounded cursor-pointer"
+                className="accent-[#24483B] w-3.5 h-3.5 rounded cursor-pointer"
               />
               <span className="font-medium">In Stock Only (Ready to Ship)</span>
             </label>
           </div>
 
           {/* Minimum Rating */}
-          <div className="pt-4 border-t border-[#F3E1E5]">
-            <h3 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5">
+          <div className="pt-4 border-t border-[#E6DDCF]">
+            <h3 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5">
               Customer Rating
             </h3>
-            <div className="space-y-1 text-xs text-[#8B5E6B]">
+            <div className="space-y-1 text-xs text-[#706E6B]">
               {[0, 4, 3].map((stars) => (
                 <label
                   key={stars}
-                  className="flex items-center gap-2 cursor-pointer hover:text-[#382025] py-0.5"
+                  className="flex items-center gap-2 cursor-pointer hover:text-[#292825] py-0.5"
                 >
                   <input
                     type="radio"
                     name="ratingFilter"
                     checked={minRating === stars}
                     onChange={() => setMinRating(stars)}
-                    className="accent-[#D45B7A] w-3.5 h-3.5 cursor-pointer"
+                    className="accent-[#24483B] w-3.5 h-3.5 cursor-pointer"
                   />
                   <span>
                     {stars === 0 ? (
                       "All Ratings"
                     ) : (
-                      <span className="flex items-center gap-1 font-bold text-[#382025]">
+                      <span className="flex items-center gap-1 font-bold text-[#292825]">
                         {stars}★ & above
                       </span>
                     )}
@@ -631,11 +631,11 @@ export function ShopCatalogClient({
           </div>
 
           {/* Value Proposition Badge */}
-          <div className="pt-4 border-t border-[#F3E1E5] bg-[#FAF7F8] -mx-5 -mb-5 p-4 rounded-b-[26px]">
-            <div className="flex items-center gap-2 text-[#D45B7A] font-bold text-xs mb-1">
+          <div className="pt-4 border-t border-[#E6DDCF] bg-[#FAF7F8] -mx-5 -mb-5 p-4 rounded-b-[26px]">
+            <div className="flex items-center gap-2 text-[#24483B] font-bold text-xs mb-1">
               <Sparkles className="w-3.5 h-3.5" /> 100% Everlasting
             </div>
-            <p className="text-[11px] text-[#8B5E6B] leading-relaxed">
+            <p className="text-[11px] text-[#706E6B] leading-relaxed">
               Every petal is individually hand-crocheted using premium cotton yarn that never fades or wilts.
             </p>
           </div>
@@ -650,19 +650,19 @@ export function ShopCatalogClient({
             {/* Mobile Filter Trigger Button */}
             <button
               onClick={() => setIsMobileDrawerOpen(true)}
-              className="lg:hidden flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#FFF9FA] border border-[#F3E1E5] text-xs font-bold text-[#D45B7A] hover:bg-white transition-colors cursor-pointer shadow-2xs"
+              className="lg:hidden flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#FAF7F2] border border-[#E6DDCF] text-xs font-bold text-[#24483B] hover:bg-white transition-colors cursor-pointer shadow-2xs"
             >
               <SlidersHorizontal className="w-3.5 h-3.5" />
               <span>Filters</span>
               {activeFiltersCount > 0 && (
-                <span className="w-4 h-4 rounded-full bg-[#D45B7A] text-white text-[10px] flex items-center justify-center font-bold">
+                <span className="w-4 h-4 rounded-full bg-[#24483B] text-white text-[10px] flex items-center justify-center font-bold">
                   {activeFiltersCount}
                 </span>
               )}
             </button>
 
             {/* Desktop Count Indicator */}
-            <div className="hidden lg:flex items-center gap-2 text-xs text-[#8B5E6B] font-medium">
+            <div className="hidden lg:flex items-center gap-2 text-xs text-[#706E6B] font-medium">
               <span>Sort By:</span>
             </div>
 
@@ -675,24 +675,24 @@ export function ShopCatalogClient({
                     setSelectedSort(e.target.value);
                     updateUrl(undefined, e.target.value);
                   }}
-                  className="appearance-none bg-[#FFF9FA] border border-[#F3E1E5] rounded-xl py-2 pl-3.5 pr-8 text-xs font-bold text-[#382025] focus:outline-none focus:border-[#F2A4B7] cursor-pointer shadow-[inset_0_1px_2px_rgba(212,91,122,0.05)]"
+                  className="appearance-none bg-[#FAF7F2] border border-[#E6DDCF] rounded-xl py-2 pl-3.5 pr-8 text-xs font-bold text-[#292825] focus:outline-none focus:border-[#A8B8A0] cursor-pointer shadow-[inset_0_1px_2px_rgba(212,91,122,0.05)]"
                 >
                   <option value="newest">Newest Arrivals</option>
                   <option value="price_asc">Price: Low to High</option>
                   <option value="price_desc">Price: High to Low</option>
                   <option value="popular">Most Popular</option>
                 </select>
-                <ChevronDown className="w-3.5 h-3.5 text-[#D45B7A] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <ChevronDown className="w-3.5 h-3.5 text-[#24483B] absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
 
               {/* Grid Density Buttons (Desktop only) */}
-              <div className="hidden sm:flex items-center gap-1 bg-[#FFF9FA] p-1 rounded-xl border border-[#F3E1E5]">
+              <div className="hidden sm:flex items-center gap-1 bg-[#FAF7F2] p-1 rounded-xl border border-[#E6DDCF]">
                 <button
                   type="button"
                   onClick={() => setGridColumns(3)}
                   aria-label="3 column grid"
                   className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                    gridColumns === 3 ? "clay-btn px-2 py-1 shadow-xs" : "text-[#8B5E6B] hover:text-[#382025]"
+                    gridColumns === 3 ? "clay-btn px-2 py-1 shadow-xs" : "text-[#706E6B] hover:text-[#292825]"
                   }`}
                 >
                   <Grid3X3 className="w-3.5 h-3.5" />
@@ -702,7 +702,7 @@ export function ShopCatalogClient({
                   onClick={() => setGridColumns(4)}
                   aria-label="4 column grid"
                   className={`p-1.5 rounded-lg transition-colors cursor-pointer ${
-                    gridColumns === 4 ? "clay-btn px-2 py-1 shadow-xs" : "text-[#8B5E6B] hover:text-[#382025]"
+                    gridColumns === 4 ? "clay-btn px-2 py-1 shadow-xs" : "text-[#706E6B] hover:text-[#292825]"
                   }`}
                 >
                   <LayoutGrid className="w-3.5 h-3.5" />
@@ -714,7 +714,7 @@ export function ShopCatalogClient({
           {/* Active Filter Chips Bar */}
           {activeFiltersCount > 0 && (
             <div className="flex items-center gap-2 flex-wrap mb-5">
-              <span className="text-xs text-[#8B5E6B] font-bold">Active:</span>
+              <span className="text-xs text-[#706E6B] font-bold">Active:</span>
 
               {selectedCategory && (
                 <span className="clay-badge">
@@ -778,7 +778,7 @@ export function ShopCatalogClient({
 
               <button
                 onClick={handleClearAll}
-                className="text-xs text-[#D45B7A] hover:text-[#382025] hover:underline font-bold ml-2 cursor-pointer"
+                className="text-xs text-[#24483B] hover:text-[#292825] hover:underline font-bold ml-2 cursor-pointer"
               >
                 Clear All
               </button>
@@ -791,8 +791,8 @@ export function ShopCatalogClient({
               <div className="clay-icon-pod w-16 h-16 mx-auto mb-4">
                 <Package className="w-7 h-7" />
               </div>
-              <h3 className="font-serif text-xl font-bold text-[#382025] mb-1.5">No creations found</h3>
-              <p className="text-xs sm:text-sm text-[#8B5E6B] max-w-sm mx-auto mb-6">
+              <h3 className="font-serif text-xl font-bold text-[#292825] mb-1.5">No creations found</h3>
+              <p className="text-xs sm:text-sm text-[#706E6B] max-w-sm mx-auto mb-6">
                 We couldn't find any handmade pieces matching your current filter combination.
               </p>
               <button
@@ -829,16 +829,16 @@ export function ShopCatalogClient({
           />
 
           {/* Drawer Body */}
-          <div className="relative bg-[#FAF7F8] w-full max-h-[85vh] rounded-t-[32px] border-t border-[#F3E1E5] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300">
+          <div className="relative bg-[#FAF7F8] w-full max-h-[85vh] rounded-t-[32px] border-t border-[#E6DDCF] shadow-2xl flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-300">
             {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-[#F3E1E5] bg-white">
+            <div className="flex items-center justify-between p-4 border-b border-[#E6DDCF] bg-white">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-[#D45B7A]" />
-                <h3 className="font-serif font-bold text-sm text-[#382025]">Filter & Refine</h3>
+                <SlidersHorizontal className="w-4 h-4 text-[#24483B]" />
+                <h3 className="font-serif font-bold text-sm text-[#292825]">Filter & Refine</h3>
               </div>
               <button
                 onClick={() => setIsMobileDrawerOpen(false)}
-                className="p-1.5 rounded-full text-[#8B5E6B] hover:text-[#382025] hover:bg-[#FAF7F8] cursor-pointer"
+                className="p-1.5 rounded-full text-[#706E6B] hover:text-[#292825] hover:bg-[#FAF7F8] cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -849,7 +849,7 @@ export function ShopCatalogClient({
               
               {/* Category selector */}
               <div>
-                <h4 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5">
+                <h4 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5">
                   Categories
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
@@ -887,9 +887,9 @@ export function ShopCatalogClient({
 
               {/* Recipient selector (Jewellery only) */}
               {isJewelleryCategory && (
-                <div className="pt-4 border-t border-[#F3E1E5]">
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5 flex items-center gap-1.5">
-                    <Gift className="w-3.5 h-3.5 text-[#D45B7A]" /> Jewellery For
+                <div className="pt-4 border-t border-[#E6DDCF]">
+                  <h4 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5 flex items-center gap-1.5">
+                    <Gift className="w-3.5 h-3.5 text-[#24483B]" /> Jewellery For
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
                     {[
@@ -918,8 +918,8 @@ export function ShopCatalogClient({
               )}
 
               {/* Price range */}
-              <div className="pt-4 border-t border-[#F3E1E5]">
-                <h4 className="font-bold text-xs uppercase tracking-wider text-[#8B5E6B] mb-2.5">
+              <div className="pt-4 border-t border-[#E6DDCF]">
+                <h4 className="font-bold text-xs uppercase tracking-wider text-[#706E6B] mb-2.5">
                   Price Range
                 </h4>
                 <div className="space-y-2">
@@ -930,13 +930,13 @@ export function ShopCatalogClient({
                     { id: "1000-2000", label: "₹1,000 – ₹2,000" },
                     { id: "above-2000", label: "Above ₹2,000" },
                   ].map((p) => (
-                    <label key={p.id} className="flex items-center gap-2 cursor-pointer text-[#382025] font-medium">
+                    <label key={p.id} className="flex items-center gap-2 cursor-pointer text-[#292825] font-medium">
                       <input
                         type="radio"
                         name="mobilePrice"
                         checked={selectedPriceRange === p.id}
                         onChange={() => setSelectedPriceRange(p.id)}
-                        className="accent-[#D45B7A] w-4 h-4 cursor-pointer"
+                        className="accent-[#24483B] w-4 h-4 cursor-pointer"
                       />
                       <span>{p.label}</span>
                     </label>
@@ -945,13 +945,13 @@ export function ShopCatalogClient({
               </div>
 
               {/* Stock status */}
-              <div className="pt-4 border-t border-[#F3E1E5]">
-                <label className="flex items-center gap-2 cursor-pointer text-[#382025] font-medium">
+              <div className="pt-4 border-t border-[#E6DDCF]">
+                <label className="flex items-center gap-2 cursor-pointer text-[#292825] font-medium">
                   <input
                     type="checkbox"
                     checked={inStockOnly}
                     onChange={(e) => setInStockOnly(e.target.checked)}
-                    className="accent-[#D45B7A] w-4 h-4 rounded cursor-pointer"
+                    className="accent-[#24483B] w-4 h-4 rounded cursor-pointer"
                   />
                   <span>In Stock Only (Ready to Ship)</span>
                 </label>
@@ -960,7 +960,7 @@ export function ShopCatalogClient({
             </div>
 
             {/* Sticky Drawer Footer */}
-            <div className="p-4 border-t border-[#F3E1E5] bg-white flex items-center gap-3">
+            <div className="p-4 border-t border-[#E6DDCF] bg-white flex items-center gap-3">
               <button
                 onClick={handleClearAll}
                 className="clay-btn-secondary flex-1 py-3 text-xs font-bold"

@@ -9,6 +9,7 @@
     "dev:single": "next dev",
     "build": "next build --webpack",
     "start": "next start",
+    "start:all": "node prod-servers.js",
     "lint": "eslint"
   },
   "dependencies": {

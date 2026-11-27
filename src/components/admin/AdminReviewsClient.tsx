@@ -208,7 +208,7 @@ export function AdminReviewsClient() {
   }, [reviews, filter, searchQuery]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Toast Notification */}
       {actionSuccess && (
         <div
@@ -221,33 +221,31 @@ export function AdminReviewsClient() {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Customer Reviews & Testimonials
-              </h1>
-              {pendingCount > 0 ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29] animate-pulse"></span>
-                  {pendingCount} Pending Moderation
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#FAF7F2] text-[#563A29]/70 border border-[#E9DCCB]">
-                  All Moderated
-                </span>
-              )}
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Moderate verified buyer reviews, view customer photos, and post official seller replies.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Customer Reviews & Testimonials
+            </h1>
+            {pendingCount > 0 ? (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29] animate-pulse"></span>
+                {pendingCount} Pending Moderation
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#FAF7F2] text-[#563A29]/70 border border-[#E9DCCB]">
+                All Moderated
+              </span>
+            )}
           </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Moderate verified buyer reviews, view customer photos, and post official seller replies.
+          </p>
         </div>
-      </header>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         {/* KPI Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div className="bg-white/80 backdrop-blur-sm border border-[#E9DCCB] rounded-2xl p-4 shadow-xs">
@@ -278,8 +276,8 @@ export function AdminReviewsClient() {
             <button
               onClick={() => setFilter("ALL")}
               className={`btn-press px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap min-h-[38px] ${filter === "ALL"
-                  ? "bg-[#563A29] text-white shadow-xs"
-                  : "bg-[#FAF7F2] text-[#563A29]/70 hover:bg-[#E9DCCB]/60"
+                ? "bg-[#563A29] text-white shadow-xs"
+                : "bg-[#FAF7F2] text-[#563A29]/70 hover:bg-[#E9DCCB]/60"
                 }`}
             >
               All Reviews ({reviews.length})
@@ -287,8 +285,8 @@ export function AdminReviewsClient() {
             <button
               onClick={() => setFilter("PENDING")}
               className={`btn-press flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap min-h-[38px] ${filter === "PENDING"
-                  ? "bg-[#92400e] text-white shadow-xs"
-                  : "bg-[#FAF7F2] text-[#92400e] hover:bg-[#fef3c7]"
+                ? "bg-[#92400e] text-white shadow-xs"
+                : "bg-[#FAF7F2] text-[#92400e] hover:bg-[#fef3c7]"
                 }`}
             >
               <Clock className="w-3.5 h-3.5" />
@@ -297,8 +295,8 @@ export function AdminReviewsClient() {
             <button
               onClick={() => setFilter("APPROVED")}
               className={`btn-press flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap min-h-[38px] ${filter === "APPROVED"
-                  ? "bg-[#0f5223] text-white shadow-xs"
-                  : "bg-[#FAF7F2] text-[#0f5223] hover:bg-[#c3e8ca]/40"
+                ? "bg-[#0f5223] text-white shadow-xs"
+                : "bg-[#FAF7F2] text-[#0f5223] hover:bg-[#c3e8ca]/40"
                 }`}
             >
               <CheckCircle className="w-3.5 h-3.5" />
@@ -612,7 +610,7 @@ export function AdminReviewsClient() {
             })}
           </div>
         )}
-      </main>
+      </div>
 
       {/* Delete Confirmation Modal */}
       {reviewToDelete && (

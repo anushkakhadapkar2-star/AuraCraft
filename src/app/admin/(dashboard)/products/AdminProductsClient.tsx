@@ -177,62 +177,60 @@ export default function AdminProductsClient({ initialProducts }: { initialProduc
   }, [filteredProducts, safeCurrentPage, pageSize]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Product Catalog
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
-                {stats.active} Active Online
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Manage handcrafted bouquets, artisanal decor, pricing, and live inventory levels.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Product Catalog
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
+              {stats.active} Active Online
+            </span>
           </div>
-
-          <div className="flex items-center gap-3 w-full md:w-auto">
-            {/* View Mode Toggle */}
-            <div className="flex items-center p-1 bg-white border border-[#E9DCCB] rounded-xl shadow-xs">
-              <button
-                onClick={() => setViewMode("table")}
-                className={`p-1.5 rounded-lg transition-all ${
-                  viewMode === "table" ? "bg-[#563A29] text-white" : "text-[#563A29]/60 hover:text-[#563A29]"
-                }`}
-                title="Table View"
-              >
-                <List className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setViewMode("grid")}
-                className={`p-1.5 rounded-lg transition-all ${
-                  viewMode === "grid" ? "bg-[#563A29] text-white" : "text-[#563A29]/60 hover:text-[#563A29]"
-                }`}
-                title="Grid View"
-              >
-                <LayoutGrid className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Add Product CTA */}
-            <Link
-              href="/admin/products/new"
-              className="btn-press btn-shimmer flex items-center gap-2 bg-[#563A29] text-white px-4 py-2.5 rounded-xl font-semibold text-xs hover:bg-[#3d2719] transition-all shadow-sm"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Add New Product</span>
-            </Link>
-          </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Manage handcrafted bouquets, artisanal decor, pricing, and live inventory levels.
+          </p>
         </div>
-      </header>
+
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          {/* View Mode Toggle */}
+          <div className="flex items-center p-1 bg-white border border-[#E9DCCB] rounded-xl shadow-xs">
+            <button
+              onClick={() => setViewMode("table")}
+              className={`p-1.5 rounded-lg transition-all ${
+                viewMode === "table" ? "bg-[#563A29] text-white" : "text-[#563A29]/60 hover:text-[#563A29]"
+              }`}
+              title="Table View"
+            >
+              <List className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`p-1.5 rounded-lg transition-all ${
+                viewMode === "grid" ? "bg-[#563A29] text-white" : "text-[#563A29]/60 hover:text-[#563A29]"
+              }`}
+              title="Grid View"
+            >
+              <LayoutGrid className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Add Product CTA */}
+          <Link
+            href="/admin/products/new"
+            className="btn-press btn-shimmer flex items-center gap-2 bg-[#563A29] text-white px-4 py-2.5 rounded-xl font-semibold text-xs hover:bg-[#3d2719] transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Add New Product</span>
+          </Link>
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         
         {/* Feedback Alert Banner */}
         {feedback && (
@@ -716,7 +714,7 @@ export default function AdminProductsClient({ initialProducts }: { initialProduc
             </div>
           </div>
         )}
-      </main>
+      </div>
 
       {/* Delete Confirmation Modal */}
       {productToDelete && (

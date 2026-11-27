@@ -106,7 +106,7 @@ export function SearchBar() {
             setIsExpanded(true);
             setTimeout(() => inputRef.current?.focus(), 50);
           }}
-          className="w-10 h-10 rounded-full bg-white border border-[#F3E1E5] text-[#D45B7A] hover:text-[#382025] hover:bg-[#FAF7F8] shadow-[0_3px_8px_rgba(212,91,122,0.08),_inset_0_1px_2px_rgba(255,255,255,0.95)] transition-all flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95"
+          className="w-10 h-10 rounded-full bg-white border border-[#E6DDCF] text-[#24483B] hover:text-[#C9A45C] hover:bg-[#FAF7F2] shadow-2xs transition-all flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95"
           title="Search products"
         >
           <Search className="w-4 h-4" />
@@ -120,19 +120,19 @@ export function SearchBar() {
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setIsOpen(true)}
             placeholder="Search products..."
-            className="w-56 lg:w-72 bg-[#FFF9FA] border border-[#F3E1E5] text-[#382025] placeholder:text-[#A88C94] text-xs font-medium rounded-full pl-4 pr-16 py-2 focus:outline-none focus:border-[#F2A4B7] focus:ring-4 focus:ring-[#F8CAD5]/20 focus:bg-white transition-all duration-300 font-sans shadow-[inset_0_2px_4px_rgba(212,91,122,0.05)]"
+            className="w-56 lg:w-72 bg-white border border-[#E6DDCF] text-[#292825] placeholder:text-[#A8A49E] text-xs font-medium rounded-full pl-4 pr-16 py-2 focus:outline-none focus:border-[#24483B] focus:ring-4 focus:ring-[#24483B]/10 focus:bg-white transition-all duration-300 font-sans shadow-2xs"
           />
           <div className="absolute right-2 flex items-center gap-1">
             {query.trim() && (
               <button 
                 type="button" 
                 onClick={() => { setQuery(""); }}
-                className="text-[#8B5E6B] hover:text-[#382025] p-0.5 cursor-pointer"
+                className="text-[#706E6B] hover:text-[#292825] p-0.5 cursor-pointer"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             )}
-            <button type="submit" className="text-[#D45B7A] hover:text-[#382025] p-1 cursor-pointer">
+            <button type="submit" className="text-[#24483B] hover:text-[#C9A45C] p-1 cursor-pointer">
               <Search className="w-4 h-4" />
             </button>
           </div>
@@ -141,23 +141,23 @@ export function SearchBar() {
 
       {/* Dropdown Recommendations */}
       {isOpen && query.trim() !== "" && (
-        <div className="absolute top-full right-0 left-0 mt-2 bg-white rounded-[24px] shadow-[0_16px_36px_rgba(212,91,122,0.12),_inset_0_2px_4px_rgba(255,255,255,0.95)] border border-[#F3E1E5] overflow-hidden z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
+        <div className="absolute top-full right-0 left-0 mt-2 bg-white rounded-[24px] shadow-[0_16px_36px_rgba(41,40,37,0.1)] border border-[#E6DDCF] overflow-hidden z-[110] animate-in fade-in slide-in-from-top-2 duration-200">
           {isLoading && (
-            <div className="flex items-center justify-center p-6 text-[#8B5E6B]">
-              <Loader2 className="w-5 h-5 animate-spin mr-2 text-[#D45B7A]" />
+            <div className="flex items-center justify-center p-6 text-[#706E6B]">
+              <Loader2 className="w-5 h-5 animate-spin mr-2 text-[#24483B]" />
               <span className="text-xs font-semibold">Searching catalog...</span>
             </div>
           )}
           
           {!isLoading && filteredProducts.length === 0 && (
-            <div className="p-6 text-center text-xs font-semibold text-[#8B5E6B]">
+            <div className="p-6 text-center text-xs font-semibold text-[#706E6B]">
               No products found for "{query}"
             </div>
           )}
 
           {!isLoading && filteredProducts.length > 0 && (
             <div className="py-2">
-              <div className="px-4 py-2 text-[10px] font-bold text-[#8B5E6B] uppercase tracking-wider border-b border-[#F3E1E5]">
+              <div className="px-4 py-2 text-[10px] font-bold text-[#706E6B] uppercase tracking-wider border-b border-[#E6DDCF]">
                 Products
               </div>
               {filteredProducts.map(product => (

@@ -65,8 +65,8 @@ export default function AdminSearchClient({ initialQuery }: AdminSearchClientPro
   );
 
   return (
-    <div className="flex flex-col h-full bg-surface">
-      <header className="sticky top-0 z-30 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 px-6 py-6">
+    <div className="space-y-6">
+      <div className="pb-5 border-b border-outline-variant/30">
         <h2 className="font-headline-md text-headline-md text-primary">Global Search</h2>
         <p className="font-body-md text-on-surface-variant mt-1">Search across products, orders, and customers.</p>
         
@@ -80,9 +80,9 @@ export default function AdminSearchClient({ initialQuery }: AdminSearchClientPro
             className="w-full pl-10 pr-4 py-2 rounded-full border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary/20 bg-surface-container-low font-body-md"
           />
         </div>
-      </header>
+      </div>
 
-      <div className="flex-1 overflow-auto p-6 space-y-8">
+      <div className="space-y-8">
         {loading ? (
           <div className="flex justify-center py-12">
             <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>

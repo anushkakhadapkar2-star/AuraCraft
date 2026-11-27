@@ -166,7 +166,7 @@ export default function ContentClient() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Toast Feedback */}
       {feedback && (
         <div
@@ -180,43 +180,41 @@ export default function ContentClient() {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Storefront CMS & Content
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
-                Live Sync
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Update marketing copy, seasonal hero banners, contact cards, and artisan value propositions.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Storefront CMS & Content
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
+              Live Sync
+            </span>
           </div>
-
-          {/* Segmented Page Tabs */}
-          <div className="flex items-center bg-white p-1 rounded-2xl border border-[#E9DCCB] shadow-xs">
-            {(['home', 'shop', 'about'] as const).map(tab => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`btn-press px-4 py-2 rounded-xl text-xs font-bold transition-all capitalize min-h-[38px] ${activeTab === tab
-                    ? 'bg-[#563A29] text-white shadow-xs'
-                    : 'text-[#563A29]/70 hover:text-[#563A29] hover:bg-[#FAF7F2]'
-                  }`}
-              >
-                {tab === "home" ? "Homepage" : tab === "shop" ? "Shop Page" : "About & Info"}
-              </button>
-            ))}
-          </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Update marketing copy, seasonal hero banners, contact cards, and artisan value propositions.
+          </p>
         </div>
-      </header>
+
+        {/* Segmented Page Tabs */}
+        <div className="flex items-center bg-white p-1 rounded-2xl border border-[#E9DCCB] shadow-xs">
+          {(['home', 'shop', 'about'] as const).map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`btn-press px-4 py-2 rounded-xl text-xs font-bold transition-all capitalize min-h-[38px] ${activeTab === tab
+                  ? 'bg-[#563A29] text-white shadow-xs'
+                  : 'text-[#563A29]/70 hover:text-[#563A29] hover:bg-[#FAF7F2]'
+                }`}
+            >
+              {tab === "home" ? "Homepage" : tab === "shop" ? "Shop Page" : "About & Info"}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         {/* Homepage Hero Editor */}
         {activeTab === 'home' && (
           <div className="bg-white rounded-3xl border border-[#E9DCCB] shadow-xs overflow-hidden p-6 sm:p-8 animate-in fade-in duration-200 space-y-6">
@@ -526,7 +524,7 @@ export default function ContentClient() {
             </div>
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

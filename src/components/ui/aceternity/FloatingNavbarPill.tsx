@@ -50,7 +50,7 @@ export const FloatingNavbarPill = ({
                   stiffness: 350,
                   damping: 30,
                 }}
-                className="absolute inset-0 rounded-full bg-gradient-to-r from-[#D45B7A] to-[#B03E5D] shadow-[0_4px_12px_rgba(212,91,122,0.35)]"
+                className="absolute inset-0 rounded-full bg-[#24483B] shadow-[0_4px_14px_rgba(36,72,59,0.3)]"
               />
             )}
 
@@ -63,7 +63,7 @@ export const FloatingNavbarPill = ({
                   stiffness: 350,
                   damping: 30,
                 }}
-                className="absolute inset-0 rounded-full bg-[#F8CAD5]/30 border border-[#F3E1E5]"
+                className="absolute inset-0 rounded-full bg-[#EDE3D5]/60 border border-[#E6DDCF]"
               />
             )}
 
@@ -73,7 +73,7 @@ export const FloatingNavbarPill = ({
                 "relative z-10 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-colors duration-200 block",
                 active
                   ? "text-white font-extrabold"
-                  : "text-[#8B5E6B] hover:text-[#382025]"
+                  : "text-[#706E6B] hover:text-[#292825]"
               )}
             >
               {link.label}

@@ -78,7 +78,7 @@ export default function MessagesClient() {
   }, [messages, filter, search]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Toast Feedback */}
       {feedback && (
         <div
@@ -92,33 +92,31 @@ export default function MessagesClient() {
       )}
 
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Customer Inquiries & Messages
-              </h1>
-              {unreadCount > 0 ? (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29] animate-pulse"></span>
-                  {unreadCount} Unread Inquiries
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#FAF7F2] text-[#563A29]/70 border border-[#E9DCCB]">
-                  All Caught Up
-                </span>
-              )}
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              Read customer queries, custom hamper questions, and artisan commission requests.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Customer Inquiries & Messages
+            </h1>
+            {unreadCount > 0 ? (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29] animate-pulse"></span>
+                {unreadCount} Unread Inquiries
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#FAF7F2] text-[#563A29]/70 border border-[#E9DCCB]">
+                All Caught Up
+              </span>
+            )}
           </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            Read customer queries, custom hamper questions, and artisan commission requests.
+          </p>
         </div>
-      </header>
+      </div>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
         {/* KPI Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <div className="bg-white/80 backdrop-blur-sm border border-[#E9DCCB] rounded-2xl p-4 shadow-xs">
@@ -324,7 +322,7 @@ export default function MessagesClient() {
             )}
           </div>
         </div>
-      </main>
+      </div>
 
       {/* Delete Confirmation Modal */}
       {messageToDelete && (

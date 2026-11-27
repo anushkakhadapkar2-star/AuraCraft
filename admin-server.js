@@ -10,8 +10,9 @@
 const http = require('http');
 const net = require('net');
 
-const WEBSITE_PORT = 3000;
-const ADMIN_PORT = 3001;
+const WEBSITE_HOST = process.env.WEBSITE_HOST || '127.0.0.1';
+const WEBSITE_PORT = parseInt(process.env.WEBSITE_PORT || '3000', 10);
+const ADMIN_PORT = parseInt(process.env.ADMIN_PORT || '3001', 10);
 
 const server = http.createServer((req, res) => {
   // If user visits root of port 3001, take them straight into the Admin Panel!
@@ -23,7 +24,7 @@ const server = http.createServer((req, res) => {
 
   // Forward all requests to Next.js on port 3000
   const options = {
-    hostname: '127.0.0.1',
+    hostname: WEBSITE_HOST,
     port: WEBSITE_PORT,
     path: req.url,
     method: req.method,
@@ -80,7 +81,7 @@ const server = http.createServer((req, res) => {
 
 // Support WebSockets for Next.js Fast Refresh & HMR on port 3001
 server.on('upgrade', (req, socket, head) => {
-  const proxySocket = net.connect(WEBSITE_PORT, '127.0.0.1', () => {
+  const proxySocket = net.connect(WEBSITE_PORT, WEBSITE_HOST, () => {
     proxySocket.write(
       `${req.method} ${req.url} HTTP/${req.httpVersion}\r\n` +
       Object.entries(req.headers)

@@ -71,29 +71,27 @@ export default function AdminCustomersClient({ initialCustomers }: { initialCust
   }, [filteredCustomers, safeCurrentPage, pageSize]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F8F4EE] text-[#563A29]">
+    <div className="space-y-6 text-[#563A29]">
       {/* Top Header */}
-      <header className="sticky top-0 z-20 bg-[#F8F4EE]/90 backdrop-blur-md border-b border-[#E9DCCB]/80 px-6 py-5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
-            <div className="flex items-center gap-2.5">
-              <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
-                Customer Community
-              </h1>
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
-                {initialCustomers?.length || 0} Registered Patrons
-              </span>
-            </div>
-            <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
-              View customer profiles, contact channels, joined dates, and privileges.
-            </p>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-5 border-b border-[#E9DCCB]/80">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h1 className="font-serif text-2xl font-bold tracking-tight text-[#563A29]">
+              Customer Community
+            </h1>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#A4AD91]/20 text-[#3d4b29] border border-[#A4AD91]/40">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3d4b29]"></span>
+              {initialCustomers?.length || 0} Registered Patrons
+            </span>
           </div>
+          <p className="text-xs text-[#563A29]/70 mt-1 font-sans">
+            View customer profiles, contact channels, joined dates, and privileges.
+          </p>
         </div>
-      </header>
+      </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+      <div className="space-y-6">
 
         {/* KPI Strip */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -397,7 +395,7 @@ export default function AdminCustomersClient({ initialCustomers }: { initialCust
             </div>
           )}
         </div>
-      </main>
+      </div>
 
       {/* Slide-out Customer Details Drawer */}
       {selectedCustomer && (
