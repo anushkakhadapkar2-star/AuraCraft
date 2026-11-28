@@ -1,18 +1,24 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, User, Heart, ShoppingBag, LogOut, Package, Star } from "lucide-react";
-import { getInitials } from "@/lib/utils";
+import Link from "next/link";
+import { User, LogOut, Package, Heart, Sparkles, LogIn, UserPlus } from "lucide-react";
 
-interface UserMenuProps {
-  session: any;
-}
-
-export function UserMenu({ session }: UserMenuProps) {
+export function UserMenu({ session }: { session?: any }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Close when clicked outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -22,93 +28,130 @@ export function UserMenu({ session }: UserMenuProps) {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setIsOpen(false);
-    }, 200); // 200ms delay to allow moving mouse into dropdown
+    }, 200);
   };
 
   const handleLinkClick = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
+  const getInitials = (name?: string, email?: string) => {
+    if (name) {
+      const parts = name.trim().split(" ");
+      if (parts.length >= 2) return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
+      return name.slice(0, 2).toUpperCase();
     }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
+    if (email) return email.slice(0, 2).toUpperCase();
+    return "AC";
+  };
 
   const loggedOutMenu = (
-    <>
-      <div className="mb-4 pb-4 border-b border-[#F3E1E5] space-y-2.5">
+    <div className="space-y-3">
+      <div className="p-3 bg-[#FAF7F2] rounded-2xl border border-[#EDE3D5] text-center space-y-2">
+        <p className="text-xs font-bold text-[#292825]">Welcome to Aura Craft</p>
+        <p className="text-[11px] text-[#706E6B]">Sign in to track orders, manage wishlist & addresses</p>
         <Link 
-          href="/login" 
+          href="/login?callbackUrl=/profile" 
           onClick={handleLinkClick}
-          className="clay-btn w-full py-2.5 px-4 rounded-xl text-xs flex items-center justify-center shadow-[0_4px_12px_rgba(212,91,122,0.3)]"
+          className="clay-btn w-full py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs"
         >
-          Log In
+          <LogIn className="w-3.5 h-3.5" />
+          <span>Sign In</span>
         </Link>
-        <div className="flex justify-between items-center px-1 text-xs">
-          <span className="text-[#8B5E6B]">New customer?</span>
+        <div className="flex justify-center items-center gap-1 pt-1 text-[11px]">
+          <span className="text-[#706E6B]">New here?</span>
           <Link 
             href="/register" 
             onClick={handleLinkClick}
-            className="text-[#D45B7A] hover:text-[#B03E5D] hover:underline font-bold"
+            className="text-[#24483B] hover:text-[#C9A45C] hover:underline font-bold"
           >
-            Sign Up
+            Create an Account
           </Link>
         </div>
       </div>
-      <Link href="/login?callbackUrl=/profile" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
-        <User className="w-4 h-4 text-[#8B5E6B]" />
-        <span>My Profile</span>
-      </Link>
-      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
-        <Package className="w-4 h-4 text-[#8B5E6B]" />
-        <span>Orders</span>
-      </Link>
-      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
-        <Heart className="w-4 h-4 text-[#8B5E6B]" />
-        <span>Wishlist</span>
-      </Link>
-      <Link href="/login" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
-        <Star className="w-4 h-4 text-[#8B5E6B]" />
-        <span>Rewards</span>
-      </Link>
-    </>
+
+      <div className="space-y-0.5">
+        <Link 
+          href="/login?callbackUrl=/profile" 
+          onClick={handleLinkClick} 
+          className="flex items-center gap-3 py-2 px-3 text-[#292825] hover:text-[#24483B] hover:bg-[#FAF7F2] rounded-xl text-xs font-semibold transition-colors"
+        >
+          <User className="w-4 h-4 text-[#706E6B]" />
+          <span>My Profile</span>
+        </Link>
+        <Link 
+          href="/login?callbackUrl=/account/orders" 
+          onClick={handleLinkClick} 
+          className="flex items-center gap-3 py-2 px-3 text-[#292825] hover:text-[#24483B] hover:bg-[#FAF7F2] rounded-xl text-xs font-semibold transition-colors"
+        >
+          <Package className="w-4 h-4 text-[#706E6B]" />
+          <span>Orders & Tracking</span>
+        </Link>
+        <Link 
+          href="/wishlist" 
+          onClick={handleLinkClick} 
+          className="flex items-center gap-3 py-2 px-3 text-[#292825] hover:text-[#24483B] hover:bg-[#FAF7F2] rounded-xl text-xs font-semibold transition-colors"
+        >
+          <Heart className="w-4 h-4 text-[#706E6B]" />
+          <span>Wishlist</span>
+        </Link>
+      </div>
+    </div>
   );
 
   const loggedInMenu = (
-    <>
-      <Link href="/profile" onClick={handleLinkClick} className="block mb-4 pb-4 border-b border-[#F3E1E5] hover:opacity-85 transition-opacity">
-        <p className="font-bold text-[#382025] text-sm truncate">
-          Hello, {session?.user?.name || "Customer"}
+    <div className="space-y-2">
+      <Link 
+        href="/profile" 
+        onClick={handleLinkClick} 
+        className="block p-3 bg-[#FAF7F2] rounded-2xl border border-[#EDE3D5] hover:border-[#DFD3C3] transition-colors"
+      >
+        <p className="font-serif font-bold text-[#24483B] text-sm truncate">
+          {session?.user?.name || "Artisan Patron"}
         </p>
-        <p className="text-[#8B5E6B] text-xs truncate mt-0.5">
-          {session?.user?.email || session?.user?.phone || "Welcome back!"}
+        <p className="text-[#706E6B] text-[11px] truncate mt-0.5">
+          {session?.user?.email || session?.user?.phone || "Welcome back"}
         </p>
       </Link>
-      <Link href="/profile" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
-        <User className="w-4 h-4 text-[#8B5E6B]" />
-        <span>My Profile</span>
-      </Link>
-      <Link href="/account/orders" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
-        <Package className="w-4 h-4 text-[#8B5E6B]" />
-        <span>Orders</span>
-      </Link>
-      <Link href="/wishlist" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-[#382025] hover:text-[#D45B7A] transition-colors hover:bg-[#FAF7F8] px-3 -mx-2 rounded-xl text-xs font-semibold">
-        <Heart className="w-4 h-4 text-[#8B5E6B]" />
-        <span>Wishlist</span>
-      </Link>
-      <a href="/api/auth/signout" onClick={handleLinkClick} className="flex items-center gap-3 py-2.5 text-rose-600 hover:bg-rose-50 px-3 -mx-2 rounded-xl transition-colors mt-2 border-t border-[#F3E1E5] pt-3 text-xs font-bold">
-        <LogOut className="w-4 h-4" />
-        <span>Logout</span>
-      </a>
-    </>
+
+      <div className="space-y-0.5 pt-1">
+        <Link 
+          href="/profile" 
+          onClick={handleLinkClick} 
+          className="flex items-center gap-3 py-2 px-3 text-[#292825] hover:text-[#24483B] hover:bg-[#FAF7F2] rounded-xl text-xs font-semibold transition-colors"
+        >
+          <User className="w-4 h-4 text-[#706E6B]" />
+          <span>Personal Details & Addresses</span>
+        </Link>
+        <Link 
+          href="/account/orders" 
+          onClick={handleLinkClick} 
+          className="flex items-center gap-3 py-2 px-3 text-[#292825] hover:text-[#24483B] hover:bg-[#FAF7F2] rounded-xl text-xs font-semibold transition-colors"
+        >
+          <Package className="w-4 h-4 text-[#706E6B]" />
+          <span>My Orders</span>
+        </Link>
+        <Link 
+          href="/wishlist" 
+          onClick={handleLinkClick} 
+          className="flex items-center gap-3 py-2 px-3 text-[#292825] hover:text-[#24483B] hover:bg-[#FAF7F2] rounded-xl text-xs font-semibold transition-colors"
+        >
+          <Heart className="w-4 h-4 text-[#706E6B]" />
+          <span>Wishlist</span>
+        </Link>
+      </div>
+
+      <div className="pt-2 border-t border-[#EDE3D5]">
+        <a 
+          href="/api/auth/signout" 
+          onClick={handleLinkClick} 
+          className="flex items-center gap-2.5 py-2 px-3 text-rose-600 hover:bg-rose-50 rounded-xl transition-colors text-xs font-bold"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Sign Out</span>
+        </a>
+      </div>
+    </div>
   );
 
   return (
@@ -121,32 +164,28 @@ export function UserMenu({ session }: UserMenuProps) {
       <button 
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center focus:outline-none cursor-pointer group p-0.5 rounded-full transition-transform hover:scale-105 active:scale-95"
+        className="w-10 h-10 rounded-full bg-white border border-[#E6DDCF] text-[#24483B] hover:text-[#C9A45C] hover:bg-[#FAF7F2] shadow-2xs transition-all flex items-center justify-center cursor-pointer hover:scale-105 active:scale-95"
         aria-label="User profile menu"
+        title={session?.user?.name ? `Account: ${session.user.name}` : "Account"}
       >
         {session?.user ? (
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F8CAD5] to-[#D45B7A] text-white flex items-center justify-center font-bold text-xs tracking-tight shadow-[0_3px_8px_rgba(212,91,122,0.35)] ring-2 ring-white">
+          <div className="w-7 h-7 rounded-full bg-[#24483B] text-white flex items-center justify-center font-bold text-[11px] tracking-tight">
             {getInitials(session.user?.name, session.user?.email)}
           </div>
         ) : (
-          <div className="w-10 h-10 rounded-full bg-white text-[#D45B7A] flex items-center justify-center group-hover:bg-[#FAF7F8] group-hover:text-[#382025] transition-all border border-[#F3E1E5] shadow-[0_3px_8px_rgba(212,91,122,0.08),_inset_0_1px_2px_rgba(255,255,255,0.95)]">
-            <User className="w-4 h-4" />
-          </div>
+          <User className="w-4 h-4" />
         )}
       </button>
 
       {/* Dropdown Panel */}
       <div 
-        className={`absolute top-full right-0 mt-2 w-64 bg-white rounded-[26px] shadow-[0_16px_36px_rgba(212,91,122,0.12),_inset_0_2px_4px_rgba(255,255,255,0.95)] border border-[#F3E1E5] p-5 transform origin-top-right transition-all duration-200 ease-out z-[110]
-          ${isOpen ? 'opacity-100 scale-100 translate-y-0 visible' : 'opacity-0 scale-95 -translate-y-2 invisible'}
-        `}
+        className={`absolute top-full right-0 mt-2 w-64 sm:w-72 bg-white rounded-[24px] shadow-[0_16px_40px_rgba(41,40,37,0.12)] border border-[#EDE3D5] p-3.5 transform origin-top-right transition-all duration-200 ease-out z-[110] ${
+          isOpen 
+            ? "opacity-100 scale-100 pointer-events-auto" 
+            : "opacity-0 scale-95 pointer-events-none"
+        }`}
       >
-        {/* Pointer Triangle */}
-        <div className="absolute -top-1.5 right-6 w-3.5 h-3.5 bg-white border-t border-l border-[#F3E1E5] transform rotate-45"></div>
-        
-        <div className="relative z-10">
-          {session ? loggedInMenu : loggedOutMenu}
-        </div>
+        {session?.user ? loggedInMenu : loggedOutMenu}
       </div>
     </div>
   );

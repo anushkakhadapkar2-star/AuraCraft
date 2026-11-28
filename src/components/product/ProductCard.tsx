@@ -95,7 +95,7 @@ export function ProductCard({ product }: { product: any }) {
 
         {/* Quick Add To Bag overlay on hover (desktop) */}
         <div className="absolute bottom-2.5 inset-x-2.5 z-20 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0 hidden sm:block">
-          <ProductQuickAdd product={product} disabled={isOutOfStock} />
+          <ProductQuickAdd product={product} disabled={isOutOfStock} variant="full" />
         </div>
       </div>
 
@@ -119,7 +119,7 @@ export function ProductCard({ product }: { product: any }) {
         </div>
         
         <div>
-          <div className="flex items-baseline justify-between gap-2">
+          <div className="flex items-center justify-between gap-2">
             <div className="flex items-baseline gap-2">
               <p className="font-bold text-sm sm:text-base text-[#24483B]">
                 ₹{Number(price).toLocaleString("en-IN")}
@@ -133,7 +133,7 @@ export function ProductCard({ product }: { product: any }) {
 
             {/* Quick Add mobile button */}
             <div className="sm:hidden z-20 relative">
-              <ProductQuickAdd product={product} disabled={isOutOfStock} />
+              <ProductQuickAdd product={product} disabled={isOutOfStock} variant="compact" />
             </div>
           </div>
 

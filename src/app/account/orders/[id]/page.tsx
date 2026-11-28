@@ -130,10 +130,10 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
     }
     if (order.orderStatus === "SHIPPED") {
       return (
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FDF2F5] text-[#B03E5D] border border-[#F3E1E5]">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#EDE3D5] text-[#24483B] border border-[#EDE3D5]">
           <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D45B7A] opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#382025]"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#24483B] opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#292825]"></span>
           </span>
           <span>Shipped • In Transit</span>
         </span>
@@ -151,7 +151,7 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
       );
     }
     return (
-      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FAF7F8] text-[#382025] border border-[#F3E1E5]">
+      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FAF7F2] text-[#292825] border border-[#EDE3D5]">
         <Clock className="w-3.5 h-3.5 text-[#F2A4B7]" />
         <span>Order Placed</span>
       </span>
@@ -165,7 +165,7 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <Link 
           href="/account/orders" 
-          className="inline-flex items-center gap-2 text-xs font-semibold text-[#8B5E6B] hover:text-[#382025] transition-colors group"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-[#706E6B] hover:text-[#292825] transition-colors group"
         >
           <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
           <span>Back to All Orders</span>
@@ -180,59 +180,59 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
       </div>
 
       {/* 2. PREMIUM HERO ORDER CARD */}
-      <div className="bg-white rounded-3xl border border-[#F3E1E5] p-6 sm:p-8 shadow-[0_4px_24px_rgba(212,91,122,0.06)] space-y-6">
+      <div className="bg-white rounded-3xl border border-[#EDE3D5] p-6 sm:p-8 shadow-[0_4px_24px_rgba(212,91,122,0.06)] space-y-6">
         
         {/* Title & Status */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#F3E1E5]/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#EDE3D5]/80">
           <div>
             <div className="flex items-center gap-3 flex-wrap">
-              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#382025] tracking-tight">
+              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-[#292825] tracking-tight">
                 Order #{shortId}
               </h1>
               {getStatusBadge()}
             </div>
-            <p className="text-xs text-[#8B5E6B] mt-1 font-mono">
+            <p className="text-xs text-[#706E6B] mt-1 font-mono">
               ID: {order.id}
             </p>
           </div>
 
           <div className="text-left sm:text-right">
-            <p className="text-[11px] font-semibold tracking-wider uppercase text-[#8B5E6B]">
+            <p className="text-[11px] font-semibold tracking-wider uppercase text-[#706E6B]">
               Total Amount
             </p>
-            <p className="font-serif text-2xl sm:text-3xl font-bold text-[#D45B7A] tracking-tight">
+            <p className="font-serif text-2xl sm:text-3xl font-bold text-[#24483B] tracking-tight">
               ₹{order.totalAmount?.toFixed(2)}
             </p>
           </div>
         </div>
 
         {/* Quick Metadata Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-[#FAF7F8] rounded-2xl p-4 sm:p-5 border border-[#F3E1E5]/70 text-xs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-[#FAF7F2] rounded-2xl p-4 sm:p-5 border border-[#EDE3D5]/70 text-xs">
           <div>
-            <span className="text-[11px] font-medium text-[#8B5E6B] flex items-center gap-1.5 mb-1">
-              <Calendar className="w-3.5 h-3.5 text-[#382025]" />
+            <span className="text-[11px] font-medium text-[#706E6B] flex items-center gap-1.5 mb-1">
+              <Calendar className="w-3.5 h-3.5 text-[#292825]" />
               <span>Placed On</span>
             </span>
-            <p className="font-semibold text-[#382025]">{formattedPlacedDate}</p>
+            <p className="font-semibold text-[#292825]">{formattedPlacedDate}</p>
           </div>
 
           <div>
-            <span className="text-[11px] font-medium text-[#8B5E6B] flex items-center gap-1.5 mb-1">
-              <Truck className="w-3.5 h-3.5 text-[#382025]" />
+            <span className="text-[11px] font-medium text-[#706E6B] flex items-center gap-1.5 mb-1">
+              <Truck className="w-3.5 h-3.5 text-[#292825]" />
               <span>Estimated Delivery</span>
             </span>
-            <p className="font-semibold text-[#382025]">
+            <p className="font-semibold text-[#292825]">
               {isCancelled ? "Cancelled" : deliveryDateString}
             </p>
           </div>
 
           <div>
-            <span className="text-[11px] font-medium text-[#8B5E6B] flex items-center gap-1.5 mb-1">
-              <CreditCard className="w-3.5 h-3.5 text-[#382025]" />
+            <span className="text-[11px] font-medium text-[#706E6B] flex items-center gap-1.5 mb-1">
+              <CreditCard className="w-3.5 h-3.5 text-[#292825]" />
               <span>Payment</span>
             </span>
             <div className="flex items-center gap-1.5 mt-0.5">
-              <span className="font-semibold text-[#382025]">
+              <span className="font-semibold text-[#292825]">
                 {order.paymentMethod === "COD" ? "Cash on Delivery" : order.paymentMethod}
               </span>
               <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-bold ${
@@ -246,11 +246,11 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
           </div>
 
           <div>
-            <span className="text-[11px] font-medium text-[#8B5E6B] flex items-center gap-1.5 mb-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#382025]" />
+            <span className="text-[11px] font-medium text-[#706E6B] flex items-center gap-1.5 mb-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#292825]" />
               <span>Artisan Tracking ID</span>
             </span>
-            <p className="font-mono font-semibold text-[#382025] truncate" title={trackingId}>
+            <p className="font-mono font-semibold text-[#292825] truncate" title={trackingId}>
               {trackingId}
             </p>
           </div>
@@ -260,16 +260,16 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
         <div className="pt-2">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="font-serif text-lg font-bold text-[#382025]">
+              <h2 className="font-serif text-lg font-bold text-[#292825]">
                 Fulfillment & Tracking
               </h2>
-              <p className="text-xs text-[#8B5E6B] mt-0.5">
+              <p className="text-xs text-[#706E6B] mt-0.5">
                 Real-time status updates from our handcrafted workshop to your doorstep
               </p>
             </div>
             <Link
               href={`/track-order/${order.id}`}
-              className="text-xs font-semibold text-[#D45B7A] hover:underline flex items-center gap-1 shrink-0"
+              className="text-xs font-semibold text-[#24483B] hover:underline flex items-center gap-1 shrink-0"
             >
               <span>Full Screen Tracker</span>
               <ExternalLink className="w-3.5 h-3.5" />
@@ -304,10 +304,10 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
           ) : (
             <div className="relative py-4">
               {/* Stepper Progress Bar Line Background */}
-              <div className="absolute top-8 left-[10%] right-[10%] h-1 bg-[#F3E1E5] z-0 rounded-full"></div>
+              <div className="absolute top-8 left-[10%] right-[10%] h-1 bg-[#EDE3D5] z-0 rounded-full"></div>
               {/* Active Fill Line */}
               <div 
-                className="absolute top-8 left-[10%] h-1 bg-gradient-to-r from-[#F2A4B7] to-[#D45B7A] z-0 rounded-full transition-all duration-700 ease-in-out"
+                className="absolute top-8 left-[10%] h-1 bg-gradient-to-r from-[#F2A4B7] to-[#24483B] z-0 rounded-full transition-all duration-700 ease-in-out"
                 style={{ width: `${Math.max(0, Math.min(80, (activeStep / 4) * 80))}%` }}
               ></div>
 
@@ -324,22 +324,22 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
                       <div
                         className={`w-9 h-9 rounded-full flex items-center justify-center mb-3 transition-all duration-300 border-2 ${
                           isCompleted
-                            ? "bg-gradient-to-br from-[#F2A4B7] to-[#D45B7A] text-white border-[#D45B7A] shadow-xs"
-                            : "bg-white text-[#8B5E6B]/50 border-[#F3E1E5]"
-                        } ${isCurrent ? "ring-4 ring-[#D45B7A]/20 scale-105" : ""}`}
+                            ? "bg-gradient-to-br from-[#F2A4B7] to-[#24483B] text-white border-[#24483B] shadow-xs"
+                            : "bg-white text-[#706E6B]/50 border-[#EDE3D5]"
+                        } ${isCurrent ? "ring-4 ring-[#24483B]/20 scale-105" : ""}`}
                       >
                         {isCompleted ? (
                           <Check className="w-4 h-4 text-white" strokeWidth={2.5} />
                         ) : (
-                          <StepIcon className="w-4 h-4 text-[#8B5E6B]/50" />
+                          <StepIcon className="w-4 h-4 text-[#706E6B]/50" />
                         )}
                       </div>
 
                       {/* Step Title & Sub-caption */}
-                      <p className={`text-xs font-bold leading-tight ${isCompleted ? "text-[#382025]" : "text-[#8B5E6B]/60"}`}>
+                      <p className={`text-xs font-bold leading-tight ${isCompleted ? "text-[#292825]" : "text-[#706E6B]/60"}`}>
                         {step.label}
                       </p>
-                      <p className="text-[10px] text-[#8B5E6B] hidden sm:block mt-0.5 leading-tight">
+                      <p className="text-[10px] text-[#706E6B] hidden sm:block mt-0.5 leading-tight">
                         {step.desc}
                       </p>
                     </div>
@@ -358,20 +358,20 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
         
         {/* ================= LEFT COLUMN: ITEMS ORDERED ================= */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-white rounded-3xl border border-[#F3E1E5] overflow-hidden shadow-[0_4px_20px_rgba(212,91,122,0.03)]">
-            <div className="px-6 py-5 border-b border-[#F3E1E5] flex items-center justify-between">
+          <div className="bg-white rounded-3xl border border-[#EDE3D5] overflow-hidden shadow-[0_4px_20px_rgba(212,91,122,0.03)]">
+            <div className="px-6 py-5 border-b border-[#EDE3D5] flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <Package className="w-4 h-4 text-[#D45B7A]" />
-                <h2 className="font-serif font-bold text-base text-[#382025]">
+                <Package className="w-4 h-4 text-[#24483B]" />
+                <h2 className="font-serif font-bold text-base text-[#292825]">
                   Items in this Order ({items.length})
                 </h2>
               </div>
-              <span className="text-xs text-[#8B5E6B]">
+              <span className="text-xs text-[#706E6B]">
                 All items carefully packaged
               </span>
             </div>
 
-            <div className="divide-y divide-[#F3E1E5]/60 p-6">
+            <div className="divide-y divide-[#EDE3D5]/60 p-6">
               {items.map((item: any, idx: number) => {
                 const product = item.product || {};
                 const imageUrl = product.images?.[0]?.url || product.imageUrl || "/uploads/all-products.png";
@@ -379,7 +379,7 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
                 return (
                   <div key={idx} className="py-4 first:pt-0 last:pb-0 flex items-center gap-4 sm:gap-5">
                     {/* High-res Image Container */}
-                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#FAF7F8] border border-[#F3E1E5] overflow-hidden shrink-0 shadow-2xs">
+                    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#FAF7F2] border border-[#EDE3D5] overflow-hidden shrink-0 shadow-2xs">
                       <Image
                         src={imageUrl}
                         alt={product.name || "Handmade Item"}
@@ -393,31 +393,31 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
                     <div className="flex-1 min-w-0">
                       <Link
                         href={`/product/${product.slug || ""}`}
-                        className="font-serif font-bold text-sm sm:text-base text-[#382025] hover:text-[#D45B7A] transition-colors line-clamp-1"
+                        className="font-serif font-bold text-sm sm:text-base text-[#292825] hover:text-[#24483B] transition-colors line-clamp-1"
                       >
                         {product.name || "Handcrafted Bouquet"}
                       </Link>
                       
-                      <p className="text-xs text-[#8B5E6B] mt-1 capitalize">
+                      <p className="text-xs text-[#706E6B] mt-1 capitalize">
                         {product.categorySlug ? product.categorySlug.replace(/-/g, " ") : "Everlasting Botanical"}
                       </p>
 
                       {item.customGift && (
-                        <div className="mt-2 p-2.5 bg-[#FAF7F8] rounded-xl border border-[#F3E1E5] text-xs space-y-1">
-                          <div className="font-bold text-[#D45B7A] flex items-center gap-1.5 flex-wrap">
+                        <div className="mt-2 p-2.5 bg-[#FAF7F2] rounded-xl border border-[#EDE3D5] text-xs space-y-1">
+                          <div className="font-bold text-[#24483B] flex items-center gap-1.5 flex-wrap">
                             <span>🎁 Custom Gift for: {item.customGift.recipientName}</span>
                             <span>• {item.customGift.occasion}</span>
                           </div>
                           {item.customGift.box && (
-                            <p className="text-[11px] text-[#8B5E6B]">Box: <strong className="text-[#382025]">{item.customGift.box}</strong></p>
+                            <p className="text-[11px] text-[#706E6B]">Box: <strong className="text-[#292825]">{item.customGift.box}</strong></p>
                           )}
                           {item.customGift.items && item.customGift.items.length > 0 && (
-                            <p className="text-[11px] text-[#8B5E6B]">
-                              Contents: <span className="text-[#382025]">{item.customGift.items.map((i: any) => i.name).join(", ")}</span>
+                            <p className="text-[11px] text-[#706E6B]">
+                              Contents: <span className="text-[#292825]">{item.customGift.items.map((i: any) => i.name).join(", ")}</span>
                             </p>
                           )}
                           {item.customGift.note && (
-                            <p className="text-[11px] italic text-[#382025] pt-0.5">
+                            <p className="text-[11px] italic text-[#292825] pt-0.5">
                               &ldquo;{item.customGift.note}&rdquo; — <span className="font-medium">{item.customGift.senderName}</span>
                             </p>
                           )}
@@ -425,10 +425,10 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
                       )}
 
                       <div className="flex items-center gap-2 mt-2 flex-wrap">
-                        <span className="inline-flex items-center text-[11px] font-semibold px-2 py-0.5 rounded-md bg-[#FDF2F5] text-[#382025] border border-[#F3E1E5]">
+                        <span className="inline-flex items-center text-[11px] font-semibold px-2 py-0.5 rounded-md bg-[#EDE3D5] text-[#292825] border border-[#EDE3D5]">
                           Qty: {item.quantity}
                         </span>
-                        <span className="text-xs text-[#8B5E6B]">
+                        <span className="text-xs text-[#706E6B]">
                           ₹{item.price?.toFixed(2)} each
                         </span>
                       </div>
@@ -436,7 +436,7 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
 
                     {/* Line Total & Action */}
                     <div className="text-right shrink-0 flex flex-col items-end justify-between py-1">
-                      <p className="font-serif font-bold text-base sm:text-lg text-[#382025]">
+                      <p className="font-serif font-bold text-base sm:text-lg text-[#292825]">
                         ₹{(item.price * item.quantity).toFixed(2)}
                       </p>
                       
@@ -463,7 +463,7 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
 
                         <Link
                           href={`/product/${product.slug || ""}`}
-                          className="text-[11px] font-semibold text-[#8B5E6B] hover:text-[#D45B7A] hover:underline"
+                          className="text-[11px] font-semibold text-[#706E6B] hover:text-[#24483B] hover:underline"
                         >
                           Buy Again
                         </Link>
@@ -476,15 +476,15 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
           </div>
 
           {/* Artisan Handcrafted Guarantee Callout */}
-          <div className="bg-[#FAF7F8] border border-[#F3E1E5] rounded-3xl p-5 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-2xl bg-[#382025] text-white flex items-center justify-center shrink-0 shadow-2xs">
-              <Sparkles className="w-5 h-5 text-[#D45B7A]" />
+          <div className="bg-[#FAF7F2] border border-[#EDE3D5] rounded-3xl p-5 flex items-start gap-4">
+            <div className="w-10 h-10 rounded-2xl bg-[#292825] text-white flex items-center justify-center shrink-0 shadow-2xs">
+              <Sparkles className="w-5 h-5 text-[#24483B]" />
             </div>
             <div>
-              <h3 className="font-serif font-bold text-sm text-[#382025]">
+              <h3 className="font-serif font-bold text-sm text-[#292825]">
                 100% Handcrafted Artisan Guarantee
               </h3>
-              <p className="text-xs text-[#8B5E6B] mt-1 leading-relaxed">
+              <p className="text-xs text-[#706E6B] mt-1 leading-relaxed">
                 Every stem, petal, and yarn strand in this order was individually crocheted by local women artisans. Designed to never fade, requiring zero watering.
               </p>
             </div>
@@ -495,16 +495,16 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
         <div className="lg:col-span-4 space-y-6">
           
           {/* Shipping Address Card */}
-          <div className="bg-white rounded-3xl border border-[#F3E1E5] p-6 shadow-[0_4px_20px_rgba(212,91,122,0.03)] space-y-4">
-            <div className="flex items-center gap-2 pb-3 border-b border-[#F3E1E5]">
-              <MapPin className="w-4 h-4 text-[#D45B7A]" />
-              <h2 className="font-serif font-bold text-sm text-[#382025]">
+          <div className="bg-white rounded-3xl border border-[#EDE3D5] p-6 shadow-[0_4px_20px_rgba(212,91,122,0.03)] space-y-4">
+            <div className="flex items-center gap-2 pb-3 border-b border-[#EDE3D5]">
+              <MapPin className="w-4 h-4 text-[#24483B]" />
+              <h2 className="font-serif font-bold text-sm text-[#292825]">
                 Delivery Address
               </h2>
             </div>
 
-            <div className="text-xs text-[#8B5E6B] space-y-1.5 leading-relaxed">
-              <p className="font-bold text-sm text-[#382025]">
+            <div className="text-xs text-[#706E6B] space-y-1.5 leading-relaxed">
+              <p className="font-bold text-sm text-[#292825]">
                 {shippingAddress.fullName || "Customer"}
               </p>
               <p>{shippingAddress.street}</p>
@@ -514,8 +514,8 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
               </p>
               
               {shippingAddress.phone && (
-                <div className="pt-2 flex items-center gap-2 text-[#382025] font-medium">
-                  <Phone className="w-3.5 h-3.5 text-[#8B5E6B]" />
+                <div className="pt-2 flex items-center gap-2 text-[#292825] font-medium">
+                  <Phone className="w-3.5 h-3.5 text-[#706E6B]" />
                   <span>{shippingAddress.phone}</span>
                 </div>
               )}
@@ -523,25 +523,25 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
           </div>
 
           {/* Order Summary & Financial Receipt */}
-          <div className="bg-white rounded-3xl border border-[#F3E1E5] p-6 shadow-[0_4px_20px_rgba(212,91,122,0.03)] space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#F3E1E5]">
-              <h2 className="font-serif font-bold text-sm text-[#382025]">
+          <div className="bg-white rounded-3xl border border-[#EDE3D5] p-6 shadow-[0_4px_20px_rgba(212,91,122,0.03)] space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-[#EDE3D5]">
+              <h2 className="font-serif font-bold text-sm text-[#292825]">
                 Order Summary
               </h2>
-              <span className="text-[11px] font-semibold text-[#8B5E6B]">
+              <span className="text-[11px] font-semibold text-[#706E6B]">
                 Receipt Breakdown
               </span>
             </div>
 
-            <div className="space-y-2.5 text-xs text-[#8B5E6B]">
+            <div className="space-y-2.5 text-xs text-[#706E6B]">
               <div className="flex justify-between">
                 <span>Subtotal ({items.length} {items.length === 1 ? "item" : "items"})</span>
-                <span className="font-medium text-[#382025]">₹{order.subtotal?.toFixed(2)}</span>
+                <span className="font-medium text-[#292825]">₹{order.subtotal?.toFixed(2)}</span>
               </div>
 
               <div className="flex justify-between">
                 <span>Artisan Shipping & Handling</span>
-                <span className="font-medium text-[#382025]">
+                <span className="font-medium text-[#292825]">
                   {order.shipping === 0 ? (
                     <span className="text-[#2E7D32] font-semibold">FREE</span>
                   ) : (
@@ -564,9 +564,9 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
                 </div>
               )}
 
-              <div className="pt-3 mt-3 border-t border-[#F3E1E5] flex justify-between items-baseline">
-                <span className="font-bold text-sm text-[#382025]">Total Amount</span>
-                <span className="font-serif text-xl font-bold text-[#D45B7A]">
+              <div className="pt-3 mt-3 border-t border-[#EDE3D5] flex justify-between items-baseline">
+                <span className="font-bold text-sm text-[#292825]">Total Amount</span>
+                <span className="font-serif text-xl font-bold text-[#24483B]">
                   ₹{order.totalAmount?.toFixed(2)}
                 </span>
               </div>
@@ -574,14 +574,14 @@ export default async function OrderDetailsPage({ params }: { params: Promise<{ i
           </div>
 
           {/* Customer Support & Assistance */}
-          <div className="bg-[#FAF7F8] rounded-3xl border border-[#F3E1E5] p-5 text-xs text-[#8B5E6B] space-y-2">
-            <p className="font-bold text-[#382025]">Need assistance with this order?</p>
+          <div className="bg-[#FAF7F2] rounded-3xl border border-[#EDE3D5] p-5 text-xs text-[#706E6B] space-y-2">
+            <p className="font-bold text-[#292825]">Need assistance with this order?</p>
             <p className="leading-relaxed">
               Our artisan care team is ready to help you with deliveries, custom notes, or returns.
             </p>
             <Link
               href="/about"
-              className="inline-block text-xs font-semibold text-[#D45B7A] hover:underline pt-1"
+              className="inline-block text-xs font-semibold text-[#24483B] hover:underline pt-1"
             >
               Contact Support →
             </Link>

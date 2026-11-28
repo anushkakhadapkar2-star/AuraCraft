@@ -134,9 +134,9 @@ export function WriteOrderReviewModal({
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D45B7A] hover:text-[#B03E5D] bg-[#FDF2F5] hover:bg-[#FCE5EB] border border-[#F3E1E5] px-3.5 py-1.5 rounded-xl transition-all shadow-xs cursor-pointer active:scale-95"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#24483B] hover:text-[#24483B] bg-[#EDE3D5] hover:bg-[#FCE5EB] border border-[#EDE3D5] px-3.5 py-1.5 rounded-xl transition-all shadow-xs cursor-pointer active:scale-95"
         >
-          <Star className="w-3.5 h-3.5 fill-[#D45B7A] text-[#D45B7A]" />
+          <Star className="w-3.5 h-3.5 fill-[#24483B] text-[#24483B]" />
           <span>Rate & Review</span>
         </button>
       )}
@@ -144,13 +144,13 @@ export function WriteOrderReviewModal({
       {/* Modal Dialog */}
       {isOpen && (
         <div className="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in">
-          <div className="w-full max-w-lg bg-[#FAF7F8] rounded-[32px] border border-[#F3E1E5] shadow-[0_20px_50px_rgba(212,91,122,0.25)] overflow-hidden flex flex-col max-h-[90vh]">
+          <div className="w-full max-w-lg bg-[#FAF7F2] rounded-[32px] border border-[#EDE3D5] shadow-[0_20px_50px_rgba(212,91,122,0.25)] overflow-hidden flex flex-col max-h-[90vh]">
             
             {/* Modal Header */}
-            <div className="p-5 sm:p-6 bg-white border-b border-[#F3E1E5] flex items-start justify-between gap-4">
+            <div className="p-5 sm:p-6 bg-white border-b border-[#EDE3D5] flex items-start justify-between gap-4">
               <div className="flex items-center gap-3 min-w-0">
                 {productImage && (
-                  <div className="relative w-12 h-12 rounded-xl bg-[#FAF7F8] border border-[#F3E1E5] overflow-hidden shrink-0">
+                  <div className="relative w-12 h-12 rounded-xl bg-[#FAF7F2] border border-[#EDE3D5] overflow-hidden shrink-0">
                     <Image src={productImage} alt={productName} fill className="object-cover" />
                   </div>
                 )}
@@ -158,7 +158,7 @@ export function WriteOrderReviewModal({
                   <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
                     <CheckCircle2 className="w-3 h-3" /> Verified Purchase
                   </span>
-                  <h3 className="font-serif font-bold text-base text-[#382025] truncate mt-0.5">
+                  <h3 className="font-serif font-bold text-base text-[#292825] truncate mt-0.5">
                     {productName}
                   </h3>
                 </div>
@@ -167,7 +167,7 @@ export function WriteOrderReviewModal({
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="w-8 h-8 rounded-full bg-[#FAF7F8] hover:bg-[#FDF2F5] border border-[#F3E1E5] text-[#8B5E6B] hover:text-[#382025] flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                className="w-8 h-8 rounded-full bg-[#FAF7F2] hover:bg-[#EDE3D5] border border-[#EDE3D5] text-[#706E6B] hover:text-[#292825] flex items-center justify-center transition-colors cursor-pointer shrink-0"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -180,8 +180,8 @@ export function WriteOrderReviewModal({
                   <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-md">
                     <CheckCircle2 className="w-9 h-9" />
                   </div>
-                  <h4 className="font-serif font-bold text-xl text-[#382025]">Thank You for Your Review!</h4>
-                  <p className="text-xs text-[#8B5E6B] max-w-sm mx-auto leading-relaxed">
+                  <h4 className="font-serif font-bold text-xl text-[#292825]">Thank You for Your Review!</h4>
+                  <p className="text-xs text-[#706E6B] max-w-sm mx-auto leading-relaxed">
                     Your authentic photo and review have been published to the handcrafted community. Your feedback supports our women artisans directly!
                   </p>
                 </div>
@@ -195,8 +195,8 @@ export function WriteOrderReviewModal({
                   )}
 
                   {/* 1. Star Rating */}
-                  <div className="bg-white p-4 rounded-2xl border border-[#F3E1E5] text-center space-y-2">
-                    <label className="block text-xs font-bold text-[#8B5E6B] uppercase tracking-wider">
+                  <div className="bg-white p-4 rounded-2xl border border-[#EDE3D5] text-center space-y-2">
+                    <label className="block text-xs font-bold text-[#706E6B] uppercase tracking-wider">
                       Overall Rating
                     </label>
                     <div className="flex items-center justify-center gap-2">
@@ -215,7 +215,7 @@ export function WriteOrderReviewModal({
                             <Star
                               className={`w-7 h-7 sm:w-8 sm:h-8 transition-colors ${
                                 active
-                                  ? "fill-[#D45B7A] text-[#D45B7A] drop-shadow-xs"
+                                  ? "fill-[#24483B] text-[#24483B] drop-shadow-xs"
                                   : "text-[#E0CBD1]"
                               }`}
                             />
@@ -223,14 +223,14 @@ export function WriteOrderReviewModal({
                         );
                       })}
                     </div>
-                    <p className="text-xs font-semibold text-[#D45B7A]">
+                    <p className="text-xs font-semibold text-[#24483B]">
                       {RATING_LABELS[hoverRating || rating]}
                     </p>
                   </div>
 
                   {/* 2. Review Headline */}
                   <div>
-                    <label className="block text-xs font-bold text-[#382025] mb-1.5">
+                    <label className="block text-xs font-bold text-[#292825] mb-1.5">
                       Review Headline (optional)
                     </label>
                     <input
@@ -238,14 +238,14 @@ export function WriteOrderReviewModal({
                       value={title}
                       onChange={(e) => setTitle(e.target.value)}
                       placeholder="e.g. Stunning craftsmanship, wife loved it!"
-                      className="w-full h-11 px-4 rounded-xl bg-white border border-[#F3E1E5] text-xs font-medium text-[#382025] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7] focus:ring-2 focus:ring-[#F8CAD5]/30"
+                      className="w-full h-11 px-4 rounded-xl bg-white border border-[#EDE3D5] text-xs font-medium text-[#292825] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7] focus:ring-2 focus:ring-[#A8B8A0]/30"
                     />
                   </div>
 
                   {/* 3. Review Comment */}
                   <div>
-                    <label className="block text-xs font-bold text-[#382025] mb-1.5">
-                      Your Experience / Unboxing Story <span className="text-[#D45B7A]">*</span>
+                    <label className="block text-xs font-bold text-[#292825] mb-1.5">
+                      Your Experience / Unboxing Story <span className="text-[#24483B]">*</span>
                     </label>
                     <textarea
                       rows={4}
@@ -253,20 +253,20 @@ export function WriteOrderReviewModal({
                       onChange={(e) => setComment(e.target.value)}
                       placeholder="What did you love most about this crochet piece? How was the texture, color, and packaging?"
                       required
-                      className="w-full p-4 rounded-xl bg-white border border-[#F3E1E5] text-xs font-medium text-[#382025] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7] focus:ring-2 focus:ring-[#F8CAD5]/30 leading-relaxed resize-none"
+                      className="w-full p-4 rounded-xl bg-white border border-[#EDE3D5] text-xs font-medium text-[#292825] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7] focus:ring-2 focus:ring-[#A8B8A0]/30 leading-relaxed resize-none"
                     ></textarea>
                   </div>
 
                   {/* 4. Photo Upload */}
                   <div>
-                    <label className="block text-xs font-bold text-[#382025] mb-1.5 flex items-center justify-between">
+                    <label className="block text-xs font-bold text-[#292825] mb-1.5 flex items-center justify-between">
                       <span>Add Unboxing / Display Photos (Max 5)</span>
-                      <span className="text-[11px] font-normal text-[#8B5E6B]">{uploadedImages.length}/5 photos</span>
+                      <span className="text-[11px] font-normal text-[#706E6B]">{uploadedImages.length}/5 photos</span>
                     </label>
 
                     <div className="flex flex-wrap gap-2.5 items-center">
                       {uploadedImages.map((url, idx) => (
-                        <div key={idx} className="relative w-16 h-16 rounded-xl overflow-hidden border border-[#F3E1E5] group shrink-0 shadow-2xs">
+                        <div key={idx} className="relative w-16 h-16 rounded-xl overflow-hidden border border-[#EDE3D5] group shrink-0 shadow-2xs">
                           <Image src={url} alt={`Upload ${idx + 1}`} fill className="object-cover" />
                           <button
                             type="button"
@@ -283,10 +283,10 @@ export function WriteOrderReviewModal({
                           type="button"
                           onClick={() => fileInputRef.current?.click()}
                           disabled={isUploadingImage}
-                          className="w-16 h-16 rounded-xl border-2 border-dashed border-[#F3E1E5] hover:border-[#D45B7A] bg-white hover:bg-[#FDF2F5] text-[#8B5E6B] hover:text-[#D45B7A] flex flex-col items-center justify-center gap-1 transition-all cursor-pointer disabled:opacity-50 shrink-0"
+                          className="w-16 h-16 rounded-xl border-2 border-dashed border-[#EDE3D5] hover:border-[#24483B] bg-white hover:bg-[#EDE3D5] text-[#706E6B] hover:text-[#24483B] flex flex-col items-center justify-center gap-1 transition-all cursor-pointer disabled:opacity-50 shrink-0"
                         >
                           {isUploadingImage ? (
-                            <Loader2 className="w-5 h-5 animate-spin text-[#D45B7A]" />
+                            <Loader2 className="w-5 h-5 animate-spin text-[#24483B]" />
                           ) : (
                             <>
                               <Camera className="w-5 h-5" />

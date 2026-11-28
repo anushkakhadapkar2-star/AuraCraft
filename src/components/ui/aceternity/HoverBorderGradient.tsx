@@ -41,14 +41,14 @@ export const HoverBorderGradient = ({
   };
 
   const movingMap: Record<string, string> = {
-    TOP: "radial-gradient(20.7% 50% at 50% 0%, #D45B7A 0%, rgba(212, 91, 122, 0) 100%)",
+    TOP: "radial-gradient(20.7% 50% at 50% 0%, #24483B 0%, rgba(36, 72, 59, 0) 100%)",
     LEFT: "radial-gradient(16.6% 43.1% at 0% 50%, #F8CAD5 0%, rgba(248, 202, 213, 0) 100%)",
     BOTTOM: "radial-gradient(20.7% 50% at 50% 100%, #B03E5D 0%, rgba(176, 62, 93, 0) 100%)",
-    RIGHT: "radial-gradient(16.2% 41.2% at 100% 50%, #D45B7A 0%, rgba(212, 91, 122, 0) 100%)",
+    RIGHT: "radial-gradient(16.2% 41.2% at 100% 50%, #24483B 0%, rgba(36, 72, 59, 0) 100%)",
   };
 
   const highlight =
-    "radial-gradient(75% 181.16% at 50% 50%, #D45B7A 0%, rgba(212, 91, 122, 0) 100%)";
+    "radial-gradient(75% 181.16% at 50% 50%, #24483B 0%, rgba(36, 72, 59, 0) 100%)";
 
   useEffect(() => {
     if (!hovered && !shouldReduceMotion) {

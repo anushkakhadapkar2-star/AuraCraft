@@ -66,7 +66,7 @@ export const Spotlight = ({ className, fill }: SpotlightProps) => {
           gradientTransform="translate(1924.71 273.501) rotate(90) scale(273.501 1924.71)"
         >
           <stop stopColor="#F8CAD5" stopOpacity="0.85" />
-          <stop offset="0.45" stopColor="#D45B7A" stopOpacity="0.4" />
+          <stop offset="0.45" stopColor="#24483B" stopOpacity="0.4" />
           <stop offset="1" stopColor="#382025" stopOpacity="0" />
         </radialGradient>
       </defs>

@@ -43,7 +43,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   const price = product.discountPrice || product.price;
 
   return (
-    <div className="flex-grow pt-[80px] md:pt-[100px] pb-stack-xl max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop space-y-stack-xl">
+    <div className="flex-grow pb-16 max-w-container-max mx-auto w-full space-y-12">
       {/* Product Top Section: 2 Column Layout */}
       <section className="grid grid-cols-1 md:grid-cols-12 gap-stack-md md:gap-gutter">
         {/* Left: Interactive Image Gallery (7 Cols Desktop) */}

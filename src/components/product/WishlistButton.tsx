@@ -50,8 +50,8 @@ export function WishlistButton({ productId, initialIsWishlisted = false, classNa
       className={cn(
         "w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 disabled:opacity-50 cursor-pointer active:scale-90",
         isWishlisted 
-          ? "bg-[#FAF7F2] text-[#24483B] border border-[#EDE3D5] shadow-xs" 
-          : "bg-white/95 text-[#706E6B] hover:text-[#24483B] hover:bg-white border border-[#EDE3D5] shadow-xs",
+          ? "bg-[#FAF7F2] text-[#D99A9C] border border-[#E6DDCF] shadow-xs" 
+          : "bg-white/95 text-[#706E6B] hover:text-[#D99A9C] hover:bg-white border border-[#EDE3D5] shadow-xs",
         className
       )}
       aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
@@ -59,7 +59,7 @@ export function WishlistButton({ productId, initialIsWishlisted = false, classNa
       <Heart 
         className={cn(
           "w-4 h-4 transition-transform duration-200", 
-          isWishlisted ? "fill-[#24483B] text-[#24483B] scale-110" : "text-[#706E6B] hover:scale-105"
+          isWishlisted ? "fill-[#D99A9C] text-[#D99A9C] scale-110" : "text-[#706E6B] group-hover:text-[#D99A9C] hover:scale-110"
         )} 
       />
     </button>

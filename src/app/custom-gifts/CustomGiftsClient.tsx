@@ -961,31 +961,31 @@ export function CustomGiftsClient() {
       
       {/* 1. HERO HEADER */}
       <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-4">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FDF2F5] border border-[#F3E1E5] text-[#D45B7A] text-xs font-bold shadow-xs">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EDE3D5] border border-[#EDE3D5] text-[#24483B] text-xs font-bold shadow-xs">
           <Sparkles className="w-3.5 h-3.5" />
           <span>Custom Gift Hamper Studio • Handcrafted with Love</span>
         </div>
 
-        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#382025] tracking-tight leading-tight">
+        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#24483B] tracking-tight leading-tight">
           Customize Your Perfect Gift Box
         </h1>
 
-        <p className="text-sm sm:text-base text-[#8B5E6B] leading-relaxed">
+        <p className="text-sm sm:text-base text-[#706E6B] leading-relaxed">
           Select a keepsake box, fill it with bouquets, cute keychains, artisan jewellery for men & women, and gourmet chocolates (Ferrero Rocher & Dairy Milk), add your heartfelt wax-sealed note, and place your order instantly.
         </p>
 
         {/* 3 Trust Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-2 text-xs font-semibold text-[#382025]">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-2 text-xs font-semibold text-[#24483B]">
           <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#D45B7A]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#24483B]"></span>
             Men & Women Jewellery + Luxury Chocolates
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#F2A4B7]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#A8B8A0]"></span>
             Free Calligraphy Card & Wax Seal
           </span>
           <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#D45B7A]"></span>
+            <span className="w-2 h-2 rounded-full bg-[#24483B]"></span>
             Safe All-India Fragile Delivery
           </span>
         </div>
@@ -998,22 +998,22 @@ export function CustomGiftsClient() {
         <div className="lg:col-span-7 xl:col-span-8 space-y-8">
           
           {/* STEP 1: CHOOSE BOX */}
-          <section className="bg-white rounded-[32px] p-6 sm:p-8 border border-[#F3E1E5] shadow-[0_4px_24px_rgba(212,91,122,0.05)] space-y-5">
+          <section className="bg-white rounded-[32px] p-6 sm:p-8 border border-[#EDE3D5] shadow-[0_4px_24px_rgba(212,91,122,0.05)] space-y-5">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="w-8 h-8 rounded-full bg-[#FDF2F5] text-[#D45B7A] font-bold text-sm flex items-center justify-center border border-[#F3E1E5]">
+                <span className="w-8 h-8 rounded-full bg-[#EDE3D5] text-[#24483B] font-bold text-sm flex items-center justify-center border border-[#EDE3D5]">
                   1
                 </span>
                 <div>
-                  <h2 className="font-serif font-bold text-lg sm:text-xl text-[#382025]">
+                  <h2 className="font-serif font-bold text-lg sm:text-xl text-[#24483B]">
                     Select Your Keepsake Gift Box
                   </h2>
-                  <p className="text-xs text-[#8B5E6B]">
+                  <p className="text-xs text-[#706E6B]">
                     Choose the luxury box style to wrap your customized surprise.
                   </p>
                 </div>
               </div>
-              <span className="text-xs font-bold text-[#D45B7A] bg-[#FDF2F5] px-3 py-1 rounded-full border border-[#F3E1E5]">
+              <span className="text-xs font-bold text-[#24483B] bg-[#EDE3D5] px-3 py-1 rounded-full border border-[#EDE3D5]">
                 {selectedBox.name.split(" ")[0]} Box Selected
               </span>
             </div>
@@ -1027,37 +1027,37 @@ export function CustomGiftsClient() {
                     onClick={() => setSelectedBox(box)}
                     className={`p-4 rounded-2xl border transition-all cursor-pointer flex flex-col justify-between group ${
                       isSelected
-                        ? "bg-[#FFF9FA] border-[#D45B7A] ring-2 ring-[#D45B7A]/20 shadow-[0_6px_20px_rgba(212,91,122,0.12)]"
-                        : "bg-white border-[#F3E1E5] hover:border-[#F2A4B7] hover:shadow-xs"
+                        ? "bg-[#FAF7F2] border-[#24483B] ring-2 ring-[#24483B]/20 shadow-[0_6px_20px_rgba(212,91,122,0.12)]"
+                        : "bg-white border-[#EDE3D5] hover:border-[#A8B8A0] hover:shadow-xs"
                     }`}
                   >
                     <div>
                       <div className="flex justify-between items-start gap-1 mb-2">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FDF2F5] text-[#D45B7A] border border-[#F3E1E5]">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#EDE3D5] text-[#24483B] border border-[#EDE3D5]">
                           {box.badge}
                         </span>
                         {isSelected && (
-                          <div className="w-4 h-4 rounded-full bg-[#D45B7A] text-white flex items-center justify-center shrink-0">
+                          <div className="w-4 h-4 rounded-full bg-[#24483B] text-white flex items-center justify-center shrink-0">
                             <Check className="w-2.5 h-2.5 stroke-[3]" />
                           </div>
                         )}
                       </div>
 
-                      <div className="relative aspect-4/3 w-full rounded-xl overflow-hidden bg-[#FAF7F8] border border-[#F3E1E5] mb-2.5">
+                      <div className="relative aspect-4/3 w-full rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#EDE3D5] mb-2.5">
                         <SafeHamperImage src={box.image} fallbackSrc="/products/bouquet_pink_rose_wrap.jpg" alt={box.name} />
                       </div>
 
-                      <h3 className="font-serif font-bold text-xs sm:text-sm text-[#382025] line-clamp-1">
+                      <h3 className="font-serif font-bold text-xs sm:text-sm text-[#24483B] line-clamp-1">
                         {box.name}
                       </h3>
-                      <p className="text-[11px] text-[#8B5E6B] line-clamp-2 mt-0.5 leading-tight">
+                      <p className="text-[11px] text-[#706E6B] line-clamp-2 mt-0.5 leading-tight">
                         {box.description}
                       </p>
                     </div>
 
-                    <div className="pt-2 mt-2 border-t border-[#F3E1E5] flex justify-between items-center text-xs">
-                      <span className="text-[#8B5E6B]">Box Price:</span>
-                      <span className="font-bold text-[#D45B7A]">₹{box.price}</span>
+                    <div className="pt-2 mt-2 border-t border-[#EDE3D5] flex justify-between items-center text-xs">
+                      <span className="text-[#706E6B]">Box Price:</span>
+                      <span className="font-bold text-[#24483B]">₹{box.price}</span>
                     </div>
                   </div>
                 );
@@ -1066,18 +1066,18 @@ export function CustomGiftsClient() {
           </section>
 
           {/* STEP 2: FILL THE BOX WITH GIFTS */}
-          <section className="bg-white rounded-[32px] p-6 sm:p-8 border border-[#F3E1E5] shadow-[0_4px_24px_rgba(212,91,122,0.05)] space-y-6">
+          <section className="bg-white rounded-[32px] p-6 sm:p-8 border border-[#EDE3D5] shadow-[0_4px_24px_rgba(212,91,122,0.05)] space-y-6">
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-full bg-[#FDF2F5] text-[#D45B7A] font-bold text-sm flex items-center justify-center border border-[#F3E1E5]">
+                  <span className="w-8 h-8 rounded-full bg-[#EDE3D5] text-[#24483B] font-bold text-sm flex items-center justify-center border border-[#EDE3D5]">
                     2
                   </span>
                   <div>
-                    <h2 className="font-serif font-bold text-lg sm:text-xl text-[#382025]">
+                    <h2 className="font-serif font-bold text-lg sm:text-xl text-[#24483B]">
                       Fill Your Box with Handpicked Gifts
                     </h2>
-                    <p className="text-xs text-[#8B5E6B]">
+                    <p className="text-xs text-[#706E6B]">
                       Pick items across Bouquets, Keychains, Jewellery (Men & Women), and Chocolates.
                     </p>
                   </div>
@@ -1085,18 +1085,18 @@ export function CustomGiftsClient() {
 
                 {/* Instant Search Bar */}
                 <div className="relative w-full sm:w-60">
-                  <Search className="w-3.5 h-3.5 text-[#B08B95] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Search className="w-3.5 h-3.5 text-[#8E8B85] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search gifts..."
-                    className="w-full h-8 pl-8 pr-3 rounded-full bg-[#FAF7F8] border border-[#F3E1E5] text-xs text-[#382025] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7] transition-all"
+                    className="w-full h-8 pl-8 pr-3 rounded-full bg-[#FAF7F2] border border-[#EDE3D5] text-xs text-[#24483B] placeholder-[#8E8B85] focus:outline-hidden focus:border-[#A8B8A0] transition-all"
                   />
                   {searchQuery && (
                     <button 
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#B08B95] hover:text-[#382025]"
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#8E8B85] hover:text-[#24483B]"
                     >
                       ✕
                     </button>
@@ -1105,7 +1105,7 @@ export function CustomGiftsClient() {
               </div>
 
               {/* Main Category Tabs */}
-              <div className="flex flex-wrap gap-1.5 bg-[#FAF7F8] p-1.5 rounded-2xl border border-[#F3E1E5] text-xs">
+              <div className="flex flex-wrap gap-1.5 bg-[#FAF7F2] p-1.5 rounded-2xl border border-[#EDE3D5] text-xs">
                 {[
                   { id: "all", label: "All Items", icon: Sparkles, count: allCatalogItems.length },
                   { id: "jewellery", label: "Jewellery (Men & Women)", icon: Gem, count: JEWELLERY_OPTIONS.length },
@@ -1127,13 +1127,13 @@ export function CustomGiftsClient() {
                       }}
                       className={`px-3 py-1.5 rounded-xl font-bold transition-all flex items-center gap-1.5 cursor-pointer text-xs ${
                         isActive
-                          ? "bg-white text-[#D45B7A] shadow-xs border border-[#F3E1E5]"
-                          : "text-[#8B5E6B] hover:text-[#382025]"
+                          ? "bg-white text-[#24483B] shadow-xs border border-[#EDE3D5]"
+                          : "text-[#706E6B] hover:text-[#24483B]"
                       }`}
                     >
                       <Icon className="w-3.5 h-3.5" />
                       <span>{tab.label}</span>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? "bg-[#FDF2F5] text-[#D45B7A]" : "bg-black/5 text-[#8B5E6B]"}`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? "bg-[#EDE3D5] text-[#24483B]" : "bg-black/5 text-[#706E6B]"}`}>
                         {tab.count}
                       </span>
                     </button>
@@ -1143,11 +1143,11 @@ export function CustomGiftsClient() {
 
               {/* JEWELLERY SUB-CATEGORY NAVIGATION (Gender & Types) */}
               {activeTab === "jewellery" && (
-                <div className="p-3.5 rounded-2xl bg-[#FFF9FA] border border-[#F3E1E5] space-y-3 animate-in fade-in duration-200">
+                <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#EDE3D5] space-y-3 animate-in fade-in duration-200">
                   {/* Gender Selector */}
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-[11px] font-bold text-[#382025] uppercase tracking-wider flex items-center gap-1.5">
-                      <Users className="w-3.5 h-3.5 text-[#D45B7A]" />
+                    <span className="text-[11px] font-bold text-[#24483B] uppercase tracking-wider flex items-center gap-1.5">
+                      <Users className="w-3.5 h-3.5 text-[#24483B]" />
                       Jewellery Section:
                     </span>
                     <div className="flex gap-1.5">
@@ -1165,8 +1165,8 @@ export function CustomGiftsClient() {
                           }}
                           className={`px-3 py-1 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                             jewelleryGender === g.id
-                              ? "bg-[#D45B7A] text-white shadow-2xs"
-                              : "bg-white text-[#8B5E6B] hover:text-[#382025] border border-[#F3E1E5]"
+                              ? "bg-[#24483B] text-white shadow-2xs"
+                              : "bg-white text-[#706E6B] hover:text-[#24483B] border border-[#EDE3D5]"
                           }`}
                         >
                           {g.label}
@@ -1176,16 +1176,16 @@ export function CustomGiftsClient() {
                   </div>
 
                   {/* Sub-Category Chips */}
-                  <div className="flex flex-wrap gap-1.5 pt-1 border-t border-[#F3E1E5]/60">
-                    <span className="text-[10px] font-bold text-[#8B5E6B] self-center mr-1">Filter Type:</span>
+                  <div className="flex flex-wrap gap-1.5 pt-1 border-t border-[#EDE3D5]/60">
+                    <span className="text-[10px] font-bold text-[#706E6B] self-center mr-1">Filter Type:</span>
                     
                     <button
                       type="button"
                       onClick={() => setJewellerySubFilter("all")}
                       className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                         jewellerySubFilter === "all"
-                          ? "bg-[#382025] text-white"
-                          : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                          ? "bg-[#24483B] text-white"
+                          : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                       }`}
                     >
                       All Types
@@ -1198,8 +1198,8 @@ export function CustomGiftsClient() {
                           onClick={() => setJewellerySubFilter("women-earrings")}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                             jewellerySubFilter === "women-earrings"
-                              ? "bg-[#D45B7A] text-white"
-                              : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                              ? "bg-[#24483B] text-white"
+                              : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                           }`}
                         >
                           Earrings (4)
@@ -1209,8 +1209,8 @@ export function CustomGiftsClient() {
                           onClick={() => setJewellerySubFilter("women-bangles")}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                             jewellerySubFilter === "women-bangles"
-                              ? "bg-[#D45B7A] text-white"
-                              : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                              ? "bg-[#24483B] text-white"
+                              : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                           }`}
                         >
                           Bangles (4)
@@ -1220,8 +1220,8 @@ export function CustomGiftsClient() {
                           onClick={() => setJewellerySubFilter("women-necklace")}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                             jewellerySubFilter === "women-necklace"
-                              ? "bg-[#D45B7A] text-white"
-                              : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                              ? "bg-[#24483B] text-white"
+                              : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                           }`}
                         >
                           Necklace Sets (4)
@@ -1231,8 +1231,8 @@ export function CustomGiftsClient() {
                           onClick={() => setJewellerySubFilter("women-rings")}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                             jewellerySubFilter === "women-rings"
-                              ? "bg-[#D45B7A] text-white"
-                              : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                              ? "bg-[#24483B] text-white"
+                              : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                           }`}
                         >
                           Women&apos;s Rings (3)
@@ -1247,8 +1247,8 @@ export function CustomGiftsClient() {
                           onClick={() => setJewellerySubFilter("men-kadas")}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                             jewellerySubFilter === "men-kadas"
-                              ? "bg-[#382025] text-white"
-                              : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                              ? "bg-[#24483B] text-white"
+                              : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                           }`}
                         >
                           Men&apos;s Kadas (4)
@@ -1258,8 +1258,8 @@ export function CustomGiftsClient() {
                           onClick={() => setJewellerySubFilter("men-rings")}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                             jewellerySubFilter === "men-rings"
-                              ? "bg-[#382025] text-white"
-                              : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                              ? "bg-[#24483B] text-white"
+                              : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                           }`}
                         >
                           Men&apos;s Rings (3)
@@ -1269,8 +1269,8 @@ export function CustomGiftsClient() {
                           onClick={() => setJewellerySubFilter("men-chains")}
                           className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                             jewellerySubFilter === "men-chains"
-                              ? "bg-[#382025] text-white"
-                              : "bg-white text-[#8B5E6B] border border-[#F3E1E5] hover:border-[#F2A4B7]"
+                              ? "bg-[#24483B] text-white"
+                              : "bg-white text-[#706E6B] border border-[#EDE3D5] hover:border-[#A8B8A0]"
                           }`}
                         >
                           Chains & Bracelets (2)
@@ -1283,8 +1283,8 @@ export function CustomGiftsClient() {
 
               {/* CHOCOLATES BRAND SUB-NAVIGATION */}
               {activeTab === "chocolate" && (
-                <div className="p-3.5 rounded-2xl bg-[#FFF9FA] border border-[#F3E1E5] flex flex-wrap items-center gap-2 animate-in fade-in duration-200">
-                  <span className="text-[11px] font-bold text-[#382025] uppercase tracking-wider mr-1">
+                <div className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#EDE3D5] flex flex-wrap items-center gap-2 animate-in fade-in duration-200">
+                  <span className="text-[11px] font-bold text-[#24483B] uppercase tracking-wider mr-1">
                     Chocolate Brand:
                   </span>
                   {[
@@ -1299,8 +1299,8 @@ export function CustomGiftsClient() {
                       onClick={() => setChocolateBrandFilter(b.id)}
                       className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                         chocolateBrandFilter === b.id
-                          ? "bg-[#D45B7A] text-white shadow-2xs"
-                          : "bg-white text-[#8B5E6B] hover:text-[#382025] border border-[#F3E1E5]"
+                          ? "bg-[#24483B] text-white shadow-2xs"
+                          : "bg-white text-[#706E6B] hover:text-[#24483B] border border-[#EDE3D5]"
                       }`}
                     >
                       {b.label}
@@ -1312,8 +1312,8 @@ export function CustomGiftsClient() {
 
             {/* Catalog Grid */}
             {displayedItems.length === 0 ? (
-              <div className="py-12 text-center text-xs text-[#8B5E6B] bg-[#FFF9FA] rounded-2xl border border-dashed border-[#F3E1E5] space-y-2">
-                <p className="font-semibold text-sm text-[#382025]">No gifts match your current filters</p>
+              <div className="py-12 text-center text-xs text-[#706E6B] bg-[#FAF7F2] rounded-2xl border border-dashed border-[#EDE3D5] space-y-2">
+                <p className="font-semibold text-sm text-[#24483B]">No gifts match your current filters</p>
                 <p>Try clearing your search query or choosing &quot;All Items&quot;.</p>
                 <button
                   type="button"
@@ -1323,7 +1323,7 @@ export function CustomGiftsClient() {
                     setJewellerySubFilter("all");
                     setChocolateBrandFilter("all");
                   }}
-                  className="mt-2 text-xs font-bold text-[#D45B7A] underline hover:text-[#382025] cursor-pointer"
+                  className="mt-2 text-xs font-bold text-[#24483B] underline hover:text-[#24483B] cursor-pointer"
                 >
                   Reset all filters
                 </button>
@@ -1339,58 +1339,58 @@ export function CustomGiftsClient() {
                       key={item.id}
                       className={`rounded-2xl p-3.5 border transition-all flex flex-col justify-between group ${
                         isInBox
-                          ? "bg-[#FFF9FA] border-[#D45B7A] shadow-[0_4px_16px_rgba(212,91,122,0.08)]"
-                          : "bg-white border-[#F3E1E5] hover:border-[#F2A4B7]"
+                          ? "bg-[#FAF7F2] border-[#24483B] shadow-[0_4px_16px_rgba(212,91,122,0.08)]"
+                          : "bg-white border-[#EDE3D5] hover:border-[#A8B8A0]"
                       }`}
                     >
                       <div>
                         {/* Image with graceful error fallback */}
-                        <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-[#FAF7F8] border border-[#F3E1E5] mb-2.5">
+                        <div className="relative aspect-square w-full rounded-xl overflow-hidden bg-[#FAF7F2] border border-[#EDE3D5] mb-2.5">
                           <SafeHamperImage src={item.image} fallbackSrc={item.fallbackImage} alt={item.name} />
                           
                           {item.tag && (
-                            <span className="absolute top-2 left-2 text-[9px] font-bold px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-xs text-[#382025] shadow-2xs border border-[#F3E1E5]/40">
+                            <span className="absolute top-2 left-2 text-[9px] font-bold px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-xs text-[#24483B] shadow-2xs border border-[#EDE3D5]/40">
                               {item.tag}
                             </span>
                           )}
 
                           {isInBox && (
-                            <div className="absolute top-2 right-2 bg-[#D45B7A] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
+                            <div className="absolute top-2 right-2 bg-[#24483B] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-xs">
                               {qtyInBox} in Box
                             </div>
                           )}
                         </div>
 
-                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#382025] line-clamp-1">
+                        <h4 className="font-serif font-bold text-xs sm:text-sm text-[#24483B] line-clamp-1">
                           {item.name}
                         </h4>
-                        <p className="text-[11px] text-[#8B5E6B] line-clamp-2 mt-0.5 leading-tight">
+                        <p className="text-[11px] text-[#706E6B] line-clamp-2 mt-0.5 leading-tight">
                           {item.description}
                         </p>
                       </div>
 
-                      <div className="pt-3 mt-3 border-t border-[#F3E1E5] flex items-center justify-between">
-                        <span className="font-serif font-bold text-sm text-[#D45B7A]">
+                      <div className="pt-3 mt-3 border-t border-[#EDE3D5] flex items-center justify-between">
+                        <span className="font-serif font-bold text-sm text-[#24483B]">
                           ₹{item.price.toLocaleString("en-IN")}
                         </span>
 
                         {isInBox ? (
-                          <div className="flex items-center bg-white border border-[#D45B7A] rounded-xl p-0.5 shadow-2xs">
+                          <div className="flex items-center bg-white border border-[#24483B] rounded-xl p-0.5 shadow-2xs">
                             <button
                               type="button"
                               onClick={() => handleRemoveItem(item.id)}
-                              className="w-6 h-6 rounded-lg bg-[#FAF7F8] hover:bg-[#FDF2F5] text-[#D45B7A] flex items-center justify-center font-bold cursor-pointer transition-colors"
+                              className="w-6 h-6 rounded-lg bg-[#FAF7F2] hover:bg-[#EDE3D5] text-[#24483B] flex items-center justify-center font-bold cursor-pointer transition-colors"
                               title="Decrease quantity"
                             >
                               <Minus className="w-3 h-3" />
                             </button>
-                            <span className="text-xs font-bold px-2 text-[#382025]">
+                            <span className="text-xs font-bold px-2 text-[#24483B]">
                               {qtyInBox}
                             </span>
                             <button
                               type="button"
                               onClick={() => handleAddItem(item)}
-                              className="w-6 h-6 rounded-lg bg-[#D45B7A] text-white flex items-center justify-center font-bold cursor-pointer transition-colors"
+                              className="w-6 h-6 rounded-lg bg-[#24483B] text-white flex items-center justify-center font-bold cursor-pointer transition-colors"
                               title="Increase quantity"
                             >
                               <Plus className="w-3 h-3" />
@@ -1400,7 +1400,7 @@ export function CustomGiftsClient() {
                           <button
                             type="button"
                             onClick={() => handleAddItem(item)}
-                            className="px-3 py-1.5 rounded-xl bg-[#FDF2F5] hover:bg-[#D45B7A] text-[#D45B7A] hover:text-white border border-[#F3E1E5] text-xs font-bold transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
+                            className="px-3 py-1.5 rounded-xl bg-[#EDE3D5] hover:bg-[#24483B] text-[#24483B] hover:text-white border border-[#EDE3D5] text-xs font-bold transition-all cursor-pointer flex items-center gap-1 active:scale-95 shadow-2xs"
                           >
                             <Plus className="w-3 h-3" />
                             <span>Add to Box</span>
@@ -1415,16 +1415,16 @@ export function CustomGiftsClient() {
           </section>
 
           {/* STEP 3: PERSONALIZED LOVE NOTE & WAX SEAL */}
-          <section className="bg-white rounded-[32px] p-6 sm:p-8 border border-[#F3E1E5] shadow-[0_4px_24px_rgba(212,91,122,0.05)] space-y-6">
+          <section className="bg-white rounded-[32px] p-6 sm:p-8 border border-[#EDE3D5] shadow-[0_4px_24px_rgba(212,91,122,0.05)] space-y-6">
             <div className="flex items-center gap-3">
-              <span className="w-8 h-8 rounded-full bg-[#FDF2F5] text-[#D45B7A] font-bold text-sm flex items-center justify-center border border-[#F3E1E5]">
+              <span className="w-8 h-8 rounded-full bg-[#EDE3D5] text-[#24483B] font-bold text-sm flex items-center justify-center border border-[#EDE3D5]">
                 3
               </span>
               <div>
-                <h2 className="font-serif font-bold text-lg sm:text-xl text-[#382025]">
+                <h2 className="font-serif font-bold text-lg sm:text-xl text-[#24483B]">
                   Personalized Love Note & Wax Seal Stamp
                 </h2>
-                <p className="text-xs text-[#8B5E6B]">
+                <p className="text-xs text-[#706E6B]">
                   Handwritten by our studio calligrapher on deckle-edge artisan cardstock.
                 </p>
               </div>
@@ -1432,7 +1432,7 @@ export function CustomGiftsClient() {
 
             {/* Occasion Selection */}
             <div>
-              <label className="block text-xs font-bold text-[#382025] mb-2">
+              <label className="block text-xs font-bold text-[#24483B] mb-2">
                 Occasion for this Gift:
               </label>
               <div className="flex flex-wrap gap-2">
@@ -1443,8 +1443,8 @@ export function CustomGiftsClient() {
                     onClick={() => setSelectedOccasion(occ)}
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                       selectedOccasion === occ
-                        ? "bg-[#D45B7A] text-white shadow-xs"
-                        : "bg-[#FAF7F8] hover:bg-[#FDF2F5] text-[#8B5E6B] border border-[#F3E1E5]"
+                        ? "bg-[#24483B] text-white shadow-xs"
+                        : "bg-[#FAF7F2] hover:bg-[#EDE3D5] text-[#706E6B] border border-[#EDE3D5]"
                     }`}
                   >
                     {occ}
@@ -1456,7 +1456,7 @@ export function CustomGiftsClient() {
             {/* Recipient & Sender Inputs */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-bold text-[#382025] mb-1.5">
+                <label className="block text-xs font-bold text-[#24483B] mb-1.5">
                   Who is this special gift for? (Recipient)
                 </label>
                 <input
@@ -1464,12 +1464,12 @@ export function CustomGiftsClient() {
                   value={recipientName}
                   onChange={(e) => setRecipientName(e.target.value)}
                   placeholder="e.g. Anushka"
-                  className="w-full h-11 px-4 rounded-xl bg-[#FAF7F8] border border-[#F3E1E5] text-xs font-medium text-[#382025] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7]"
+                  className="w-full h-11 px-4 rounded-xl bg-[#FAF7F2] border border-[#EDE3D5] text-xs font-medium text-[#24483B] placeholder-[#8E8B85] focus:outline-hidden focus:border-[#A8B8A0]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-[#382025] mb-1.5">
+                <label className="block text-xs font-bold text-[#24483B] mb-1.5">
                   Sign-off / From (Sender):
                 </label>
                 <input
@@ -1477,7 +1477,7 @@ export function CustomGiftsClient() {
                   value={senderName}
                   onChange={(e) => setSenderName(e.target.value)}
                   placeholder="e.g. Forever Yours, Rahul"
-                  className="w-full h-11 px-4 rounded-xl bg-[#FAF7F8] border border-[#F3E1E5] text-xs font-medium text-[#382025] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7]"
+                  className="w-full h-11 px-4 rounded-xl bg-[#FAF7F2] border border-[#EDE3D5] text-xs font-medium text-[#24483B] placeholder-[#8E8B85] focus:outline-hidden focus:border-[#A8B8A0]"
                 />
               </div>
             </div>
@@ -1485,10 +1485,10 @@ export function CustomGiftsClient() {
             {/* Note Textarea */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-bold text-[#382025]">
+                <label className="text-xs font-bold text-[#24483B]">
                   Your Personal Handwritten Note:
                 </label>
-                <span className="text-[11px] text-[#8B5E6B]">
+                <span className="text-[11px] text-[#706E6B]">
                   {noteMessage.length} characters
                 </span>
               </div>
@@ -1497,18 +1497,18 @@ export function CustomGiftsClient() {
                 value={noteMessage}
                 onChange={(e) => setNoteMessage(e.target.value)}
                 placeholder="Write your personal message to be tucked inside the box..."
-                className="w-full p-4 rounded-2xl bg-[#FAF7F8] border border-[#F3E1E5] text-xs font-medium text-[#382025] placeholder-[#B08B95] focus:outline-hidden focus:border-[#F2A4B7] leading-relaxed resize-none"
+                className="w-full p-4 rounded-2xl bg-[#FAF7F2] border border-[#EDE3D5] text-xs font-medium text-[#24483B] placeholder-[#8E8B85] focus:outline-hidden focus:border-[#A8B8A0] leading-relaxed resize-none"
               ></textarea>
 
               {/* Inspiration Chips */}
               <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
-                <span className="text-[10px] font-bold text-[#8B5E6B] mr-1">Quick ideas:</span>
+                <span className="text-[10px] font-bold text-[#706E6B] mr-1">Quick ideas:</span>
                 {NOTE_SUGGESTIONS.map((suggestion, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => setNoteMessage(suggestion)}
-                    className="text-[10px] px-2.5 py-1 rounded-lg bg-[#FAF7F8] hover:bg-[#FDF2F5] text-[#8B5E6B] hover:text-[#D45B7A] border border-[#F3E1E5] transition-colors cursor-pointer"
+                    className="text-[10px] px-2.5 py-1 rounded-lg bg-[#FAF7F2] hover:bg-[#EDE3D5] text-[#706E6B] hover:text-[#24483B] border border-[#EDE3D5] transition-colors cursor-pointer"
                   >
                     Preset #{idx + 1}
                   </button>
@@ -1518,7 +1518,7 @@ export function CustomGiftsClient() {
 
             {/* Wax Seal Stamp Selection */}
             <div>
-              <label className="block text-xs font-bold text-[#382025] mb-2">
+              <label className="block text-xs font-bold text-[#24483B] mb-2">
                 Choose Wax Seal Stamp Emblem:
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -1530,12 +1530,12 @@ export function CustomGiftsClient() {
                       onClick={() => setSelectedWaxSeal(seal)}
                       className={`p-3 rounded-xl border text-center transition-all cursor-pointer ${
                         isSelected
-                          ? "bg-[#FFF9FA] border-[#D45B7A] ring-1 ring-[#D45B7A]/30 shadow-xs"
-                          : "bg-white border-[#F3E1E5] hover:border-[#F2A4B7]"
+                          ? "bg-[#FAF7F2] border-[#24483B] ring-1 ring-[#24483B]/30 shadow-xs"
+                          : "bg-white border-[#EDE3D5] hover:border-[#A8B8A0]"
                       }`}
                     >
                       <span className="text-xl block mb-1">{seal.icon}</span>
-                      <span className="text-[11px] font-bold text-[#382025] block truncate">
+                      <span className="text-[11px] font-bold text-[#24483B] block truncate">
                         {seal.name}
                       </span>
                     </div>
@@ -1550,41 +1550,41 @@ export function CustomGiftsClient() {
         {/* ================= RIGHT COLUMN: LIVE BOX VISUALIZER & PAYMENT (4-5 COLS) ================= */}
         <div className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-24 space-y-6">
           
-          <div className="bg-white rounded-[32px] border border-[#F3E1E5] p-6 shadow-[0_12px_36px_rgba(212,91,122,0.12)] space-y-5">
+          <div className="bg-white rounded-[32px] border border-[#EDE3D5] p-6 shadow-[0_12px_36px_rgba(212,91,122,0.12)] space-y-5">
             
             {/* Header & Item Count Badge */}
-            <div className="flex items-center justify-between pb-3 border-b border-[#F3E1E5]">
+            <div className="flex items-center justify-between pb-3 border-b border-[#EDE3D5]">
               <div className="flex items-center gap-2">
-                <Box className="w-4 h-4 text-[#D45B7A]" />
-                <span className="text-xs font-bold uppercase tracking-wider text-[#382025]">
+                <Box className="w-4 h-4 text-[#24483B]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#24483B]">
                   {recipientName ? `${recipientName}'s Custom Box` : "Your Custom Box"}
                 </span>
               </div>
-              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#FDF2F5] text-[#D45B7A] border border-[#F3E1E5]">
+              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#EDE3D5] text-[#24483B] border border-[#EDE3D5]">
                 {totalItemCount} Items Inside
               </span>
             </div>
 
             {/* Box Header Snippet */}
-            <div className="flex items-center gap-3 p-3 bg-[#FAF7F8] rounded-2xl border border-[#F3E1E5]">
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-white border border-[#F3E1E5] shrink-0">
+            <div className="flex items-center gap-3 p-3 bg-[#FAF7F2] rounded-2xl border border-[#EDE3D5]">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden bg-white border border-[#EDE3D5] shrink-0">
                 <SafeHamperImage src={selectedBox.image} fallbackSrc="/products/bouquet_pink_rose_wrap.jpg" alt={selectedBox.name} />
               </div>
               <div className="min-w-0 flex-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#8B5E6B] block">Box Style</span>
-                <p className="font-serif font-bold text-xs text-[#382025] truncate">{selectedBox.name}</p>
-                <span className="text-xs font-bold text-[#D45B7A]">₹{selectedBox.price}</span>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#706E6B] block">Box Style</span>
+                <p className="font-serif font-bold text-xs text-[#24483B] truncate">{selectedBox.name}</p>
+                <span className="text-xs font-bold text-[#24483B]">₹{selectedBox.price}</span>
               </div>
             </div>
 
             {/* Box Contents Breakdown */}
             <div className="space-y-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#8B5E6B] block">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#706E6B] block">
                 Hamper Contents ({totalItemCount}):
               </span>
 
               {totalItemCount === 0 ? (
-                <div className="py-6 text-center text-xs text-[#8B5E6B] bg-[#FFF9FA] rounded-2xl border border-dashed border-[#F3E1E5]">
+                <div className="py-6 text-center text-xs text-[#706E6B] bg-[#FAF7F2] rounded-2xl border border-dashed border-[#EDE3D5]">
                   Your box is currently empty! Pick bouquets, jewellery, or chocolates to fill your box.
                 </div>
               ) : (
@@ -1594,25 +1594,25 @@ export function CustomGiftsClient() {
                     if (!item) return null;
 
                     return (
-                      <div key={id} className="flex items-center justify-between gap-2 p-2 rounded-xl bg-[#FFF9FA] border border-[#F3E1E5] text-xs">
+                      <div key={id} className="flex items-center justify-between gap-2 p-2 rounded-xl bg-[#FAF7F2] border border-[#EDE3D5] text-xs">
                         <div className="flex items-center gap-2 min-w-0">
-                          <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#F3E1E5]">
+                          <div className="relative w-8 h-8 rounded-lg overflow-hidden shrink-0 border border-[#EDE3D5]">
                             <SafeHamperImage src={item.image} fallbackSrc={item.fallbackImage} alt={item.name} />
                           </div>
                           <div className="min-w-0">
-                            <p className="font-medium text-[11px] text-[#382025] truncate">{item.name}</p>
-                            <span className="text-[10px] text-[#8B5E6B]">₹{item.price} × {qty}</span>
+                            <p className="font-medium text-[11px] text-[#24483B] truncate">{item.name}</p>
+                            <span className="text-[10px] text-[#706E6B]">₹{item.price} × {qty}</span>
                           </div>
                         </div>
 
                         <div className="flex items-center gap-1.5 shrink-0">
-                          <span className="font-bold text-xs text-[#382025]">
+                          <span className="font-bold text-xs text-[#24483B]">
                             ₹{item.price * qty}
                           </span>
                           <button
                             type="button"
                             onClick={() => handleDeleteItem(id)}
-                            className="text-[#B08B95] hover:text-rose-500 p-1 cursor-pointer"
+                            className="text-[#8E8B85] hover:text-rose-500 p-1 cursor-pointer"
                             title="Remove"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -1626,35 +1626,35 @@ export function CustomGiftsClient() {
             </div>
 
             {/* ARTISAN DECKLE-EDGE CARD MINI PREVIEW */}
-            <div className="relative p-4 rounded-2xl bg-[#FFF9FA] border border-dashed border-[#F3E1E5] space-y-2 font-serif">
-              <div className="absolute -top-3 -right-2 w-9 h-9 rounded-full bg-gradient-to-br from-[#D45B7A] to-[#A33854] text-white flex items-center justify-center text-sm shadow-md border-2 border-white select-none">
+            <div className="relative p-4 rounded-2xl bg-[#FAF7F2] border border-dashed border-[#EDE3D5] space-y-2 font-serif">
+              <div className="absolute -top-3 -right-2 w-9 h-9 rounded-full bg-gradient-to-br from-[#24483B] to-[#19342A] text-white flex items-center justify-center text-sm shadow-md border-2 border-white select-none">
                 {selectedWaxSeal.icon}
               </div>
 
-              <div className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#D45B7A]">
+              <div className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#24483B]">
                 To: {recipientName || "Loved One"} • {selectedOccasion}
               </div>
 
-              <p className="text-xs text-[#382025] italic leading-relaxed line-clamp-3">
+              <p className="text-xs text-[#24483B] italic leading-relaxed line-clamp-3">
                 &ldquo;{noteMessage || "Your personal note..."}&rdquo;
               </p>
 
-              <div className="text-right text-[11px] italic font-medium text-[#8B5E6B] pt-1">
+              <div className="text-right text-[11px] italic font-medium text-[#706E6B] pt-1">
                 — {senderName || "With Love"}
               </div>
             </div>
 
             {/* Price Calculations */}
-            <div className="space-y-1.5 pt-2 border-t border-[#F3E1E5] text-xs text-[#8B5E6B]">
+            <div className="space-y-1.5 pt-2 border-t border-[#EDE3D5] text-xs text-[#706E6B]">
               <div className="flex justify-between">
                 <span>Keepsake Box</span>
-                <span className="font-medium text-[#382025]">₹{selectedBox.price}</span>
+                <span className="font-medium text-[#24483B]">₹{selectedBox.price}</span>
               </div>
               <div className="flex justify-between">
                 <span>Hamper Gifts ({totalItemCount} items)</span>
-                <span className="font-medium text-[#382025]">₹{itemsTotal.toLocaleString("en-IN")}</span>
+                <span className="font-medium text-[#24483B]">₹{itemsTotal.toLocaleString("en-IN")}</span>
               </div>
-              <div className="flex justify-between text-[#D45B7A]">
+              <div className="flex justify-between text-[#24483B]">
                 <span>Calligraphy Card & Wax Seal</span>
                 <span className="font-bold">FREE</span>
               </div>
@@ -1663,9 +1663,9 @@ export function CustomGiftsClient() {
                 <span className="font-bold">FREE</span>
               </div>
 
-              <div className="pt-2.5 border-t border-[#F3E1E5] flex justify-between items-baseline font-bold text-sm text-[#382025]">
+              <div className="pt-2.5 border-t border-[#EDE3D5] flex justify-between items-baseline font-bold text-sm text-[#24483B]">
                 <span>Total Hamper Value</span>
-                <span className="font-serif text-2xl text-[#D45B7A]">
+                <span className="font-serif text-2xl text-[#24483B]">
                   ₹{totalHamperPrice.toLocaleString("en-IN")}
                 </span>
               </div>
@@ -1689,7 +1689,7 @@ export function CustomGiftsClient() {
               disabled={totalItemCount === 0}
               className="w-full clay-btn-secondary py-3 rounded-2xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer active:scale-95 transition-transform disabled:opacity-50"
             >
-              <ShoppingBag className="w-4 h-4 text-[#D45B7A]" />
+              <ShoppingBag className="w-4 h-4 text-[#24483B]" />
               <span>Add to Cart & Continue Shopping</span>
             </button>
 
@@ -1699,7 +1699,7 @@ export function CustomGiftsClient() {
                 href={`https://wa.me/919324488603?text=Hi%20Aura%20Craft!%20I'm%20customizing%20a%20hamper%20for%20${encodeURIComponent(recipientName || "a special gift")}.%20Can%20you%20help%20with%20custom%20yarn%20shades?`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#8B5E6B] hover:text-[#25D366] transition-colors"
+                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#706E6B] hover:text-[#25D366] transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5 text-[#25D366]" />
                 <span>Need custom yarn shades or advice? Chat on WhatsApp</span>
@@ -1709,8 +1709,8 @@ export function CustomGiftsClient() {
           </div>
 
           {/* Guarantee Pill */}
-          <div className="bg-[#FFF9FA] rounded-2xl p-4 border border-[#F3E1E5] flex items-center gap-3 text-xs text-[#8B5E6B]">
-            <ShieldCheck className="w-5 h-5 text-[#D45B7A] shrink-0" />
+          <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#EDE3D5] flex items-center gap-3 text-xs text-[#706E6B]">
+            <ShieldCheck className="w-5 h-5 text-[#24483B] shrink-0" />
             <p className="leading-tight">
               100% handmade guarantee. Delivered in shock-absorbent luxury box with moisture barrier.
             </p>
