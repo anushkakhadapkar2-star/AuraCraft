@@ -37,8 +37,8 @@ export function UpiPaymentModal({
 
   if (!isOpen) return null;
 
-  const upiId = process.env.NEXT_PUBLIC_UPI_ID || "auracraft@okaxis";
-  const upiName = process.env.NEXT_PUBLIC_UPI_NAME || "Aura Craft Handmade";
+  const upiId = process.env.NEXT_PUBLIC_UPI_ID || "anushkakhadapkar2@okicici";
+  const upiName = process.env.NEXT_PUBLIC_UPI_NAME || "Anushka Khadapkar";
   const formattedAmount = totalAmount.toFixed(2);
 
   // Standard UPI URI format supported by all NPCI certified apps
